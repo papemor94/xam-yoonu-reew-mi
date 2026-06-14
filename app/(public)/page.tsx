@@ -1,11 +1,23 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Compass, BookOpen, MessageSquare, Heart, ArrowRight, Calendar, User, FileText } from "lucide-react";
 import { mockArticles } from "@/data/mock/articles";
 import { Badge } from "@/components/ui/Badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { getArticles } from "@/lib/db";
 
 export default function HomePage() {
-  const latestArticles = mockArticles.slice(0, 3);
+  const [articles, setArticles] = useState(mockArticles);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    setArticles(getArticles());
+  }, []);
+
+  const latestArticles = (mounted ? articles : mockArticles).slice(0, 3);
 
   return (
     <div className="space-y-20 pb-20 animate-fadeIn">
@@ -207,7 +219,27 @@ export default function HomePage() {
               <div className="space-y-4">
                 {/* Simulated cover card */}
                 <div className="h-44 w-full bg-xyrm-green-deep/5 rounded-xl border border-xyrm-slate-100 flex items-center justify-center relative overflow-hidden">
-                  <FileText className="h-8 w-8 text-xyrm-green-light opacity-45 group-hover:scale-105 transition-transform" />
+                  {art.youtubeId ? (
+                    <>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img 
+                        src={`https://img.youtube.com/vi/${art.youtubeId}/mqdefault.jpg`} 
+                        alt={art.title} 
+                        className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                      {/* Play overlay button */}
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/15 group-hover:bg-black/25 transition-colors duration-300">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-red-600 text-white shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                          <svg className="h-5 w-5 fill-current ml-0.5" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <FileText className="h-8 w-8 text-xyrm-green-light opacity-45 group-hover:scale-105 transition-transform" />
+                  )}
                   <div className="absolute right-3 top-3">
                     <Badge variant={art.category === "initiative" ? "payee" : art.category === "actualite" ? "envoyee" : "default"}>
                       {art.category}

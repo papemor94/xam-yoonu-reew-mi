@@ -7,13 +7,26 @@ import { mockArticles } from "@/data/mock/articles";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 
+import { getArticles } from "@/lib/db";
+import { useEffect } from "react";
+
 type ArticleCategory = "all" | "actualite" | "analyse" | "initiative";
 
 export default function ActualitesPage() {
+  const [articles, setArticles] = useState(mockArticles);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    setArticles(getArticles());
+  }, []);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState<ArticleCategory>("all");
 
-  const filteredArticles = mockArticles.filter((art) => {
+  const displayArticles = mounted ? articles : mockArticles;
+
+  const filteredArticles = displayArticles.filter((art) => {
     const matchesCategory = activeCategory === "all" || art.category === activeCategory;
     const matchesSearch =
       art.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -84,7 +97,27 @@ export default function ActualitesPage() {
               <div className="space-y-4">
                 {/* Visual placeholder header */}
                 <div className="h-44 w-full bg-xyrm-green-deep/5 rounded-xl border border-xyrm-slate-100 flex items-center justify-center relative overflow-hidden">
-                  <FileText className="h-8 w-8 text-xyrm-green-light opacity-45 group-hover:scale-105 transition-transform" />
+                  {art.youtubeId ? (
+                    <>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img 
+                        src={`https://img.youtube.com/vi/${art.youtubeId}/mqdefault.jpg`} 
+                        alt={art.title} 
+                        className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                      {/* Play overlay button */}
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/15 group-hover:bg-black/25 transition-colors duration-300">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-red-600 text-white shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                          <svg className="h-5 w-5 fill-current ml-0.5" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <FileText className="h-8 w-8 text-xyrm-green-light opacity-45 group-hover:scale-105 transition-transform" />
+                  )}
                   <div className="absolute right-3 top-3">
                     <Badge variant={art.category === "initiative" ? "payee" : art.category === "actualite" ? "envoyee" : "default"}>
                       {art.category === "actualite" ? "actualité" : art.category}

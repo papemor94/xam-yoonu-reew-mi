@@ -67,9 +67,29 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/publications" className="hover:text-xyrm-gold transition-colors flex items-center gap-1 group">
-                  Publications <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </Link>
+                <div className="text-xyrm-gold font-semibold uppercase tracking-wider text-[9px] mt-2 mb-1.5">Documents</div>
+                <ul className="space-y-1.5 pl-2 border-l border-white/10 text-[11px] text-white/60">
+                  <li>
+                    <a href="/docs/statuts.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-xyrm-gold transition-colors block">
+                      Statuts de l&apos;Association
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/docs/reglement.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-xyrm-gold transition-colors block">
+                      Règlement Intérieur
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/docs/charte.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-xyrm-gold transition-colors block">
+                      Charte Fondamentale
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/docs/rapport.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-xyrm-gold transition-colors block">
+                      Rapport d&apos;Activité
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li>
                 <Link href="/journees" className="hover:text-xyrm-gold transition-colors flex items-center gap-1 group">
@@ -84,6 +104,11 @@ export default function Footer() {
               <li>
                 <Link href="/contact" className="hover:text-xyrm-gold transition-colors flex items-center gap-1 group">
                   Nous Contacter <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </Link>
+              </li>
+              <li>
+                <Link href="/admin" className="hover:text-xyrm-gold text-white/50 transition-colors flex items-center gap-1 group">
+                  Espace Administration <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </li>
             </ul>

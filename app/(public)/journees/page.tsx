@@ -1,10 +1,23 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Calendar, MapPin, ArrowRight, Video } from "lucide-react";
 import { mockJournees } from "@/data/mock/journees";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
+import { getJournees } from "@/lib/db";
 
 export default function JourneesPage() {
+  const [journees, setJournees] = useState(mockJournees);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    setJournees(getJournees());
+  }, []);
+
+  const displayJournees = mounted ? journees : mockJournees;
   return (
     <div className="space-y-12 py-8 md:py-12 animate-fadeIn max-w-6xl mx-auto">
       
@@ -21,7 +34,7 @@ export default function JourneesPage() {
 
       {/* 2. Journées List Grid */}
       <div className="grid gap-8 max-w-4xl mx-auto">
-        {mockJournees.map((item) => (
+        {displayJournees.map((item) => (
           <Card key={item.id} className="p-0 overflow-hidden flex flex-col md:flex-row hover:shadow-lg transition-all duration-300 group">
             
             {/* Visual Cover Side (replicates flyer theme) */}

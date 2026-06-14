@@ -1,32 +1,54 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import { Calendar, User, ArrowLeft, Clock } from "lucide-react";
-import { mockArticles } from "@/data/mock/articles";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import YouTubeEmbed from "@/components/videos/YouTubeEmbed";
+import { getArticles } from "@/lib/db";
+import { Article } from "@/data/mock/articles";
 
-interface ArticleDetailPageProps {
-  params: {
-    slug: string;
-  };
+interface ArticleDetailClientProps {
+  initialArticle: Article;
+  slug: string;
 }
 
-export function generateStaticParams() {
-  return mockArticles.map((art) => ({
-    slug: art.slug,
-  }));
-}
+export default function ArticleDetailClient({ initialArticle, slug }: ArticleDetailClientProps) {
+  const [article, setArticle] = useState<Article | null>(initialArticle);
+  const [mounted, setMounted] = useState(false);
 
-export default function ArticleDetailPage({ params }: ArticleDetailPageProps) {
-  const article = mockArticles.find((art) => art.slug === params.slug);
+  useEffect(() => {
+    setMounted(true);
+    const dbArticles = getArticles();
+    const current = dbArticles.find((art) => art.slug === slug);
+    if (current) {
+      setArticle(current);
+    } else {
+      // If deleted or not found in local db, set to null
+      setArticle(null);
+    }
+  }, [slug]);
 
-  if (!article) {
-    notFound();
+  const displayArticle = mounted ? article : initialArticle;
+
+  if (!displayArticle) {
+    return (
+      <div className="max-w-3xl mx-auto py-16 text-center space-y-4">
+        <h2 className="text-xl font-bold text-xyrm-slate-800">Article non trouvé</h2>
+        <p className="text-xs text-xyrm-slate-500">Cet article a pu être supprimé par un administrateur.</p>
+        <Link
+          href="/actualites"
+          className="inline-flex h-10 items-center justify-center rounded-xl bg-xyrm-green-deep text-xs font-bold text-white px-5"
+        >
+          Retour aux actualités
+        </Link>
+      </div>
+    );
   }
 
   return (
-    <article className="max-w-3xl mx-auto py-8 md:py-12 space-y-8 animate-fadeIn">
+    <article className="max-w-3xl mx-auto py-8 md:py-12 space-y-8 animate-fadeIn text-left">
       
       {/* Back Button */}
       <Link
@@ -39,22 +61,22 @@ export default function ArticleDetailPage({ params }: ArticleDetailPageProps) {
 
       {/* Article Header info */}
       <div className="space-y-4">
-        <Badge variant={article.category === "initiative" ? "payee" : article.category === "actualite" ? "envoyee" : "default"}>
-          {article.category}
+        <Badge variant={displayArticle.category === "initiative" ? "payee" : displayArticle.category === "actualite" ? "envoyee" : "default"}>
+          {displayArticle.category === "actualite" ? "actualité" : displayArticle.category}
         </Badge>
         <h1 className="text-3xl font-black text-xyrm-slate-900 md:text-4.5xl leading-tight tracking-tight">
-          {article.title}
+          {displayArticle.title}
         </h1>
         
         <div className="flex flex-wrap items-center gap-4 text-xs text-xyrm-slate-500 font-bold border-y border-xyrm-slate-100 py-3">
           <span className="flex items-center gap-1.5">
             <User className="h-4 w-4 text-xyrm-slate-400" />
-            {article.authorName}
+            {displayArticle.authorName}
           </span>
           <span className="hidden sm:inline text-xyrm-slate-200">|</span>
           <span className="flex items-center gap-1.5">
             <Calendar className="h-4 w-4 text-xyrm-slate-400" />
-            {article.publishedAt}
+            {displayArticle.publishedAt}
           </span>
           <span className="hidden sm:inline text-xyrm-slate-200">|</span>
           <span className="flex items-center gap-1.5">
@@ -65,9 +87,9 @@ export default function ArticleDetailPage({ params }: ArticleDetailPageProps) {
       </div>
       
       {/* YouTube Video Embed if present */}
-      {article.youtubeId && (
+      {displayArticle.youtubeId && (
         <div className="my-6">
-          <YouTubeEmbed id={article.youtubeId} title={article.title} />
+          <YouTubeEmbed id={displayArticle.youtubeId} title={displayArticle.title} />
         </div>
       )}
 
@@ -75,7 +97,7 @@ export default function ArticleDetailPage({ params }: ArticleDetailPageProps) {
       <Card className="p-8 md:p-10 shadow-sm border border-xyrm-slate-100 bg-white">
         <div 
           className="prose prose-slate max-w-none prose-headings:font-black prose-headings:text-xyrm-slate-900 prose-headings:mt-6 prose-p:leading-relaxed prose-p:font-light prose-p:text-xyrm-slate-700 prose-ul:list-disc prose-ul:pl-6 prose-ol:list-decimal prose-ol:pl-6 space-y-6"
-          dangerouslySetInnerHTML={{ __html: article.content }}
+          dangerouslySetInnerHTML={{ __html: displayArticle.content }}
         />
       </Card>
 

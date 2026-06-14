@@ -3,20 +3,29 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Compass } from "lucide-react";
+import { Menu, X, Compass, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const pathname = usePathname();
 
   const navigation = [
     { name: "Accueil", href: "/" },
     { name: "L'Association", href: "/association" },
-    { name: "Publications", href: "/publications" },
+    { name: "Publications", href: "#", isDropdown: true },
     { name: "Journées", href: "/journees" },
     { name: "Actualités", href: "/actualites" },
     { name: "Contact", href: "/contact" },
+  ];
+
+  const documents = [
+    { name: "Statut officiel de l'association", href: "/docs/statuts.pdf" },
+    { name: "Règlement intérieur", href: "/docs/reglement.pdf" },
+    { name: "Charte fondamentale", href: "/docs/charte.pdf" },
+    { name: "Rapport d'activité", href: "/docs/rapport.pdf" },
   ];
 
   return (
@@ -44,6 +53,43 @@ export default function Header() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-5 lg:gap-7">
           {navigation.map((item) => {
+            if (item.isDropdown) {
+              return (
+                <div key={item.name} className="relative">
+                  <button
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    onBlur={() => setTimeout(() => setDropdownOpen(false), 200)}
+                    className={cn(
+                      "text-sm font-semibold tracking-wide transition-colors relative py-2 flex items-center gap-1 focus:outline-none",
+                      dropdownOpen
+                        ? "text-xyrm-green-primary"
+                        : "text-xyrm-slate-600 hover:text-xyrm-green-deep"
+                    )}
+                  >
+                    {item.name}
+                    <ChevronDown className={cn("h-4 w-4 transition-transform duration-200", dropdownOpen && "rotate-180")} />
+                  </button>
+
+                  {dropdownOpen && (
+                    <div className="absolute left-1/2 -translate-x-1/2 mt-2 w-64 rounded-xl border border-xyrm-slate-200 bg-white p-2 shadow-xl animate-fadeIn z-50">
+                      {documents.map((doc) => (
+                        <a
+                          key={doc.name}
+                          href={doc.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block rounded-lg px-4 py-2.5 text-xs font-semibold text-xyrm-slate-700 transition-colors hover:bg-xyrm-slate-50 hover:text-xyrm-green-deep"
+                          onClick={() => setDropdownOpen(false)}
+                        >
+                          {doc.name}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
             const isActive = pathname === item.href;
             return (
               <Link
@@ -91,6 +137,39 @@ export default function Header() {
         <div className="fixed inset-x-0 top-20 bottom-0 z-30 bg-white/95 backdrop-blur-md border-t border-xyrm-slate-100 p-6 flex flex-col md:hidden animate-fadeIn">
           <nav className="flex flex-col gap-6 py-6">
             {navigation.map((item) => {
+              if (item.isDropdown) {
+                return (
+                  <div key={item.name} className="border-b border-xyrm-slate-100 pb-3">
+                    <button
+                      onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+                      className="flex w-full items-center justify-between text-lg font-bold tracking-wide text-xyrm-slate-800 hover:text-xyrm-green-deep"
+                    >
+                      <span>{item.name}</span>
+                      <ChevronDown className={cn("h-5 w-5 transition-transform duration-200", mobileDropdownOpen && "rotate-180")} />
+                    </button>
+                    {mobileDropdownOpen && (
+                      <div className="mt-3 ml-3 flex flex-col gap-3 pl-3 border-l-2 border-xyrm-gold/40">
+                        {documents.map((doc) => (
+                          <a
+                            key={doc.name}
+                            href={doc.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm font-semibold text-xyrm-slate-600 hover:text-xyrm-green-deep py-1"
+                            onClick={() => {
+                              setMobileMenuOpen(false);
+                              setMobileDropdownOpen(false);
+                            }}
+                          >
+                            {doc.name}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
               const isActive = pathname === item.href;
               return (
                 <Link
@@ -127,3 +206,4 @@ export default function Header() {
     </header>
   );
 }
+

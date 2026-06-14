@@ -4,13 +4,17 @@ import { useState } from "react";
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
+import { saveContact } from "@/lib/db";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
+    phone: "",
+    activitySector: "",
     subject: "",
     message: "",
+    isMembershipRequest: false,
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,14 +40,30 @@ export default function ContactPage() {
       setIsSubmitting(true);
       // Simulate API submit latency
       setTimeout(() => {
+        const today = new Date();
+        const formattedDate = `${String(today.getDate()).padStart(2, "0")}/${String(today.getMonth() + 1).padStart(2, "0")}/${today.getFullYear()}`;
+        
+        saveContact({
+          id: `c-${Date.now()}`,
+          name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone || undefined,
+          activitySector: formData.activitySector || undefined,
+          subject: formData.subject,
+          message: formData.message,
+          status: "Nouveau",
+          createdAt: formattedDate,
+          isMembershipRequest: formData.isMembershipRequest
+        });
+
         setIsSubmitting(false);
         setSubmitted(true);
-        setFormData({ fullName: "", email: "", subject: "", message: "" });
-      }, 1500);
+        setFormData({ fullName: "", email: "", phone: "", activitySector: "", subject: "", message: "", isMembershipRequest: false });
+      }, 1200);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     // Clear error for field
@@ -183,6 +203,43 @@ export default function ContactPage() {
                     />
                     {errors.email && <p className="text-xxs font-bold text-rose-600">{errors.email}</p>}
                   </div>
+
+                  {/* Phone Number */}
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-xyrm-slate-700 uppercase tracking-wider">
+                      Numéro de Téléphone
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full rounded-xl border border-xyrm-slate-200 py-2.5 px-4 text-sm focus:outline-none focus:ring-1 focus:border-xyrm-green-primary focus:ring-xyrm-green-primary bg-white text-xyrm-slate-800"
+                      placeholder="Ex: +221 77 123 45 67"
+                    />
+                  </div>
+
+                  {/* Domaine d'activité (Sector of Activity) */}
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-xyrm-slate-700 uppercase tracking-wider">
+                      Domaine d&apos;Activité
+                    </label>
+                    <select
+                      name="activitySector"
+                      value={formData.activitySector}
+                      onChange={handleChange}
+                      className="w-full rounded-xl border border-xyrm-slate-200 bg-white py-2.5 px-4 text-sm focus:outline-none focus:ring-1 focus:border-xyrm-green-primary focus:ring-xyrm-green-primary text-xyrm-slate-800"
+                    >
+                      <option value="">Sélectionnez un domaine...</option>
+                      <option value="Éducation / Enseignement">Éducation / Enseignement</option>
+                      <option value="Droit / Justice">Droit / Justice</option>
+                      <option value="Santé / Action Sociale">Santé / Action Sociale</option>
+                      <option value="Environnement / Agriculture">Environnement / Agriculture</option>
+                      <option value="Art / Culture / Sport">Art / Culture / Sport</option>
+                      <option value="Technologies / Communication">Technologies / Communication</option>
+                      <option value="Autre">Autre</option>
+                    </select>
+                  </div>
                 </div>
 
                 {/* Subject */}
@@ -223,6 +280,28 @@ export default function ContactPage() {
                     placeholder="Rédigez votre demande en précisant comment nous pouvons vous aider..."
                   />
                   {errors.message && <p className="text-xxs font-bold text-rose-600">{errors.message}</p>}
+                </div>
+
+                {/* Membership Request Checkbox */}
+                <div className="flex items-start gap-3 bg-xyrm-slate-50 border border-xyrm-slate-100 rounded-xl p-4 transition-all hover:bg-xyrm-slate-100/50">
+                  <div className="flex items-center h-5">
+                    <input
+                      id="isMembershipRequest"
+                      name="isMembershipRequest"
+                      type="checkbox"
+                      checked={formData.isMembershipRequest}
+                      onChange={(e) => setFormData(prev => ({ ...prev, isMembershipRequest: e.target.checked }))}
+                      className="h-4.5 w-4.5 rounded border-xyrm-slate-300 text-xyrm-green-deep focus:ring-xyrm-green-primary cursor-pointer accent-xyrm-green-deep"
+                    />
+                  </div>
+                  <div className="text-xs">
+                    <label htmlFor="isMembershipRequest" className="font-bold text-xyrm-slate-800 cursor-pointer select-none">
+                      Je souhaite rejoindre l&apos;association en tant que membre / bénévole
+                    </label>
+                    <p className="text-[10px] text-xyrm-slate-400 font-light mt-0.5">
+                      Cochez cette case pour soumettre une demande officielle d&apos;adhésion à notre équipe.
+                    </p>
+                  </div>
                 </div>
 
                 {/* Submit button */}
