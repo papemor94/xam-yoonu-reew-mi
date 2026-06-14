@@ -34,8 +34,8 @@ export default function Header() {
         
         {/* Logo and Brand Name */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-xyrm-green-deep text-xyrm-gold font-bold shadow-md transition-transform duration-300 group-hover:scale-105">
-            <Compass className="h-6 w-6 text-xyrm-gold" />
+          <div className="flex h-11 w-11 items-center justify-center rounded-full overflow-hidden border border-xyrm-slate-200/60 bg-white shadow-sm transition-transform duration-300 group-hover:scale-105 shrink-0">
+            <img src="/logo.png" alt="Logo Xam Yoonu Reew Mi" className="h-full w-full object-cover" />
           </div>
           <div className="flex flex-col">
             <span className="text-base font-black tracking-wider text-xyrm-green-deep leading-none">

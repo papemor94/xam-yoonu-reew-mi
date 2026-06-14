@@ -53,9 +53,9 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
         {/* Brand Header */}
         <div className="relative flex h-20 items-center justify-between px-6 border-b border-xyrm-green-light/20">
           <Link href="/dashboard" className="flex items-center gap-2 group">
-            {/* SVG Logo: Scales and Book */}
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-xyrm-gold text-xyrm-green-deep font-bold shadow-md transition-transform duration-300 group-hover:scale-105">
-              <Compass className="h-5 w-5 animate-pulse" />
+            {/* Brand Logo */}
+            <div className="flex h-10 w-10 items-center justify-center rounded-full overflow-hidden border border-white/10 bg-white transition-transform duration-300 group-hover:scale-105 shrink-0 shadow-sm">
+              <img src="/logo.png" alt="Logo Xam Yoonu Reew Mi" className="h-full w-full object-cover" />
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-bold tracking-wider text-white">

@@ -10,8 +10,8 @@ export default function Footer() {
           {/* Column 1: Brand Info */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2 group">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-xyrm-green-deep text-xyrm-gold font-bold transition-transform duration-300 group-hover:scale-105">
-                <Compass className="h-5 w-5 text-xyrm-gold" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-full overflow-hidden border border-white/10 bg-white transition-transform duration-300 group-hover:scale-105 shrink-0">
+                <img src="/logo.png" alt="Logo Xam Yoonu Reew Mi" className="h-full w-full object-cover" />
               </div>
               <div className="flex flex-col">
                 <span className="text-sm font-black tracking-wider text-white">

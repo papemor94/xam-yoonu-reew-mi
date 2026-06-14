@@ -35,8 +35,10 @@ export default function HomePage() {
 
         <div className="relative mx-auto max-w-6xl px-6 py-20 md:py-28 text-center space-y-8">
           {/* Logo badge */}
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 backdrop-blur-md border border-white/10 text-xs font-bold uppercase tracking-widest text-xyrm-gold">
-            <Compass className="h-4 w-4 animate-spin-slow" />
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 backdrop-blur-md border border-white/10 text-xs font-bold uppercase tracking-widest text-xyrm-gold">
+            <div className="h-5 w-5 rounded-full overflow-hidden bg-white flex items-center justify-center shrink-0 shadow-sm">
+              <img src="/logo.png" alt="Logo Xam Yoonu Reew Mi" className="h-full w-full object-cover" />
+            </div>
             Université Populaire Citoyenne & Solidaire
           </div>
 
@@ -106,7 +108,9 @@ export default function HomePage() {
             
             {/* Logo watermark */}
             <div className="flex justify-between items-start w-full">
-              <Compass className="h-12 w-12 text-xyrm-gold opacity-30" />
+              <div className="h-12 w-12 rounded-full overflow-hidden bg-white/10 p-1 shrink-0">
+                <img src="/logo.png" alt="Logo Xam Yoonu Reew Mi" className="h-full w-full object-contain brightness-0 invert opacity-30" />
+              </div>
               <span className="text-[10px] uppercase font-bold tracking-widest text-xyrm-gold/80 bg-white/5 px-3 py-1 rounded-full border border-white/5">
                 TOULOUSE, FRANCE
               </span>

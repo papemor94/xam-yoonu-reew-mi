@@ -36,8 +36,8 @@ export default function AdminLayout({
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-xyrm-green-light/20 bg-xyrm-green-deep text-white lg:flex">
         {/* Logo and Brand */}
         <div className="flex h-20 items-center gap-2.5 px-6 border-b border-xyrm-green-light/20">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-xyrm-gold text-xyrm-green-deep font-bold shadow-md">
-            <Compass className="h-5 w-5" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-full overflow-hidden border border-white/10 bg-white shadow-md shrink-0">
+            <img src="/logo.png" alt="Logo Xam Yoonu Reew Mi" className="h-full w-full object-cover" />
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-black tracking-wider text-white">
@@ -111,8 +111,8 @@ export default function AdminLayout({
       >
         <div className="flex h-20 items-center justify-between px-6 border-b border-xyrm-green-light/20">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-xyrm-gold text-xyrm-green-deep font-bold">
-              <Compass className="h-5 w-5" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-full overflow-hidden border border-white/10 bg-white shadow-sm shrink-0">
+              <img src="/logo.png" alt="Logo Xam Yoonu Reew Mi" className="h-full w-full object-cover" />
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-black tracking-wider text-white">XAM YOONU</span>
