@@ -13,6 +13,8 @@ export default function Header() {
   const navigation = [
     { name: "Accueil", href: "/" },
     { name: "L'Association", href: "/association" },
+    { name: "Publications", href: "/publications" },
+    { name: "Journées", href: "/journees" },
     { name: "Actualités", href: "/actualites" },
     { name: "Contact", href: "/contact" },
   ];
@@ -40,7 +42,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-5 lg:gap-7">
           {navigation.map((item) => {
             const isActive = pathname === item.href;
             return (

@@ -67,6 +67,16 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/publications" className="hover:text-xyrm-gold transition-colors flex items-center gap-1 group">
+                  Publications <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </Link>
+              </li>
+              <li>
+                <Link href="/journees" className="hover:text-xyrm-gold transition-colors flex items-center gap-1 group">
+                  Journées <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </Link>
+              </li>
+              <li>
                 <Link href="/actualites" className="hover:text-xyrm-gold transition-colors flex items-center gap-1 group">
                   Actualités <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
