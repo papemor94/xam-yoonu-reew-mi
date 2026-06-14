@@ -4,6 +4,7 @@ import { Calendar, User, ArrowLeft, Clock } from "lucide-react";
 import { mockArticles } from "@/data/mock/articles";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
+import YouTubeEmbed from "@/components/videos/YouTubeEmbed";
 
 interface ArticleDetailPageProps {
   params: {
@@ -62,6 +63,13 @@ export default function ArticleDetailPage({ params }: ArticleDetailPageProps) {
           </span>
         </div>
       </div>
+      
+      {/* YouTube Video Embed if present */}
+      {article.youtubeId && (
+        <div className="my-6">
+          <YouTubeEmbed id={article.youtubeId} title={article.title} />
+        </div>
+      )}
 
       {/* Main Content Body */}
       <Card className="p-8 md:p-10 shadow-sm border border-xyrm-slate-100 bg-white">

@@ -9,6 +9,7 @@ export interface Article {
   coverUrl?: string; // We can use generate_image or a nice styled placeholder/SVG
   authorName: string;
   publishedAt: string;
+  youtubeId?: string;
 }
 
 export const mockArticles: Article[] = [
@@ -34,7 +35,8 @@ export const mockArticles: Article[] = [
     category: "initiative",
     tags: ["Diaspora", "Éducation", "Forum", "Toulouse"],
     authorName: "Comité d'Organisation",
-    publishedAt: "25/05/2026"
+    publishedAt: "25/05/2026",
+    youtubeId: "VVnuJuLrpOQ"
   },
   {
     id: "art-002",
