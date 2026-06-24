@@ -21,7 +21,8 @@ export default function ArticleDetailClient({ initialArticle, slug }: ArticleDet
   useEffect(() => {
     setMounted(true);
     const dbArticles = getArticles();
-    const current = dbArticles.find((art) => art.slug === slug);
+    const decodedSlug = decodeURIComponent(slug).toLowerCase().trim();
+    const current = dbArticles.find((art) => decodeURIComponent(art.slug).toLowerCase().trim() === decodedSlug);
     if (current) {
       setArticle(current);
     } else {

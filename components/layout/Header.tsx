@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Compass, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function Header() {
@@ -25,13 +25,13 @@ export default function Header() {
     { name: "Statut officiel de l'association", href: "/docs/statuts.pdf" },
     { name: "Règlement intérieur", href: "/docs/reglement.pdf" },
     { name: "Charte fondamentale", href: "/docs/charte.pdf" },
-    { name: "Rapport d'activité", href: "/docs/rapport.pdf" },
+    { name: "Feuille de route tiennale", href: "/docs/fdrtriennale.pdf" },
   ];
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-xyrm-slate-200 bg-white/90 backdrop-blur-md transition-all duration-300">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 md:px-8">
-        
+
         {/* Logo and Brand Name */}
         <Link href="/" className="flex items-center gap-2.5 group">
           <div className="flex h-11 w-11 items-center justify-center rounded-full overflow-hidden border border-xyrm-slate-200/60 bg-white shadow-sm transition-transform duration-300 group-hover:scale-105 shrink-0">
@@ -188,7 +188,7 @@ export default function Header() {
               );
             })}
           </nav>
-          
+
           <div className="mt-auto py-6">
             <Link
               href="/contact"

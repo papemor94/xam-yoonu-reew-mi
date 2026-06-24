@@ -4,7 +4,7 @@ export interface Article {
   title: string;
   excerpt: string;
   content: string;
-  category: "actualite" | "analyse" | "initiative";
+  category: "actualite" | "analyse" | "initiative" | "formation";
   tags: string[];
   coverUrl?: string; // We can use generate_image or a nice styled placeholder/SVG
   authorName: string;

@@ -84,7 +84,8 @@ function ActualitesAdminContent() {
     e.preventDefault();
     if (!currentArticle.title?.trim()) return;
 
-    const slug = currentArticle.slug || generateSlug(currentArticle.title);
+    const rawSlug = currentArticle.slug?.trim() || currentArticle.title;
+    const slug = generateSlug(rawSlug);
     
     // Parse tags from the input tags
     const tags = tagsInput
@@ -166,6 +167,7 @@ function ActualitesAdminContent() {
             { label: "Actualités", value: "actualite" },
             { label: "Analyses", value: "analyse" },
             { label: "Initiatives", value: "initiative" },
+            { label: "Formations", value: "formation" },
           ].map((tab) => (
             <button
               key={tab.value}
@@ -215,7 +217,7 @@ function ActualitesAdminContent() {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <Badge variant={art.category === "initiative" ? "payee" : art.category === "actualite" ? "envoyee" : "default"} className="capitalize text-xxs">
+                      <Badge variant={art.category === "initiative" ? "payee" : art.category === "formation" ? "payee" : art.category === "actualite" ? "envoyee" : "default"} className="capitalize text-xxs">
                         {art.category === "actualite" ? "actualité" : art.category}
                       </Badge>
                     </td>
@@ -342,6 +344,7 @@ function ActualitesAdminContent() {
                     <option value="actualite">Actualité</option>
                     <option value="analyse">Analyse</option>
                     <option value="initiative">Initiative</option>
+                    <option value="formation">Formation</option>
                   </select>
                 </div>
 

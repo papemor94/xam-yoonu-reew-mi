@@ -4,14 +4,12 @@ import { useEffect, useState } from "react";
 import { 
   Search, 
   Trash2, 
-  Edit3, 
   Eye, 
   Mail, 
   Phone, 
   Calendar, 
   Check, 
-  Archive,
-  AlertCircle
+  Archive
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -172,7 +170,7 @@ export default function AdminContactsPage() {
             ].map((tab) => (
               <button
                 key={tab.value}
-                onClick={() => setStatusFilter(tab.value as any)}
+                onClick={() => setStatusFilter(tab.value as "all" | "Nouveau" | "Traité" | "Archivé")}
                 className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-colors ${
                   statusFilter === tab.value
                     ? "bg-xyrm-green-deep text-white"
@@ -323,7 +321,7 @@ export default function AdminContactsPage() {
                     <label className="text-[10px] font-bold text-xyrm-slate-400 uppercase tracking-wider">Statut de Traitement</label>
                     <select
                       value={editForm.status}
-                      onChange={(e) => setEditForm({ ...editForm, status: e.target.value as any })}
+                      onChange={(e) => setEditForm({ ...editForm, status: e.target.value as "Nouveau" | "Traité" | "Archivé" })}
                       className="w-full text-xs font-semibold text-xyrm-slate-700 bg-white border border-xyrm-slate-200 rounded-lg p-2 focus:ring-1 focus:ring-xyrm-green-primary focus:outline-none"
                     >
                       <option value="Nouveau">Nouveau (En attente)</option>
@@ -454,7 +452,7 @@ export default function AdminContactsPage() {
 }
 
 // Icon wrapper fix for close button
-function X(props: any) {
+function X(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

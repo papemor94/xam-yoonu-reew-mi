@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Compass, BookOpen, MessageSquare, Heart, ArrowRight, Calendar, User, FileText } from "lucide-react";
+import { BookOpen, MessageSquare, Heart, ArrowRight, Calendar, User, FileText } from "lucide-react";
 import { mockArticles } from "@/data/mock/articles";
 import { Badge } from "@/components/ui/Badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";

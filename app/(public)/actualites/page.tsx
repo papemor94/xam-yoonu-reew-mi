@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Search, Calendar, User, FileText } from "lucide-react";
+import { Search, Calendar, User, FileText, GraduationCap, Clock, ArrowRight } from "lucide-react";
 import { mockArticles } from "@/data/mock/articles";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
@@ -10,7 +10,47 @@ import { Card } from "@/components/ui/Card";
 import { getArticles } from "@/lib/db";
 import { useEffect } from "react";
 
-type ArticleCategory = "all" | "actualite" | "analyse" | "initiative";
+type ArticleCategory = "all" | "actualite" | "analyse" | "initiative" | "formation";
+
+interface Formation {
+  id: string;
+  title: string;
+  description: string;
+  duration: string;
+  format: string;
+  target: string;
+  pills: string[];
+}
+
+const mockFormations: Formation[] = [
+  {
+    id: "form-001",
+    title: "Comprendre la Constitution & les Droits Fondamentaux",
+    description: "Un module d'éducation populaire pour décrypter les lois, le fonctionnement de l'État et les droits des citoyens dans un langage accessible à tous.",
+    duration: "4 modules d'1h30",
+    format: "Hybride",
+    target: "Tout public / Citoyens",
+    pills: ["Droit", "Civisme", "Vulgarisation"]
+  },
+  {
+    id: "form-002",
+    title: "Parentalité & Transmission Culturelle dans la Diaspora",
+    description: "Atelier d'échange et d'outillage pour accompagner les parents de la diaspora dans l'éducation biculturelle et la transmission des valeurs familiales.",
+    duration: "3 sessions de 2h",
+    format: "Présentiel (Toulouse)",
+    target: "Parents de la diaspora",
+    pills: ["Diaspora", "Éducation", "Famille"]
+  },
+  {
+    id: "form-003",
+    title: "Leadership Associatif & Gestion de Projets Locaux",
+    description: "Formation pratique destinée aux porteurs de projets et dirigeants associatifs pour structurer, financer et pérenniser leurs initiatives solidaires.",
+    duration: "5 modules de 2h",
+    format: "En Ligne",
+    target: "Porteurs de projet",
+    pills: ["Méthodologie", "Projets", "Solidarité"]
+  }
+];
 
 export default function ActualitesPage() {
   const [articles, setArticles] = useState(mockArticles);
@@ -72,6 +112,7 @@ export default function ActualitesPage() {
             { label: "Actualités", value: "actualite" },
             { label: "Analyses", value: "analyse" },
             { label: "Initiatives", value: "initiative" },
+            { label: "Formations", value: "formation" },
           ].map((cat) => (
             <button
               key={cat.value}
@@ -119,7 +160,7 @@ export default function ActualitesPage() {
                     <FileText className="h-8 w-8 text-xyrm-green-light opacity-45 group-hover:scale-105 transition-transform" />
                   )}
                   <div className="absolute right-3 top-3">
-                    <Badge variant={art.category === "initiative" ? "payee" : art.category === "actualite" ? "envoyee" : "default"}>
+                    <Badge variant={art.category === "initiative" ? "payee" : art.category === "formation" ? "payee" : art.category === "actualite" ? "envoyee" : "default"}>
                       {art.category === "actualite" ? "actualité" : art.category}
                     </Badge>
                   </div>
@@ -156,6 +197,64 @@ export default function ActualitesPage() {
           Aucun article ne correspond à votre recherche.
         </div>
       )}
+
+      {/* 4. Ateliers & Formations Section */}
+      <div className="border-t border-xyrm-slate-200 pt-16 mt-20 space-y-12">
+        <div className="space-y-4 text-center">
+          <Badge variant="payee" className="font-bold">FORMATIONS</Badge>
+          <h2 className="text-2xl font-black text-xyrm-slate-900 md:text-4xl tracking-tight">
+            Nos Formations & Ateliers Citoyens
+          </h2>
+          <p className="text-sm md:text-base text-xyrm-slate-500 font-light max-w-2xl mx-auto">
+            Découvrez nos programmes d&apos;apprentissage gratuits pour comprendre vos droits, gérer vos initiatives et renforcer la citoyenneté active.
+          </p>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {mockFormations.map((form) => (
+            <Card key={form.id} className="flex flex-col justify-between h-full hover:-translate-y-1 transition-all duration-300 border border-xyrm-slate-200/80 shadow-md">
+              <div className="space-y-5">
+                {/* Icon & Format */}
+                <div className="flex items-center justify-between gap-3">
+                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-xyrm-green-deep/5 text-xyrm-green-primary shrink-0">
+                    <GraduationCap className="h-6 w-6" />
+                  </div>
+                  <span className="text-[10px] font-black uppercase tracking-wider text-xyrm-green-primary bg-xyrm-green-deep/5 px-3 py-1 rounded-full">
+                    {form.format}
+                  </span>
+                </div>
+
+                {/* Info */}
+                <div className="space-y-2.5">
+                  <h3 className="text-base font-black text-xyrm-slate-900 leading-snug">
+                    {form.title}
+                  </h3>
+                  <p className="text-xs text-xyrm-slate-500 font-light leading-relaxed">
+                    {form.description}
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-6 border-t border-xyrm-slate-100 mt-6 space-y-4">
+                <div className="flex items-center gap-2 text-[10px] text-xyrm-slate-400 font-bold uppercase tracking-wider">
+                  <Clock className="h-3.5 w-3.5 text-xyrm-gold" />
+                  <span>{form.duration}</span>
+                  <span>•</span>
+                  <span>{form.target}</span>
+                </div>
+
+                <Link
+                  href="/contact"
+                  className="w-full inline-flex h-10 items-center justify-center gap-1.5 rounded-xl bg-xyrm-green-deep hover:bg-xyrm-green-primary text-xs font-bold text-white shadow-sm transition-all group"
+                >
+                  <span>S&apos;inscrire à l&apos;Atelier</span>
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
 
     </div>
   );

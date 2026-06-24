@@ -10,7 +10,6 @@ import {
   ArrowLeft,
   Menu,
   X,
-  Compass,
   Mail
 } from "lucide-react";
 import { cn } from "@/lib/utils";

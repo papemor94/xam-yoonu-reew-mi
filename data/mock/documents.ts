@@ -6,6 +6,7 @@ export interface DocumentItem {
   fileSize: string;
   fileFormat: string;
   publishedDate: string;
+  fileUrl?: string;
 }
 
 export const mockDocuments: DocumentItem[] = [
@@ -16,7 +17,8 @@ export const mockDocuments: DocumentItem[] = [
     category: "institutionnel",
     fileSize: "1.2 Mo",
     fileFormat: "PDF",
-    publishedDate: "12/03/2026"
+    publishedDate: "12/03/2026",
+    fileUrl: "/docs/statuts.pdf"
   },
   {
     id: "doc-002",
@@ -25,7 +27,8 @@ export const mockDocuments: DocumentItem[] = [
     category: "reglement",
     fileSize: "850 Ko",
     fileFormat: "PDF",
-    publishedDate: "15/03/2026"
+    publishedDate: "15/03/2026",
+    fileUrl: "/docs/reglement.pdf"
   },
   {
     id: "doc-003",
@@ -47,12 +50,13 @@ export const mockDocuments: DocumentItem[] = [
   },
   {
     id: "doc-005",
-    title: "Rapport d'Activité Annuel 2025",
+    title: "Feuille de route",
     description: "Bilan moral et financier de l'exercice 2025, récapitulatif des premiers ateliers pilotes et des actions de solidarité.",
     category: "rapport",
     fileSize: "3.1 Mo",
     fileFormat: "PDF",
-    publishedDate: "15/01/2026"
+    publishedDate: "15/01/2026",
+    fileUrl: "/docs/fdrtriennale.pdf"
   },
   {
     id: "doc-006",
@@ -61,6 +65,7 @@ export const mockDocuments: DocumentItem[] = [
     category: "institutionnel",
     fileSize: "950 Ko",
     fileFormat: "PDF",
-    publishedDate: "05/03/2026"
+    publishedDate: "05/03/2026",
+    fileUrl: "/docs/charte.pdf"
   }
 ];

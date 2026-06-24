@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { Compass, Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
 
 export default function Footer() {
   return (
     <footer className="bg-xyrm-slate-900 border-t border-xyrm-slate-800 text-white/80 py-16 px-6 md:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-          
+
           {/* Column 1: Brand Info */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2 group">
@@ -27,24 +27,24 @@ export default function Footer() {
             </p>
             {/* Social Icons */}
             <div className="flex items-center gap-3 pt-2">
-              <a 
-                href="https://youtube.com" 
-                target="_blank" 
+              <a
+                href="https://www.youtube.com/@xamyoonureewmi"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg bg-white/5 hover:bg-xyrm-gold hover:text-xyrm-slate-900 text-white transition-all flex items-center justify-center"
               >
                 <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.508 9.388.508 9.388.508s7.518 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.508 9.388.508 9.388.508s7.518 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                 </svg>
               </a>
-              <a 
-                href="https://facebook.com" 
-                target="_blank" 
+              <a
+                href="https://facebook.com"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg bg-white/5 hover:bg-xyrm-gold hover:text-xyrm-slate-900 text-white transition-all flex items-center justify-center"
               >
                 <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                 </svg>
               </a>
             </div>
@@ -85,8 +85,8 @@ export default function Footer() {
                     </a>
                   </li>
                   <li>
-                    <a href="/docs/rapport.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-xyrm-gold transition-colors block">
-                      Rapport d&apos;Activité
+                    <a href="/docs/fdrtriennale.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-xyrm-gold transition-colors block">
+                      Feuille de Route Tiennale
                     </a>
                   </li>
                 </ul>

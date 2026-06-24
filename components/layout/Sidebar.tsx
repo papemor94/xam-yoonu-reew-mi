@@ -10,8 +10,7 @@ import {
   Video, 
   Settings, 
   LogOut,
-  X,
-  Compass
+  X
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 

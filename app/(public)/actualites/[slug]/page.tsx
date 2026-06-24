@@ -14,7 +14,8 @@ export function generateStaticParams() {
 }
 
 export default function ArticleDetailPage({ params }: ArticleDetailPageProps) {
-  const article = mockArticles.find((art) => art.slug === params.slug);
+  const decodedSlug = decodeURIComponent(params.slug).toLowerCase().trim();
+  const article = mockArticles.find((art) => decodeURIComponent(art.slug).toLowerCase().trim() === decodedSlug);
 
   return (
     <ArticleDetailClient 

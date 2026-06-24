@@ -71,7 +71,38 @@ export function getArticles(): Article[] {
   if (typeof window === "undefined") return mockArticles;
   initDatabase();
   const data = localStorage.getItem(ARTICLES_KEY);
-  return data ? JSON.parse(data) : mockArticles;
+  if (!data) return mockArticles;
+
+  try {
+    const parsed = JSON.parse(data) as Article[];
+    let updated = false;
+
+    const sanitized = parsed.map((art) => {
+      const generateSlug = (title: string): string => {
+        return title
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)+/g, "");
+      };
+
+      const correctSlug = generateSlug(art.slug || art.title);
+      if (art.slug !== correctSlug) {
+        art.slug = correctSlug;
+        updated = true;
+      }
+      return art;
+    });
+
+    if (updated) {
+      localStorage.setItem(ARTICLES_KEY, JSON.stringify(sanitized));
+    }
+    return sanitized;
+  } catch (e) {
+    console.error("Error parsing articles from localStorage:", e);
+    return mockArticles;
+  }
 }
 
 export function saveArticle(article: Article) {
