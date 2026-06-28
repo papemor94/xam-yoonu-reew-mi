@@ -30,7 +30,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-xyrm-slate-200 bg-white/90 backdrop-blur-md transition-all duration-300">
+    <header className="sticky top-0 z-50 w-full border-b border-xyrm-slate-200 bg-white/90 backdrop-blur-md transition-all duration-300">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 md:px-8">
 
         {/* Logo and Brand Name */}
@@ -135,7 +135,7 @@ export default function Header() {
 
       {/* Mobile Drawer menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-x-0 top-20 bottom-0 z-30 bg-white/95 backdrop-blur-md border-t border-xyrm-slate-100 p-6 flex flex-col md:hidden animate-fadeIn">
+        <div className="fixed inset-x-0 top-20 bottom-0 z-50 bg-white/95 backdrop-blur-md border-t border-xyrm-slate-100 p-6 flex flex-col md:hidden animate-fadeIn">
           <nav className="flex flex-col gap-6 py-6">
             {navigation.map((item) => {
               if (item.isDropdown) {
