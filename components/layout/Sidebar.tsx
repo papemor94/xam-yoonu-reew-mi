@@ -24,7 +24,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
 
   const navigation = [
     { name: "Vue d'ensemble", href: "/dashboard", icon: LayoutDashboard },
-    { name: "Factures & Dons", href: "/factures", icon: FileText },
+    { name: "Factures et Dons", href: "/factures", icon: FileText },
     { name: "Membres", href: "/membres", icon: Users },
     { name: "Événements", href: "/evenements", icon: Calendar },
     { name: "Vidéothèque", href: "/videos", icon: Video },

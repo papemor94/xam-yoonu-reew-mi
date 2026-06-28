@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Calendar, MapPin, ArrowLeft, Clock, Image as ImageIcon } from "lucide-react";
+import { Calendar, MapPin, ArrowLeft } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import YouTubeEmbed from "@/components/videos/YouTubeEmbed";
@@ -104,71 +104,7 @@ export default function JourneeDetailClient({ initialJournee, slug }: JourneeDet
         />
       </Card>
 
-      {/* Program Timeline */}
-      {displayJrn.timeline && displayJrn.timeline.length > 0 && (
-        <div className="space-y-6">
-          <h3 className="text-xl font-black text-xyrm-slate-900 tracking-tight">
-            Déroulement & Chronologie de la Journée
-          </h3>
-          
-          <div className="relative border-l border-xyrm-slate-200 ml-4 pl-6 space-y-8">
-            {displayJrn.timeline.map((evt, idx) => (
-              <div key={idx} className="relative group">
-                <span className="absolute -left-[31px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-white border border-xyrm-slate-300 ring-4 ring-white group-hover:border-xyrm-green-primary transition-colors">
-                  <span className="h-1.5 w-1.5 rounded-full bg-xyrm-slate-400 group-hover:bg-xyrm-green-emerald transition-colors" />
-                </span>
-                
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1 text-[11px] font-black text-xyrm-gold bg-xyrm-green-deep/5 px-2 py-0.5 rounded-md border border-xyrm-gold/20">
-                      <Clock className="h-3 w-3" />
-                      {evt.time}
-                    </span>
-                    <h4 className="text-sm font-bold text-xyrm-slate-900 group-hover:text-xyrm-green-primary transition-colors">
-                      {evt.title}
-                    </h4>
-                  </div>
-                  <p className="text-xs text-xyrm-slate-500 font-light leading-relaxed max-w-2xl pl-1">
-                    {evt.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
-      {/* Photo Gallery Grid */}
-      {displayJrn.galleryPlaceholders && displayJrn.galleryPlaceholders.length > 0 && (
-        <div className="space-y-6">
-          <h3 className="text-xl font-black text-xyrm-slate-900 tracking-tight">
-            Galerie Photos de l&apos;événement
-          </h3>
-          
-          <div className="grid gap-4 sm:grid-cols-2">
-            {displayJrn.galleryPlaceholders.map((desc, idx) => (
-              <Card key={idx} className="p-0 overflow-hidden group hover:border-xyrm-green-light/35 transition-all duration-300">
-                <div className="h-40 bg-xyrm-green-deep/5 flex flex-col justify-between p-5 relative overflow-hidden">
-                  <div className="absolute right-4 top-4 h-8 w-8 rounded-lg bg-white/50 backdrop-blur-md flex items-center justify-center text-xyrm-green-primary shadow-sm">
-                    <ImageIcon className="h-4 w-4" />
-                  </div>
-                  
-                  <div className="mt-auto relative z-10 space-y-1">
-                    <span className="text-[9px] uppercase font-bold tracking-widest text-xyrm-gold-dark bg-xyrm-green-deep/5 px-2 py-0.5 rounded border border-xyrm-gold/10">
-                      Photo #{idx + 1}
-                    </span>
-                    <p className="text-xs font-bold text-xyrm-slate-800 leading-snug pt-1">
-                      {desc}
-                    </p>
-                  </div>
-                  
-                  <div className="absolute -left-10 -bottom-10 w-24 h-24 bg-xyrm-green-light/5 rounded-full blur-2xl pointer-events-none" />
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      )}
 
     </div>
   );

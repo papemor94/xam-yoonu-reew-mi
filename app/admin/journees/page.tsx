@@ -11,15 +11,12 @@ import {
   X, 
   Save, 
   Video,
-  Clock,
-  PlusCircle,
-  MinusCircle,
   MapPin
 } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { getJournees, saveJournee, deleteJournee } from "@/lib/db";
-import { JourneeItem, JourneeTimelineEvent } from "@/data/mock/journees";
+import { JourneeItem } from "@/data/mock/journees";
 
 function JourneesAdminContent() {
   const router = useRouter();
@@ -30,8 +27,7 @@ function JourneesAdminContent() {
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentJrn, setCurrentJrn] = useState<Partial<JourneeItem>>({});
-  const [timelineEvents, setTimelineEvents] = useState<JourneeTimelineEvent[]>([]);
-  const [galleryInput, setGalleryInput] = useState("");
+
   
   // Delete confirm state
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
@@ -75,47 +71,23 @@ function JourneesAdminContent() {
       youtubeId: "",
       galleryPlaceholders: []
     });
-    setTimelineEvents([
-      { time: "09h00", title: "Accueil des participants", description: "Enregistrement et café d'accueil" }
-    ]);
-    setGalleryInput("");
+
     setIsModalOpen(true);
   };
 
   const handleOpenEdit = (jrn: JourneeItem) => {
     setCurrentJrn({ ...jrn });
-    setTimelineEvents(jrn.timeline || []);
-    setGalleryInput(jrn.galleryPlaceholders ? jrn.galleryPlaceholders.join(", ") : "");
+
     setIsModalOpen(true);
   };
 
-  const handleAddTimelineEvent = () => {
-    setTimelineEvents([
-      ...timelineEvents,
-      { time: "12h00", title: "Nouvelle activité", description: "Description succincte de l'activité" }
-    ]);
-  };
 
-  const handleRemoveTimelineEvent = (index: number) => {
-    setTimelineEvents(timelineEvents.filter((_, idx) => idx !== index));
-  };
-
-  const handleTimelineEventChange = (index: number, field: keyof JourneeTimelineEvent, value: string) => {
-    const updated = [...timelineEvents];
-    updated[index] = { ...updated[index], [field]: value };
-    setTimelineEvents(updated);
-  };
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
     if (!currentJrn.title?.trim()) return;
 
     const slug = currentJrn.slug || generateSlug(currentJrn.title);
-
-    // Parse gallery captions from the input list
-    const gallery = galleryInput
-      ? galleryInput.split(",").map((g: string) => g.trim()).filter(Boolean)
-      : currentJrn.galleryPlaceholders || [];
 
     const jrnToSave: JourneeItem = {
       id: currentJrn.id || `jrn-${Date.now()}`,
@@ -128,13 +100,8 @@ function JourneesAdminContent() {
       location: currentJrn.location || "Sénégal",
       locationDetails: currentJrn.locationDetails || "",
       youtubeId: currentJrn.youtubeId || undefined,
-      timeline: timelineEvents,
-      galleryPlaceholders: gallery.length > 0 ? gallery : [
-        "Conférence et débats collaboratifs",
-        "Atelier d&apos;échanges intergénérationnels",
-        "Public attentif et mobilisé",
-        "Moments de partage et cocktail de clôture"
-      ]
+      timeline: [],
+      galleryPlaceholders: []
     };
 
     saveJournee(jrnToSave);
@@ -201,7 +168,7 @@ function JourneesAdminContent() {
                 <th className="px-6 py-4">Événement</th>
                 <th className="px-6 py-4">Date</th>
                 <th className="px-6 py-4">Lieu</th>
-                <th className="px-6 py-4">Timeline / Photos</th>
+
                 <th className="px-6 py-4 text-right">Actions</th>
               </tr>
             </thead>
@@ -233,9 +200,7 @@ function JourneesAdminContent() {
                         <span>{jrn.location}</span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-xs text-xyrm-slate-500 font-medium">
-                      {jrn.timeline?.length || 0} étapes • {jrn.galleryPlaceholders?.length || 0} photos
-                    </td>
+
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-1.5">
                         <button
@@ -276,7 +241,7 @@ function JourneesAdminContent() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-xyrm-slate-400 font-light">
+                  <td colSpan={4} className="px-6 py-12 text-center text-xyrm-slate-400 font-light">
                     Aucune journée d&apos;activité trouvée.
                   </td>
                 </tr>
@@ -444,85 +409,7 @@ function JourneesAdminContent() {
                 />
               </div>
 
-              {/* Photo Gallery Captions */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-xyrm-slate-700 uppercase tracking-wider">
-                  Légendes des Photos de la Galerie (Séparées par des virgules)
-                </label>
-                <input
-                  type="text"
-                  placeholder="Ex: Conférence du Professeur Moussa Thioye, Débats intergénérationnels"
-                  value={galleryInput}
-                  onChange={(e) => setGalleryInput(e.target.value)}
-                  className="w-full rounded-xl border border-xyrm-slate-200 bg-white px-3.5 py-2 text-xs text-xyrm-slate-850 focus:border-xyrm-green-primary focus:outline-none focus:ring-1 focus:ring-xyrm-green-primary"
-                />
-              </div>
 
-              {/* Dynamic Timeline Events Builder */}
-              <div className="space-y-4 pt-2 border-t border-xyrm-slate-100">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-black text-xyrm-slate-900 uppercase tracking-wider flex items-center gap-1">
-                    <Clock className="h-4 w-4 text-xyrm-green-primary" />
-                    Chronologie & Programme de la Journée
-                  </label>
-                  <button
-                    type="button"
-                    onClick={handleAddTimelineEvent}
-                    className="inline-flex items-center gap-1 text-xxs font-bold text-xyrm-green-primary hover:text-xyrm-green-deep transition-colors"
-                  >
-                    <PlusCircle className="h-4 w-4" />
-                    Ajouter une étape
-                  </button>
-                </div>
-
-                <div className="space-y-3">
-                  {timelineEvents.map((evt, index) => (
-                    <div key={index} className="flex gap-3 items-start p-3 bg-xyrm-slate-50 rounded-xl border border-xyrm-slate-200 relative group animate-fadeIn">
-                      <div className="w-20 space-y-1">
-                        <label className="text-[10px] font-bold text-xyrm-slate-500 uppercase tracking-wider">Horaire</label>
-                        <input
-                          type="text"
-                          required
-                          placeholder="16h00"
-                          value={evt.time}
-                          onChange={(e) => handleTimelineEventChange(index, "time", e.target.value)}
-                          className="w-full rounded-lg border border-xyrm-slate-200 bg-white px-2 py-1 text-xxs focus:outline-none focus:border-xyrm-green-primary"
-                        />
-                      </div>
-
-                      <div className="flex-1 space-y-1">
-                        <label className="text-[10px] font-bold text-xyrm-slate-500 uppercase tracking-wider">Activité</label>
-                        <input
-                          type="text"
-                          required
-                          placeholder="Ex: Accueil et Networking"
-                          value={evt.title}
-                          onChange={(e) => handleTimelineEventChange(index, "title", e.target.value)}
-                          className="w-full rounded-lg border border-xyrm-slate-200 bg-white px-2.5 py-1 text-xxs focus:outline-none focus:border-xyrm-green-primary mb-1.5"
-                        />
-                        <input
-                          type="text"
-                          placeholder="Description rapide (optionnel)"
-                          value={evt.description}
-                          onChange={(e) => handleTimelineEventChange(index, "description", e.target.value)}
-                          className="w-full rounded-lg border border-xyrm-slate-200 bg-white px-2.5 py-1 text-xxs focus:outline-none focus:border-xyrm-green-primary"
-                        />
-                      </div>
-
-                      {timelineEvents.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveTimelineEvent(index)}
-                          className="text-xyrm-slate-400 hover:text-red-650 shrink-0 self-center"
-                          title="Supprimer cette étape"
-                        >
-                          <MinusCircle className="h-5 w-5" />
-                        </button>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
 
               {/* Save Footer Buttons */}
               <div className="flex items-center justify-end gap-3 pt-4 border-t border-xyrm-slate-100 bg-white sticky bottom-0">

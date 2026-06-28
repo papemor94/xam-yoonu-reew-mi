@@ -15,6 +15,7 @@ export default function Header() {
   const navigation = [
     { name: "Accueil", href: "/" },
     { name: "L'Association", href: "/association" },
+    { name: "Gouvernance", href: "/gouvernance" },
     { name: "Publications", href: "#", isDropdown: true },
     { name: "Journées", href: "/journees" },
     { name: "Actualités", href: "/actualites" },
@@ -25,7 +26,7 @@ export default function Header() {
     { name: "Statut officiel de l'association", href: "/docs/statuts.pdf" },
     { name: "Règlement intérieur", href: "/docs/reglement.pdf" },
     { name: "Charte fondamentale", href: "/docs/charte.pdf" },
-    { name: "Feuille de route tiennale", href: "/docs/fdrtriennale.pdf" },
+    { name: "Feuille de route triennale", href: "/docs/fdrtriennale.pdf" },
   ];
 
   return (
@@ -45,7 +46,7 @@ export default function Header() {
               REEW MI
             </span>
             <span className="text-[9px] text-xyrm-slate-500 hidden sm:inline leading-none mt-0.5">
-              Université Populaire Citoyenne & Solidaire
+              Université Populaire Citoyenne et Solidaire
             </span>
           </div>
         </Link>

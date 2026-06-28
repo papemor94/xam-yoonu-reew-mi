@@ -37,7 +37,7 @@ export const mockJournees: JourneeItem[] = [
     timeline: [
       {
         time: "16h00",
-        title: "Accueil & Enregistrement",
+        title: "Accueil et Enregistrement",
         description: "Installation des participants et distribution des livrets de présentation de l'Université Populaire."
       },
       {
@@ -52,7 +52,7 @@ export const mockJournees: JourneeItem[] = [
       },
       {
         time: "17h45",
-        title: "Espace Networking & Solidarité",
+        title: "Espace Networking et Solidarité",
         description: "Pause d'échanges informels, stands d'information juridiques et administratifs de l'association."
       },
       {

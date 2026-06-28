@@ -67,7 +67,7 @@ export default function AdminDashboardPage() {
         <Card className="hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
           <CardHeader className="flex flex-row items-center justify-between pb-3">
             <CardTitle className="text-xs font-bold uppercase tracking-wider text-xyrm-slate-500">
-              Actualités & Analyses
+              Actualités et Analyses
             </CardTitle>
             <div className="rounded-xl bg-xyrm-green-deep/5 p-2.5 text-xyrm-green-primary">
               <BookOpen className="h-5 w-5" />
@@ -131,7 +131,7 @@ export default function AdminDashboardPage() {
         <Card className="hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
           <CardHeader className="flex flex-row items-center justify-between pb-3">
             <CardTitle className="text-xs font-bold uppercase tracking-wider text-xyrm-slate-500">
-              Contacts & Adhésions
+              Contacts et Adhésions
             </CardTitle>
             <div className="rounded-xl bg-xyrm-green-deep/5 p-2.5 text-xyrm-green-primary">
               <Mail className="h-5 w-5" />

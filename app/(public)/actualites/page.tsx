@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { Search, Calendar, User, FileText, GraduationCap, Clock, ArrowRight } from "lucide-react";
 import { mockArticles } from "@/data/mock/articles";
@@ -8,7 +8,6 @@ import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 
 import { getArticles } from "@/lib/db";
-import { useEffect } from "react";
 
 type ArticleCategory = "all" | "actualite" | "analyse" | "initiative" | "formation";
 
@@ -25,7 +24,7 @@ interface Formation {
 const mockFormations: Formation[] = [
   {
     id: "form-001",
-    title: "Comprendre la Constitution & les Droits Fondamentaux",
+    title: "Comprendre la Constitution et les Droits Fondamentaux",
     description: "Un module d'éducation populaire pour décrypter les lois, le fonctionnement de l'État et les droits des citoyens dans un langage accessible à tous.",
     duration: "4 modules d'1h30",
     format: "Hybride",
@@ -34,7 +33,7 @@ const mockFormations: Formation[] = [
   },
   {
     id: "form-002",
-    title: "Parentalité & Transmission Culturelle dans la Diaspora",
+    title: "Parentalité et Transmission Culturelle dans la Diaspora",
     description: "Atelier d'échange et d'outillage pour accompagner les parents de la diaspora dans l'éducation biculturelle et la transmission des valeurs familiales.",
     duration: "3 sessions de 2h",
     format: "Présentiel (Toulouse)",
@@ -43,7 +42,7 @@ const mockFormations: Formation[] = [
   },
   {
     id: "form-003",
-    title: "Leadership Associatif & Gestion de Projets Locaux",
+    title: "Leadership Associatif et Gestion de Projets Locaux",
     description: "Formation pratique destinée aux porteurs de projets et dirigeants associatifs pour structurer, financer et pérenniser leurs initiatives solidaires.",
     duration: "5 modules de 2h",
     format: "En Ligne",
@@ -66,6 +65,26 @@ export default function ActualitesPage() {
 
   const displayArticles = mounted ? articles : mockArticles;
 
+  const categoriesToShow = useMemo(() => {
+    return [
+      { label: "Tout", value: "all" },
+      { label: "Actualités", value: "actualite" },
+      { label: "Analyses", value: "analyse" },
+      { label: "Initiatives", value: "initiative" },
+      { label: "Formations", value: "formation" },
+    ].filter((cat) => {
+      if (cat.value === "all") return true;
+      return displayArticles.some((art) => art.category === cat.value);
+    });
+  }, [displayArticles]);
+
+  useEffect(() => {
+    const isVisible = categoriesToShow.some((cat) => cat.value === activeCategory);
+    if (!isVisible) {
+      setActiveCategory("all");
+    }
+  }, [categoriesToShow, activeCategory]);
+
   const filteredArticles = displayArticles.filter((art) => {
     const matchesCategory = activeCategory === "all" || art.category === activeCategory;
     const matchesSearch =
@@ -81,7 +100,7 @@ export default function ActualitesPage() {
       <div className="space-y-4 text-center">
         <Badge variant="default" className="font-bold">PUBLICATIONS</Badge>
         <h1 className="text-3xl font-black text-xyrm-slate-900 md:text-5xl tracking-tight">
-          Actualités & Analyses
+          Actualités et Analyses
         </h1>
         <p className="text-sm md:text-base text-xyrm-slate-500 font-light max-w-2xl mx-auto">
           Explorez nos articles d&apos;éducation populaire, comptes-rendus d&apos;ateliers et décryptages juridiques.
@@ -107,13 +126,7 @@ export default function ActualitesPage() {
 
         {/* Categories Tab */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0">
-          {[
-            { label: "Tout", value: "all" },
-            { label: "Actualités", value: "actualite" },
-            { label: "Analyses", value: "analyse" },
-            { label: "Initiatives", value: "initiative" },
-            { label: "Formations", value: "formation" },
-          ].map((cat) => (
+          {categoriesToShow.map((cat) => (
             <button
               key={cat.value}
               onClick={() => setActiveCategory(cat.value as ArticleCategory)}
@@ -132,64 +145,72 @@ export default function ActualitesPage() {
 
       {/* 3. Grid List */}
       {filteredArticles.length > 0 ? (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className={
+          filteredArticles.length === 1 
+            ? "flex justify-center" 
+            : filteredArticles.length === 2 
+            ? "flex flex-wrap justify-center gap-6" 
+            : "grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        }>
           {filteredArticles.map((art) => (
-            <Card key={art.id} className="flex flex-col justify-between h-full group hover:shadow-lg transition-all duration-300">
-              <div className="space-y-4">
-                {/* Visual placeholder header */}
-                <div className="h-44 w-full bg-xyrm-green-deep/5 rounded-xl border border-xyrm-slate-100 flex items-center justify-center relative overflow-hidden">
-                  {art.youtubeId ? (
-                    <>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img 
-                        src={`https://img.youtube.com/vi/${art.youtubeId}/mqdefault.jpg`} 
-                        alt={art.title} 
-                        className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        loading="lazy"
-                      />
-                      {/* Play overlay button */}
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/15 group-hover:bg-black/25 transition-colors duration-300">
-                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-red-600 text-white shadow-lg transform group-hover:scale-110 transition-transform duration-300">
-                          <svg className="h-5 w-5 fill-current ml-0.5" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z" />
-                          </svg>
+            <div key={art.id} className={filteredArticles.length <= 2 ? "w-full max-w-sm" : ""}>
+              <Card className="flex flex-col justify-between h-full group hover:shadow-lg transition-all duration-300">
+                <div className="space-y-4">
+                  {/* Visual placeholder header */}
+                  <div className="h-44 w-full bg-xyrm-green-deep/5 rounded-xl border border-xyrm-slate-100 flex items-center justify-center relative overflow-hidden">
+                    {art.youtubeId ? (
+                      <>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img 
+                          src={`https://img.youtube.com/vi/${art.youtubeId}/mqdefault.jpg`} 
+                          alt={art.title} 
+                          className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
+                        />
+                        {/* Play overlay button */}
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/15 group-hover:bg-black/25 transition-colors duration-300">
+                          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-red-600 text-white shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                            <svg className="h-5 w-5 fill-current ml-0.5" viewBox="0 0 24 24">
+                              <path d="M8 5v14l11-7z" />
+                            </svg>
+                          </div>
                         </div>
-                      </div>
-                    </>
-                  ) : (
-                    <FileText className="h-8 w-8 text-xyrm-green-light opacity-45 group-hover:scale-105 transition-transform" />
-                  )}
-                  <div className="absolute right-3 top-3">
-                    <Badge variant={art.category === "initiative" ? "payee" : art.category === "formation" ? "payee" : art.category === "actualite" ? "envoyee" : "default"}>
-                      {art.category === "actualite" ? "actualité" : art.category}
-                    </Badge>
+                      </>
+                    ) : (
+                      <FileText className="h-8 w-8 text-xyrm-green-light opacity-45 group-hover:scale-105 transition-transform" />
+                    )}
+                    <div className="absolute right-3 top-3">
+                      <Badge variant={art.category === "initiative" ? "payee" : art.category === "formation" ? "payee" : art.category === "actualite" ? "envoyee" : "default"}>
+                        {art.category === "actualite" ? "actualité" : art.category}
+                      </Badge>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 px-1">
+                    <div className="flex items-center gap-2 text-xxs text-xyrm-slate-400 font-bold uppercase tracking-wider">
+                      <span className="flex items-center gap-1"><User className="h-3 w-3" /> {art.authorName}</span>
+                      <span>•</span>
+                      <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {art.publishedAt}</span>
+                    </div>
+                    <h3 className="text-lg font-black text-xyrm-slate-900 group-hover:text-xyrm-green-primary transition-colors line-clamp-2 leading-snug">
+                      {art.title}
+                    </h3>
+                    <p className="text-xs text-xyrm-slate-500 font-light leading-relaxed line-clamp-3">
+                      {art.excerpt}
+                    </p>
                   </div>
                 </div>
 
-                <div className="space-y-2 px-1">
-                  <div className="flex items-center gap-2 text-xxs text-xyrm-slate-400 font-bold uppercase tracking-wider">
-                    <span className="flex items-center gap-1"><User className="h-3 w-3" /> {art.authorName}</span>
-                    <span>•</span>
-                    <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {art.publishedAt}</span>
-                  </div>
-                  <h3 className="text-lg font-black text-xyrm-slate-900 group-hover:text-xyrm-green-primary transition-colors line-clamp-2 leading-snug">
-                    {art.title}
-                  </h3>
-                  <p className="text-xs text-xyrm-slate-500 font-light leading-relaxed line-clamp-3">
-                    {art.excerpt}
-                  </p>
+                <div className="pt-6 px-1">
+                  <Link
+                    href={`/actualites/${art.slug}`}
+                    className="w-full inline-flex h-10 items-center justify-center rounded-lg border border-xyrm-slate-200 text-xs font-bold text-xyrm-slate-700 hover:bg-xyrm-slate-50 transition-colors"
+                  >
+                    Lire l&apos;Article
+                  </Link>
                 </div>
-              </div>
-
-              <div className="pt-6 px-1">
-                <Link
-                  href={`/actualites/${art.slug}`}
-                  className="w-full inline-flex h-10 items-center justify-center rounded-lg border border-xyrm-slate-200 text-xs font-bold text-xyrm-slate-700 hover:bg-xyrm-slate-50 transition-colors"
-                >
-                  Lire l&apos;Article
-                </Link>
-              </div>
-            </Card>
+              </Card>
+            </div>
           ))}
         </div>
       ) : (
@@ -198,12 +219,12 @@ export default function ActualitesPage() {
         </div>
       )}
 
-      {/* 4. Ateliers & Formations Section */}
+      {/* 4. Ateliers et Formations Section */}
       <div className="border-t border-xyrm-slate-200 pt-16 mt-20 space-y-12">
         <div className="space-y-4 text-center">
           <Badge variant="payee" className="font-bold">FORMATIONS</Badge>
           <h2 className="text-2xl font-black text-xyrm-slate-900 md:text-4xl tracking-tight">
-            Nos Formations & Ateliers Citoyens
+            Nos Formations et Ateliers Citoyens
           </h2>
           <p className="text-sm md:text-base text-xyrm-slate-500 font-light max-w-2xl mx-auto">
             Découvrez nos programmes d&apos;apprentissage gratuits pour comprendre vos droits, gérer vos initiatives et renforcer la citoyenneté active.

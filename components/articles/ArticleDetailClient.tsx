@@ -109,10 +109,10 @@ export default function ArticleDetailClient({ initialArticle, slug }: ArticleDet
           <p className="text-xs text-xyrm-slate-500 font-light mt-0.5">Partagez-le autour de vous pour soutenir l&apos;éducation populaire.</p>
         </div>
         <Link
-          href="/contact"
-          className="inline-flex h-9 items-center justify-center rounded-lg bg-xyrm-green-deep text-xs font-bold text-white px-4 hover:bg-xyrm-green-primary transition-colors"
+          href="/actualites"
+          className="inline-flex h-9 items-center justify-center rounded-lg border border-xyrm-slate-200 bg-white text-xs font-bold text-xyrm-slate-700 px-4 hover:bg-xyrm-slate-50 transition-colors"
         >
-          Rejoindre l&apos;association
+          Retour aux actualités
         </Link>
       </div>
 

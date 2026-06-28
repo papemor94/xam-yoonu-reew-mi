@@ -2,19 +2,52 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { BookOpen, MessageSquare, Heart, ArrowRight, Calendar, User, FileText } from "lucide-react";
+import { ArrowRight, Calendar, User, FileText, Scale, Landmark, HeartHandshake } from "lucide-react";
 import { mockArticles } from "@/data/mock/articles";
 import { Badge } from "@/components/ui/Badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
-import { getArticles } from "@/lib/db";
+import { getArticles, getJournees } from "@/lib/db";
+import { JourneeItem } from "@/data/mock/journees";
 
 export default function HomePage() {
   const [articles, setArticles] = useState(mockArticles);
+  const [upcomingJrn, setUpcomingJrn] = useState<JourneeItem | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     setArticles(getArticles());
+
+    // Date parser for DD/MM/YYYY
+    const parseDate = (dateStr: string) => {
+      const parts = dateStr.split("/");
+      if (parts.length === 3) {
+        return new Date(
+          parseInt(parts[2], 10),
+          parseInt(parts[1], 10) - 1,
+          parseInt(parts[0], 10)
+        );
+      }
+      return new Date();
+    };
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const dbJournees = getJournees();
+    const sortedUpcoming = dbJournees
+      .filter((jrn) => {
+        const eventDate = parseDate(jrn.date);
+        eventDate.setHours(23, 59, 59, 999); // show on the event day itself
+        return eventDate >= today;
+      })
+      .sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime());
+
+    if (sortedUpcoming.length > 0) {
+      setUpcomingJrn(sortedUpcoming[0]);
+    } else {
+      setUpcomingJrn(null);
+    }
   }, []);
 
   const latestArticles = (mounted ? articles : mockArticles).slice(0, 3);
@@ -39,7 +72,7 @@ export default function HomePage() {
             <div className="h-5 w-5 rounded-full overflow-hidden bg-white flex items-center justify-center shrink-0 shadow-sm">
               <img src="/logo.png" alt="Logo Xam Yoonu Reew Mi" className="h-full w-full object-cover" />
             </div>
-            Université Populaire Citoyenne & Solidaire
+            Université Populaire Citoyenne et Solidaire
           </div>
 
           <h1 className="text-4xl font-black md:text-6xl tracking-tight leading-none text-white max-w-4xl mx-auto">
@@ -58,76 +91,88 @@ export default function HomePage() {
               Découvrir Notre Mission
             </Link>
             <Link
-              href="/contact"
+              href="/journees"
               className="w-full sm:w-auto inline-flex h-12 items-center justify-center rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 px-8 text-sm font-bold text-white transition-all"
             >
-              Nous Contacter
+              Voir Nos Journées
             </Link>
           </div>
         </div>
       </section>
 
       {/* 2. Featured Event / Banner (Visual Flyer Reconstructed) */}
-      <section className="mx-auto max-w-7xl px-6 md:px-8">
-        <div className="rounded-3xl border border-xyrm-slate-200 bg-white p-8 md:p-12 shadow-lg relative overflow-hidden grid md:grid-cols-2 gap-8 items-center">
-          <div className="absolute right-0 top-0 w-32 h-32 bg-xyrm-gold/5 rounded-full blur-2xl pointer-events-none" />
-          
-          {/* Text Detail */}
-          <div className="space-y-6">
-            <div className="inline-flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-xyrm-green-emerald animate-ping" />
-              <Badge variant="envoyee" className="font-bold">DERNIÈRE ÉDITION</Badge>
-            </div>
-            <h3 className="text-2xl font-black text-xyrm-slate-900 md:text-3xl leading-tight">
-              Journée Xam Yoonu Reew Mi
-            </h3>
-            <p className="text-sm font-semibold uppercase tracking-wider text-xyrm-gold-dark">
-              1ère Édition du Forum Participatif
-            </p>
-            <div className="space-y-3 p-4 bg-xyrm-slate-50 rounded-2xl border border-xyrm-slate-100">
-              <p className="text-xs font-bold text-xyrm-slate-500 uppercase tracking-widest">Thème Central</p>
-              <p className="text-sm font-black text-xyrm-green-deep leading-snug">
-                L&apos;ÉDUCATION DES ENFANTS DANS LA DIASPORA : COMMENT PRÉSERVER LES VALEURS FAMILIALES ?
-              </p>
-            </div>
+      {upcomingJrn && (
+        <section className="mx-auto max-w-7xl px-6 md:px-8">
+          <div className="rounded-3xl border border-xyrm-slate-200 bg-white p-8 md:p-12 shadow-lg relative overflow-hidden grid md:grid-cols-2 gap-8 items-center">
+            <div className="absolute right-0 top-0 w-32 h-32 bg-xyrm-gold/5 rounded-full blur-2xl pointer-events-none" />
             
-            <div className="flex flex-wrap gap-4 text-xs font-bold">
-              <span className="bg-xyrm-green-deep text-white px-4 py-2.5 rounded-xl border border-xyrm-green-deep shadow-sm">
-                SAMEDI 23 MAI
-              </span>
-              <span className="bg-white border border-xyrm-slate-200 text-xyrm-slate-700 px-4 py-2.5 rounded-xl">
-                À PARTIR DE 16H00
-              </span>
-            </div>
-          </div>
-
-          {/* Graphical/Illustrative Box (Right-hand side of flyer) */}
-          <div className="relative h-64 md:h-80 w-full rounded-2xl bg-xyrm-green-deep flex flex-col justify-between p-6 overflow-hidden border border-xyrm-green-light/20 shadow-inner">
-            <div className="absolute -left-16 -top-16 w-40 h-40 bg-xyrm-gold/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute right-4 bottom-4 w-32 h-32 bg-xyrm-green-light/30 rounded-full blur-2xl pointer-events-none" />
-            
-            {/* Logo watermark */}
-            <div className="flex justify-between items-start w-full">
-              <div className="h-12 w-12 rounded-full overflow-hidden bg-white/10 p-1 shrink-0">
-                <img src="/logo.png" alt="Logo Xam Yoonu Reew Mi" className="h-full w-full object-contain brightness-0 invert opacity-30" />
+            {/* Text Detail */}
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-xyrm-green-emerald animate-ping" />
+                <Badge variant="envoyee" className="font-bold">ÉVÉNEMENT À VENIR</Badge>
               </div>
-              <span className="text-[10px] uppercase font-bold tracking-widest text-xyrm-gold/80 bg-white/5 px-3 py-1 rounded-full border border-white/5">
-                TOULOUSE, FRANCE
-              </span>
+              <h3 className="text-2xl font-black text-xyrm-slate-900 md:text-3xl leading-tight">
+                {upcomingJrn.title}
+              </h3>
+              <p className="text-sm font-semibold uppercase tracking-wider text-xyrm-gold-dark">
+                {upcomingJrn.subtitle}
+              </p>
+              <div className="space-y-3 p-4 bg-xyrm-slate-50 rounded-2xl border border-xyrm-slate-100">
+                <p className="text-xs font-bold text-xyrm-slate-500 uppercase tracking-widest">Thème Central</p>
+                <p className="text-sm font-black text-xyrm-green-deep leading-snug">
+                  {upcomingJrn.summary}
+                </p>
+              </div>
+              
+              <div className="flex flex-wrap gap-4 text-xs font-bold items-center">
+                <span className="bg-xyrm-green-deep text-white px-4 py-2.5 rounded-xl border border-xyrm-green-deep shadow-sm">
+                  {upcomingJrn.date}
+                </span>
+                <span className="bg-white border border-xyrm-slate-200 text-xyrm-slate-700 px-4 py-2.5 rounded-xl">
+                  {upcomingJrn.location}
+                </span>
+                
+                <Link
+                  href={`/journees/${upcomingJrn.slug}`}
+                  className="inline-flex h-9 items-center justify-center rounded-xl bg-xyrm-gold px-5 text-xs font-black text-xyrm-green-deep hover:bg-xyrm-gold/90 transition-all ml-auto hover:scale-105"
+                >
+                  En savoir plus
+                  <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                </Link>
+              </div>
             </div>
 
-            <div className="space-y-2 relative">
-              <p className="text-xxs uppercase font-bold tracking-widest text-xyrm-gold">Lieu de l&apos;événement</p>
-              <p className="text-sm font-black text-white leading-normal">
-                Le Petit Capitole
-              </p>
-              <p className="text-xs text-white/70 font-light">
-                153 avenue de Lardenne, 31100 Toulouse
-              </p>
+            {/* Graphical/Illustrative Box */}
+            <div className="relative h-64 md:h-80 w-full rounded-2xl bg-xyrm-green-deep flex flex-col justify-between p-6 overflow-hidden border border-xyrm-green-light/20 shadow-inner">
+              <div className="absolute -left-16 -top-16 w-40 h-40 bg-xyrm-gold/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute right-4 bottom-4 w-32 h-32 bg-xyrm-green-light/30 rounded-full blur-2xl pointer-events-none" />
+              
+              {/* Logo watermark */}
+              <div className="flex justify-between items-start w-full">
+                <div className="h-12 w-12 rounded-full overflow-hidden bg-white/10 p-1 shrink-0">
+                  <img src="/logo.png" alt="Logo Xam Yoonu Reew Mi" className="h-full w-full object-cover" />
+                </div>
+                <span className="text-[10px] uppercase font-bold tracking-widest text-xyrm-gold/80 bg-white/5 px-3 py-1 rounded-full border border-white/5">
+                  {upcomingJrn.location.toUpperCase()}
+                </span>
+              </div>
+
+              <div className="space-y-2 relative">
+                <p className="text-xxs uppercase font-bold tracking-widest text-xyrm-gold">Lieu de l&apos;événement</p>
+                <p className="text-sm font-black text-white leading-normal">
+                  {upcomingJrn.locationDetails ? upcomingJrn.locationDetails.split(",")[0] : upcomingJrn.location}
+                </p>
+                <p className="text-xs text-white/70 font-light">
+                  {upcomingJrn.locationDetails && upcomingJrn.locationDetails.split(",").length > 1
+                    ? upcomingJrn.locationDetails.split(",").slice(1).join(",")
+                    : ""}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* 3. Core Pillars (Université Populaire Citoyenne et Solidaire) */}
       <section className="mx-auto max-w-7xl px-6 md:px-8 space-y-12">
@@ -142,11 +187,11 @@ export default function HomePage() {
 
         <div className="grid gap-6 md:grid-cols-3">
           
-          {/* Pillar 1: Vulgarisation */}
+          {/* Pillar 1: Vulgarisation du Droit */}
           <Card className="flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
             <CardHeader className="space-y-4">
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-xyrm-green-deep/5 text-xyrm-green-primary">
-                <BookOpen className="h-6 w-6" />
+                <Scale className="h-6 w-6" />
               </div>
               <CardTitle className="text-xl font-bold text-xyrm-slate-900">
                 Vulgarisation du Droit
@@ -154,41 +199,41 @@ export default function HomePage() {
             </CardHeader>
             <CardContent>
               <p className="text-xs md:text-sm text-xyrm-slate-500 font-light leading-relaxed">
-                Rendre accessible la législation constitutionnelle et les politiques publiques dans un langage clair et adapté, y compris en langues nationales, pour renforcer la conscience juridique.
+                Rendre accessibles les normes constitutionnelles, administratives et civiles utiles à la vie quotidienne, y compris en langues nationales sénégalaises.
               </p>
             </CardContent>
           </Card>
 
-          {/* Pillar 2: Débats */}
+          {/* Pillar 2: Explication des Institutions */}
           <Card className="flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
             <CardHeader className="space-y-4">
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-xyrm-green-deep/5 text-xyrm-green-primary">
-                <MessageSquare className="h-6 w-6" />
+                <Landmark className="h-6 w-6" />
               </div>
               <CardTitle className="text-xl font-bold text-xyrm-slate-900">
-                Espaces de Débats
+                Institutions et Politiques
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-xs md:text-sm text-xyrm-slate-500 font-light leading-relaxed">
-                Organiser des forums d&apos;échanges et des cercles de discussion libres permettant à tous les citoyens de confronter leurs visions sur les questions d&apos;éducation et d&apos;avenir commun.
+                Expliquer le fonctionnement de l&apos;État, la gestion des finances publiques, de l&apos;éducation, de la santé, et l&apos;impact concret des politiques publiques.
               </p>
             </CardContent>
           </Card>
 
-          {/* Pillar 3: Solidarité */}
+          {/* Pillar 3: Actions Sociales et Solidarité */}
           <Card className="flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
             <CardHeader className="space-y-4">
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-xyrm-green-deep/5 text-xyrm-green-primary">
-                <Heart className="h-6 w-6" />
+                <HeartHandshake className="h-6 w-6" />
               </div>
               <CardTitle className="text-xl font-bold text-xyrm-slate-900">
-                Solidarité Active
+                Actions Sociales et Solidarité
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-xs md:text-sm text-xyrm-slate-500 font-light leading-relaxed">
-                Créer des réseaux de soutien concrets pour assister les familles de la diaspora et les communautés d&apos;origine dans la scolarisation et l&apos;éducation civique des jeunes générations.
+                Déployer des actions de solidarité pour les familles de la diaspora, soutenir les écoles en difficulté et accompagner les populations vulnérables.
               </p>
             </CardContent>
           </Card>
@@ -212,7 +257,7 @@ export default function HomePage() {
             href="/actualites"
             className="group inline-flex items-center gap-1.5 text-sm font-bold text-xyrm-green-deep hover:text-xyrm-green-primary transition-colors"
           >
-            Voir Tout les Articles
+            Voir Tous les Articles
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>

@@ -100,7 +100,7 @@ export default function AdminContactsPage() {
             Espace d&apos;Administration
           </Badge>
           <h1 className="text-2xl font-black text-xyrm-slate-900 md:text-3xl tracking-tight leading-none">
-            Gestion des Contacts & Adhésions
+            Gestion des Contacts et Adhésions
           </h1>
           <p className="text-xs text-xyrm-slate-500 font-light mt-1.5">
             Gérez les demandes d&apos;inscription aux ateliers, les requêtes d&apos;adhésion et les messages reçus.
@@ -290,7 +290,7 @@ export default function AdminContactsPage() {
           <Card className="w-full max-w-2xl bg-white shadow-2xl rounded-2xl overflow-hidden animate-slideUp">
             <CardHeader className="bg-xyrm-green-deep text-white flex flex-row items-center justify-between p-6">
               <div>
-                <CardTitle className="text-lg font-black">Fiche Contact & Adhésion</CardTitle>
+                <CardTitle className="text-lg font-black">Fiche Contact et Adhésion</CardTitle>
                 <p className="text-[10px] text-xyrm-gold font-bold uppercase tracking-widest mt-0.5">
                   ID: {editForm.id} • Envoyé le {editForm.createdAt}
                 </p>

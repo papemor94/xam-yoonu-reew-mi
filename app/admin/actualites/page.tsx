@@ -129,7 +129,7 @@ function ActualitesAdminContent() {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-black text-xyrm-slate-900 tracking-tight">
-            Gestion des Actualités & Analyses
+            Gestion des Actualités et Analyses
           </h1>
           <p className="text-xs text-xyrm-slate-500 font-light">
             Publiez des articles d&apos;éducation populaire, faites des analyses constitutionnelles ou relatez les initiatives de l&apos;UPCS.
