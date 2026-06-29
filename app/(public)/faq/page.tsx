@@ -78,12 +78,20 @@ export default function FAQPage() {
     });
   }, [searchTerm, activeCategory]);
 
+  interface Reply {
+    id: string;
+    author: string;
+    role: "user" | "admin";
+    date: string;
+    content: string;
+  }
+
   interface CommunityQuestion {
     id: string;
     author: string;
     date: string;
     question: string;
-    answer?: string;
+    replies: Reply[];
   }
 
   const [communityQuestions, setCommunityQuestions] = useState<CommunityQuestion[]>([
@@ -92,14 +100,37 @@ export default function FAQPage() {
       author: "Modou Fall",
       date: "Hier à 14:32",
       question: "Est-ce qu'il y aura des sessions de formation en dehors de Toulouse, par exemple à Paris ou Dakar ?",
-      answer: "Bonjour Modou ! Oui, d'après notre feuille de route triennale 2027-2028, nous prévoyons de déployer des antennes physiques en Europe et d'ouvrir deux antennes opérationnelles au Sénégal pour mener des ateliers décentralisés."
+      replies: [
+        {
+          id: "r-1",
+          author: "Alassane Dia",
+          role: "admin",
+          date: "Hier à 15:00",
+          content: "Bonjour Modou ! Oui, d'après notre feuille de route triennale 2027-2028, nous prévoyons de déployer des antennes physiques en Europe et d'ouvrir deux antennes opérationnelles au Sénégal pour mener des ateliers décentralisés."
+        }
+      ]
     },
     {
       id: "q-2",
       author: "Fatou Ndiaye",
       date: "Le 28/06/2026 à 10:15",
       question: "Puis-je participer à la traduction des fiches juridiques si je ne suis pas juriste ?",
-      answer: "Bonjour Fatou, tout à fait ! Les compétences en wolof, sérère, ou pulaar sont extrêmement précieuses pour traduire fidèlement les concepts vulgarisés. Vous pouvez rejoindre la commission de vulgarisation sans formation juridique préalable."
+      replies: [
+        {
+          id: "r-2",
+          author: "Mariama Sy",
+          role: "admin",
+          date: "Le 28/06/2026 à 11:20",
+          content: "Bonjour Fatou, tout à fait ! Les compétences en wolof, sérère, ou pulaar sont extrêmement précieuses pour traduire fidèlement les concepts vulgarisés. Vous pouvez rejoindre la commission de vulgarisation sans formation juridique préalable."
+        },
+        {
+          id: "r-3",
+          author: "Ibrahima",
+          role: "user",
+          date: "Le 28/06/2026 à 14:40",
+          content: "Je confirme, je fais partie de la commission communication et on travaille beaucoup avec des traducteurs non-juristes !"
+        }
+      ]
     }
   ]);
 
@@ -107,6 +138,12 @@ export default function FAQPage() {
   const [newQuestionText, setNewQuestionText] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const [replyingToId, setReplyingToId] = useState<string | null>(null);
+  const [newReplyName, setNewReplyName] = useState("");
+  const [newReplyRole, setNewReplyRole] = useState<"user" | "admin">("user");
+  const [newReplyText, setNewReplyText] = useState("");
+  const [isSubmittingReply, setIsSubmittingReply] = useState(false);
 
   const handleSubmitQuestion = (e: React.FormEvent) => {
     e.preventDefault();
@@ -119,7 +156,7 @@ export default function FAQPage() {
         author: newQuestionName,
         date: "À l'instant",
         question: newQuestionText,
-        answer: "Merci pour votre question ! Notre équipe va l'étudier et y répondre dans les plus brefs délais."
+        replies: []
       };
       setCommunityQuestions([newQ, ...communityQuestions]);
       setNewQuestionName("");
@@ -128,6 +165,38 @@ export default function FAQPage() {
       setSubmitSuccess(true);
       setTimeout(() => setSubmitSuccess(false), 4000);
     }, 1000);
+  };
+
+  const handleSubmitReply = (e: React.FormEvent, questionId: string) => {
+    e.preventDefault();
+    if (!newReplyName.trim() || !newReplyText.trim()) return;
+
+    setIsSubmittingReply(true);
+    setTimeout(() => {
+      const newRep: Reply = {
+        id: `r-${Date.now()}`,
+        author: newReplyName,
+        role: newReplyRole,
+        date: "À l'instant",
+        content: newReplyText
+      };
+
+      setCommunityQuestions(prev => prev.map(q => {
+        if (q.id === questionId) {
+          return {
+            ...q,
+            replies: [...q.replies, newRep]
+          };
+        }
+        return q;
+      }));
+
+      setNewReplyName("");
+      setNewReplyText("");
+      setNewReplyRole("user");
+      setReplyingToId(null);
+      setIsSubmittingReply(false);
+    }, 800);
   };
 
   const handleToggle = (index: number) => {
@@ -307,9 +376,9 @@ export default function FAQPage() {
               Discussions Récentes ({communityQuestions.length})
             </h3>
 
-            <div className="space-y-6 max-h-[500px] overflow-y-auto pr-1">
+            <div className="space-y-6 max-h-[600px] overflow-y-auto pr-1">
               {communityQuestions.map((q) => (
-                <div key={q.id} className="space-y-3.5 animate-fadeIn">
+                <div key={q.id} className="space-y-4 border-b border-xyrm-slate-100 pb-5 last:border-0 last:pb-0 animate-fadeIn">
                   {/* Bulle Question de l'utilisateur */}
                   <div className="flex gap-3 items-start">
                     <div className="h-8 w-8 rounded-full bg-xyrm-slate-100 border border-xyrm-slate-200/50 flex items-center justify-center shrink-0">
@@ -317,10 +386,23 @@ export default function FAQPage() {
                         {q.author.slice(0, 2)}
                       </span>
                     </div>
-                    <div className="bg-xyrm-slate-50 border border-xyrm-slate-200/40 rounded-2xl rounded-tl-none p-4 max-w-[90%] space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-extrabold text-xyrm-slate-900">{q.author}</span>
-                        <span className="text-[10px] text-xyrm-slate-400 font-light">{q.date}</span>
+                    <div className="bg-xyrm-slate-50 border border-xyrm-slate-200/40 rounded-2xl rounded-tl-none p-4 max-w-[90%] space-y-1.5 flex-1">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-bold text-xyrm-slate-900">{q.author}</span>
+                          <span className="text-[10px] text-xyrm-slate-400 font-light">{q.date}</span>
+                        </div>
+                        <button
+                          onClick={() => {
+                            setReplyingToId(replyingToId === q.id ? null : q.id);
+                            setNewReplyName("");
+                            setNewReplyText("");
+                            setNewReplyRole("user");
+                          }}
+                          className="text-[10px] font-extrabold text-xyrm-green-deep hover:text-xyrm-green-primary uppercase tracking-wider transition-colors"
+                        >
+                          Répondre
+                        </button>
                       </div>
                       <p className="text-xs md:text-sm text-xyrm-slate-700 leading-relaxed font-light">
                         {q.question}
@@ -328,24 +410,108 @@ export default function FAQPage() {
                     </div>
                   </div>
 
-                  {/* Réponse de l'équipe (si présente) */}
-                  {q.answer && (
-                    <div className="flex gap-3 items-start justify-end pl-8">
-                      <div className="bg-xyrm-green-deep/5 border border-xyrm-green-primary/20 border-l-2 border-l-xyrm-green-primary rounded-2xl rounded-tr-none p-4 max-w-[90%] space-y-1">
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs font-black text-xyrm-green-deep">Équipe Xam Yoonu Reew Mi</span>
-                          <span className="rounded-full bg-xyrm-gold/15 text-xyrm-gold text-[9px] font-black px-1.5 py-0.5 tracking-wider uppercase shrink-0">
-                            Modérateur
-                          </span>
+                  {/* Liste des réponses pour cette question */}
+                  {q.replies && q.replies.length > 0 && (
+                    <div className="space-y-3.5 pl-6 md:pl-10">
+                      {q.replies.map((reply) => (
+                        <div key={reply.id} className={cn("flex gap-3 items-start", reply.role === "admin" && "justify-end")}>
+                          {reply.role === "user" && (
+                            <div className="h-7 w-7 rounded-full bg-xyrm-slate-100 border border-xyrm-slate-200/40 flex items-center justify-center shrink-0">
+                              <span className="text-[10px] font-bold text-xyrm-slate-650 uppercase">
+                                {reply.author.slice(0, 2)}
+                              </span>
+                            </div>
+                          )}
+                          <div className={cn(
+                            "border p-3.5 max-w-[85%] space-y-1 rounded-2xl",
+                            reply.role === "admin"
+                              ? "bg-xyrm-green-deep/5 border-xyrm-green-primary/15 border-l-2 border-l-xyrm-green-primary rounded-tr-none text-right"
+                              : "bg-white border-xyrm-slate-200/60 rounded-tl-none text-left"
+                          )}>
+                            <div className={cn("flex items-center gap-2", reply.role === "admin" && "justify-end flex-row-reverse")}>
+                              <span className="text-xs font-bold text-xyrm-slate-900">
+                                {reply.role === "admin" ? `Équipe XYRM (${reply.author})` : reply.author}
+                              </span>
+                              {reply.role === "admin" && (
+                                <span className="rounded-full bg-xyrm-gold/15 text-xyrm-gold text-[8px] font-black px-1.5 py-0.5 tracking-wider uppercase shrink-0">
+                                  Admin
+                                </span>
+                              )}
+                              <span className="text-[10px] text-xyrm-slate-400 font-light">{reply.date}</span>
+                            </div>
+                            <p className="text-xs text-xyrm-slate-650 leading-relaxed font-light text-left">
+                              {reply.content}
+                            </p>
+                          </div>
+                          {reply.role === "admin" && (
+                            <div className="h-7 w-7 rounded-full bg-xyrm-green-deep flex items-center justify-center shrink-0 border border-xyrm-green-primary/10">
+                              <span className="text-[8px] font-black text-white">XYRM</span>
+                            </div>
+                          )}
                         </div>
-                        <p className="text-xs md:text-sm text-xyrm-slate-700 leading-relaxed font-light">
-                          {q.answer}
-                        </p>
-                      </div>
-                      <div className="h-8 w-8 rounded-full bg-xyrm-green-deep flex items-center justify-center shrink-0 shadow-sm border border-xyrm-green-primary/10">
-                        <span className="text-[9px] font-black text-white">XYRM</span>
-                      </div>
+                      ))}
                     </div>
+                  )}
+
+                  {/* Formulaire de réponse en ligne */}
+                  {replyingToId === q.id && (
+                    <form
+                      onSubmit={(e) => handleSubmitReply(e, q.id)}
+                      className="ml-6 md:ml-10 bg-xyrm-slate-50/70 border border-xyrm-slate-200/60 rounded-xl p-4 space-y-3 animate-fadeIn"
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <span className="text-[10px] font-extrabold text-xyrm-slate-500 uppercase tracking-wider">
+                          Rédiger une réponse
+                        </span>
+                        <div className="flex items-center gap-2">
+                          <label className="text-[9px] text-xyrm-slate-400 font-bold">Rôle :</label>
+                          <select
+                            value={newReplyRole}
+                            onChange={(e) => setNewReplyRole(e.target.value as "user" | "admin")}
+                            className="bg-white border border-xyrm-slate-200 rounded-lg text-[9px] px-2 py-0.5 text-xyrm-slate-700 focus:outline-none focus:border-xyrm-green-primary"
+                          >
+                            <option value="user">Communauté</option>
+                            <option value="admin">Administrateur / Équipe XYRM</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="grid gap-2.5 sm:grid-cols-3">
+                        <input
+                          type="text"
+                          required
+                          placeholder="Votre nom"
+                          value={newReplyName}
+                          onChange={(e) => setNewReplyName(e.target.value)}
+                          className="sm:col-span-1 rounded-lg border border-xyrm-slate-200 bg-white px-2.5 py-1.5 text-xs text-xyrm-slate-800 focus:border-xyrm-green-primary focus:outline-none"
+                        />
+                        <input
+                          type="text"
+                          required
+                          placeholder="Votre réponse..."
+                          value={newReplyText}
+                          onChange={(e) => setNewReplyText(e.target.value)}
+                          className="sm:col-span-2 rounded-lg border border-xyrm-slate-200 bg-white px-2.5 py-1.5 text-xs text-xyrm-slate-800 focus:border-xyrm-green-primary focus:outline-none"
+                        />
+                      </div>
+
+                      <div className="flex justify-end gap-2 pt-1">
+                        <button
+                          type="button"
+                          onClick={() => setReplyingToId(null)}
+                          className="px-2.5 py-1.5 rounded-lg border border-xyrm-slate-200 text-[11px] font-bold text-xyrm-slate-600 hover:bg-white transition-all"
+                        >
+                          Annuler
+                        </button>
+                        <button
+                          type="submit"
+                          disabled={isSubmittingReply}
+                          className="px-3 py-1.5 rounded-lg bg-xyrm-green-deep hover:bg-xyrm-green-primary text-[11px] font-bold text-white shadow-sm transition-all disabled:opacity-50"
+                        >
+                          {isSubmittingReply ? "Envoi..." : "Répondre"}
+                        </button>
+                      </div>
+                    </form>
                   )}
                 </div>
               ))}
