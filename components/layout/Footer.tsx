@@ -102,6 +102,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/faq" className="hover:text-xyrm-gold transition-colors flex items-center gap-1 group">
+                  FAQ / Foire Aux Questions <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </Link>
+              </li>
+              <li>
                 <Link href="/admin" className="hover:text-xyrm-gold text-white/50 transition-colors flex items-center gap-1 group">
                   Espace Administration <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
