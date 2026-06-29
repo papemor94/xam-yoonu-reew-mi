@@ -167,7 +167,7 @@ function ActualitesAdminContent() {
             { label: "Actualités", value: "actualite" },
             { label: "Analyses", value: "analyse" },
             { label: "Initiatives", value: "initiative" },
-            { label: "Formations", value: "formation" },
+            { label: "Vulgarisation", value: "formation" },
           ].map((tab) => (
             <button
               key={tab.value}
@@ -218,7 +218,7 @@ function ActualitesAdminContent() {
                     </td>
                     <td className="px-6 py-4">
                       <Badge variant={art.category === "initiative" ? "payee" : art.category === "formation" ? "payee" : art.category === "actualite" ? "envoyee" : "default"} className="capitalize text-xxs">
-                        {art.category === "actualite" ? "actualité" : art.category}
+                        {art.category === "actualite" ? "actualité" : art.category === "formation" ? "vulgarisation" : art.category}
                       </Badge>
                     </td>
                     <td className="px-6 py-4 text-xs font-semibold text-xyrm-slate-600">
@@ -344,7 +344,7 @@ function ActualitesAdminContent() {
                     <option value="actualite">Actualité</option>
                     <option value="analyse">Analyse</option>
                     <option value="initiative">Initiative</option>
-                    <option value="formation">Formation</option>
+                    <option value="formation">Vulgarisation</option>
                   </select>
                 </div>
 

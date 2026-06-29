@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
@@ -10,7 +11,12 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navigation = [
     { name: "Accueil", href: "/" },
@@ -25,12 +31,11 @@ export default function Header() {
   const documents = [
     { name: "Statut officiel de l'association", href: "/docs/statuts.pdf" },
     { name: "Règlement intérieur", href: "/docs/reglement.pdf" },
-    { name: "Charte fondamentale", href: "/docs/charte.pdf" },
     { name: "Feuille de route triennale", href: "/docs/fdrtriennale.pdf" },
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-xyrm-slate-200 bg-white transition-all duration-300">
+    <header className="sticky top-0 z-50 w-full border-b border-xyrm-slate-200 bg-white/90 backdrop-blur-md transition-all duration-300">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 md:px-8">
 
         {/* Logo and Brand Name */}
@@ -133,9 +138,9 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Drawer menu */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-x-0 top-20 bottom-0 z-50 bg-white overflow-y-auto border-t border-xyrm-slate-100 p-6 flex flex-col md:hidden animate-fadeIn">
+      {/* Mobile Drawer menu via Portal */}
+      {mobileMenuOpen && mounted && createPortal(
+        <div className="fixed inset-x-0 top-20 bottom-0 z-[9999] bg-white overflow-y-auto border-t border-xyrm-slate-100 p-6 flex flex-col md:hidden animate-fadeIn">
           <nav className="flex flex-col gap-6 py-6">
             {navigation.map((item) => {
               if (item.isDropdown) {
@@ -202,7 +207,8 @@ export default function Header() {
               Xam Yoonu Reew Mi • UPCS
             </p>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </header>
   );

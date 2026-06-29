@@ -80,13 +80,8 @@ export default function Footer() {
                     </a>
                   </li>
                   <li>
-                    <a href="/docs/charte.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-xyrm-gold transition-colors block">
-                      Charte Fondamentale
-                    </a>
-                  </li>
-                  <li>
                     <a href="/docs/fdrtriennale.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-xyrm-gold transition-colors block">
-                      Feuille de Route Tiennale
+                      Feuille de Route Triennale
                     </a>
                   </li>
                 </ul>

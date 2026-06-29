@@ -71,7 +71,7 @@ export default function ActualitesPage() {
       { label: "Actualités", value: "actualite" },
       { label: "Analyses", value: "analyse" },
       { label: "Initiatives", value: "initiative" },
-      { label: "Formations", value: "formation" },
+      { label: "Vulgarisation", value: "formation" },
     ].filter((cat) => {
       if (cat.value === "all") return true;
       return displayArticles.some((art) => art.category === cat.value);
@@ -181,7 +181,7 @@ export default function ActualitesPage() {
                     )}
                     <div className="absolute right-3 top-3">
                       <Badge variant={art.category === "initiative" ? "payee" : art.category === "formation" ? "payee" : art.category === "actualite" ? "envoyee" : "default"}>
-                        {art.category === "actualite" ? "actualité" : art.category}
+                        {art.category === "actualite" ? "actualité" : art.category === "formation" ? "vulgarisation" : art.category}
                       </Badge>
                     </div>
                   </div>
