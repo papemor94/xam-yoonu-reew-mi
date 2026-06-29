@@ -78,6 +78,58 @@ export default function FAQPage() {
     });
   }, [searchTerm, activeCategory]);
 
+  interface CommunityQuestion {
+    id: string;
+    author: string;
+    date: string;
+    question: string;
+    answer?: string;
+  }
+
+  const [communityQuestions, setCommunityQuestions] = useState<CommunityQuestion[]>([
+    {
+      id: "q-1",
+      author: "Modou Fall",
+      date: "Hier à 14:32",
+      question: "Est-ce qu'il y aura des sessions de formation en dehors de Toulouse, par exemple à Paris ou Dakar ?",
+      answer: "Bonjour Modou ! Oui, d'après notre feuille de route triennale 2027-2028, nous prévoyons de déployer des antennes physiques en Europe et d'ouvrir deux antennes opérationnelles au Sénégal pour mener des ateliers décentralisés."
+    },
+    {
+      id: "q-2",
+      author: "Fatou Ndiaye",
+      date: "Le 28/06/2026 à 10:15",
+      question: "Puis-je participer à la traduction des fiches juridiques si je ne suis pas juriste ?",
+      answer: "Bonjour Fatou, tout à fait ! Les compétences en wolof, sérère, ou pulaar sont extrêmement précieuses pour traduire fidèlement les concepts vulgarisés. Vous pouvez rejoindre la commission de vulgarisation sans formation juridique préalable."
+    }
+  ]);
+
+  const [newQuestionName, setNewQuestionName] = useState("");
+  const [newQuestionText, setNewQuestionText] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const handleSubmitQuestion = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newQuestionName.trim() || !newQuestionText.trim()) return;
+
+    setIsSubmitting(true);
+    setTimeout(() => {
+      const newQ: CommunityQuestion = {
+        id: `q-${Date.now()}`,
+        author: newQuestionName,
+        date: "À l'instant",
+        question: newQuestionText,
+        answer: "Merci pour votre question ! Notre équipe va l'étudier et y répondre dans les plus brefs délais."
+      };
+      setCommunityQuestions([newQ, ...communityQuestions]);
+      setNewQuestionName("");
+      setNewQuestionText("");
+      setIsSubmitting(false);
+      setSubmitSuccess(true);
+      setTimeout(() => setSubmitSuccess(false), 4000);
+    }, 1000);
+  };
+
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
@@ -181,17 +233,138 @@ export default function FAQPage() {
         )}
       </div>
 
-      {/* 4. CTA Block Aide supplémentaire */}
+      {/* 4. Espace d'Échange & Questions Communautaires (Nouveau) */}
+      <div className="border-t border-xyrm-slate-200 pt-16 space-y-12">
+        <div className="space-y-4 text-center">
+          <Badge variant="default" className="font-extrabold uppercase tracking-widest px-4 py-1 text-[11px] bg-xyrm-gold text-xyrm-slate-900 border-none">
+            Espace de Discussion
+          </Badge>
+          <h2 className="text-2xl md:text-4xl font-black tracking-tight text-xyrm-slate-900 leading-tight">
+            Questions de la Communauté
+          </h2>
+          <p className="text-xs md:text-sm text-xyrm-slate-500 font-light max-w-xl mx-auto">
+            Posez votre question ci-dessous de manière publique. Notre équipe ou les membres actifs y répondront directement.
+          </p>
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-5 items-start">
+          {/* Formulaire de question (2/5ème de la grille) */}
+          <div className="md:col-span-2 bg-white border border-xyrm-slate-200/80 rounded-2xl p-6 shadow-sm space-y-5">
+            <h3 className="text-sm font-extrabold text-xyrm-slate-900 uppercase tracking-wider">
+              Poser une Question
+            </h3>
+            
+            <form onSubmit={handleSubmitQuestion} className="space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-[11px] font-bold text-xyrm-slate-500 uppercase tracking-wider">
+                  Votre Nom / Pseudonyme <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Ex. Amadou"
+                  value={newQuestionName}
+                  onChange={(e) => setNewQuestionName(e.target.value)}
+                  className="w-full rounded-xl border border-xyrm-slate-200 bg-white px-3.5 py-2.5 text-xs text-xyrm-slate-800 focus:border-xyrm-green-primary focus:outline-none focus:ring-1 focus:ring-xyrm-green-primary"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-[11px] font-bold text-xyrm-slate-500 uppercase tracking-wider">
+                  Votre Question <span className="text-red-500">*</span>
+                </label>
+                <textarea
+                  required
+                  rows={4}
+                  placeholder="Écrivez votre question ici..."
+                  value={newQuestionText}
+                  onChange={(e) => setNewQuestionText(e.target.value)}
+                  className="w-full rounded-xl border border-xyrm-slate-200 bg-white px-3.5 py-2.5 text-xs text-xyrm-slate-800 focus:border-xyrm-green-primary focus:outline-none focus:ring-1 focus:ring-xyrm-green-primary resize-none"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full inline-flex h-10 items-center justify-center rounded-xl bg-xyrm-green-deep hover:bg-xyrm-green-primary text-xs font-bold text-white shadow-md transition-all disabled:opacity-50"
+              >
+                {isSubmitting ? "Envoi..." : "Publier la Question"}
+              </button>
+            </form>
+
+            {submitSuccess && (
+              <div className="rounded-xl bg-emerald-50 border border-emerald-100 p-3 text-center">
+                <p className="text-[11px] font-bold text-emerald-800">
+                  Votre question a été ajoutée avec succès ci-dessous !
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Liste des questions (3/5ème de la grille) */}
+          <div className="md:col-span-3 space-y-6">
+            <h3 className="text-sm font-extrabold text-xyrm-slate-900 uppercase tracking-wider pb-2 border-b border-xyrm-slate-100">
+              Discussions Récentes ({communityQuestions.length})
+            </h3>
+
+            <div className="space-y-6 max-h-[500px] overflow-y-auto pr-1">
+              {communityQuestions.map((q) => (
+                <div key={q.id} className="space-y-3.5 animate-fadeIn">
+                  {/* Bulle Question de l'utilisateur */}
+                  <div className="flex gap-3 items-start">
+                    <div className="h-8 w-8 rounded-full bg-xyrm-slate-100 border border-xyrm-slate-200/50 flex items-center justify-center shrink-0">
+                      <span className="text-xs font-black text-xyrm-slate-650 uppercase">
+                        {q.author.slice(0, 2)}
+                      </span>
+                    </div>
+                    <div className="bg-xyrm-slate-50 border border-xyrm-slate-200/40 rounded-2xl rounded-tl-none p-4 max-w-[90%] space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-extrabold text-xyrm-slate-900">{q.author}</span>
+                        <span className="text-[10px] text-xyrm-slate-400 font-light">{q.date}</span>
+                      </div>
+                      <p className="text-xs md:text-sm text-xyrm-slate-700 leading-relaxed font-light">
+                        {q.question}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Réponse de l'équipe (si présente) */}
+                  {q.answer && (
+                    <div className="flex gap-3 items-start justify-end pl-8">
+                      <div className="bg-xyrm-green-deep/5 border border-xyrm-green-primary/20 border-l-2 border-l-xyrm-green-primary rounded-2xl rounded-tr-none p-4 max-w-[90%] space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-black text-xyrm-green-deep">Équipe Xam Yoonu Reew Mi</span>
+                          <span className="rounded-full bg-xyrm-gold/15 text-xyrm-gold text-[9px] font-black px-1.5 py-0.5 tracking-wider uppercase shrink-0">
+                            Modérateur
+                          </span>
+                        </div>
+                        <p className="text-xs md:text-sm text-xyrm-slate-700 leading-relaxed font-light">
+                          {q.answer}
+                        </p>
+                      </div>
+                      <div className="h-8 w-8 rounded-full bg-xyrm-green-deep flex items-center justify-center shrink-0 shadow-sm border border-xyrm-green-primary/10">
+                        <span className="text-[9px] font-black text-white">XYRM</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 5. CTA Block Aide supplémentaire */}
       <div className="bg-xyrm-slate-50 border border-xyrm-slate-200/60 rounded-3xl p-8 md:p-10 text-center space-y-6 max-w-3xl mx-auto">
         <div className="space-y-3">
           <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-xyrm-green-deep/5 text-xyrm-green-primary">
             <MessageSquare className="h-5.5 w-5.5" />
           </div>
           <h3 className="text-lg md:text-xl font-black text-xyrm-slate-900">
-            Vous avez d&apos;autres questions ?
+            Besoin d&apos;un échange privé ?
           </h3>
           <p className="text-xs md:text-sm text-xyrm-slate-500 font-light leading-relaxed max-w-lg mx-auto">
-            Notre équipe est à votre disposition pour vous éclairer sur nos activités, notre charte éthique ou vous aider dans votre démarche d&apos;adhésion.
+            Si votre demande nécessite de partager des données personnelles ou d&apos;aborder un sujet confidentiel, veuillez nous envoyer un message direct.
           </p>
         </div>
         <div className="pt-1">
