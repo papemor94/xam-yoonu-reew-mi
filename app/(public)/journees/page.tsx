@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Calendar, MapPin, ArrowRight, Video } from "lucide-react";
+import { Calendar, MapPin, ArrowRight } from "lucide-react";
 import { mockJournees } from "@/data/mock/journees";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
@@ -68,12 +68,6 @@ export default function JourneesPage() {
                 <div className="space-y-4">
                   <div className="flex items-center gap-2">
                     <Badge variant="envoyee">Bilan disponible</Badge>
-                    {item.youtubeId && (
-                      <span className="inline-flex items-center gap-1 text-xxs font-bold text-xyrm-green-light bg-xyrm-green-deep/5 px-2 py-0.5 rounded-full border border-xyrm-green-light/10">
-                        <Video className="h-3 w-3" />
-                        Vidéo incluse
-                      </span>
-                    )}
                   </div>
                   
                   <h4 className="text-xl font-bold text-xyrm-slate-900 group-hover:text-xyrm-green-primary transition-colors leading-snug">
