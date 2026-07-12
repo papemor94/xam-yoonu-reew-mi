@@ -128,19 +128,19 @@ export default function Footer() {
               <li className="flex items-start gap-2.5">
                 <MapPin className="h-4.5 w-4.5 text-xyrm-gold shrink-0 mt-0.5" />
                 <span className="font-light text-white/70">
-                  Dakar, Sénégal / Toulouse, France
+                  Toulouse, France
                 </span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="h-4.5 w-4.5 text-xyrm-gold shrink-0" />
                 <span className="font-light text-white/70">
-                  +221 77 000 00 00 / +33 6 00 00 00 00
+                  +33 7 82 56 32 76
                 </span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="h-4.5 w-4.5 text-xyrm-gold shrink-0" />
                 <span className="font-light text-white/70 hover:text-xyrm-gold transition-colors">
-                  contact@xamyoonureewmi.org
+                  papemor94@gmail.com
                 </span>
               </li>
             </ul>

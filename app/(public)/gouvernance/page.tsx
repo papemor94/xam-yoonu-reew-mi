@@ -262,8 +262,8 @@ export default function GouvernancePage() {
                 key={comm.id}
                 onClick={() => setSelectedCommission(idx)}
                 className={`w-full text-left p-4 rounded-2xl border transition-all duration-200 flex items-center gap-4 ${selectedCommission === idx
-                    ? "bg-white border-xyrm-gold shadow-md scale-[1.01]"
-                    : "bg-transparent border-transparent hover:bg-white/50 text-xyrm-slate-500"
+                  ? "bg-white border-xyrm-gold shadow-md scale-[1.01]"
+                  : "bg-transparent border-transparent hover:bg-white/50 text-xyrm-slate-500"
                   }`}
               >
                 <div className={`p-2.5 rounded-xl text-white bg-gradient-to-r ${comm.color}`}>
