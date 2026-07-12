@@ -234,9 +234,9 @@ export default function AssociationPage() {
           return (
             <div
               key={phase.year}
-              className="grid md:grid-cols-12 gap-8 items-start bg-white border border-xyrm-slate-200 rounded-3xl p-6 md:p-10 shadow-sm animate-fadeIn"
+              className="max-w-2xl mx-auto bg-white border border-xyrm-slate-200 rounded-3xl p-6 md:p-10 shadow-sm animate-fadeIn"
             >
-              <div className="md:col-span-8 space-y-6">
+              <div className="space-y-6">
                 <div className="space-y-2">
                   <Badge variant="envoyee" className="font-extrabold uppercase text-[10px]">
                     {phase.title}
@@ -263,28 +263,6 @@ export default function AssociationPage() {
                       </li>
                     ))}
                   </ul>
-                </div>
-              </div>
-
-              {/* Colonne latérale indicateurs */}
-              <div className="md:col-span-4 bg-xyrm-slate-50 rounded-2xl p-6 border border-xyrm-slate-100 space-y-4">
-                <h4 className="text-xs uppercase font-extrabold text-xyrm-slate-400 tracking-wider">
-                  Objectifs de fin d&apos;exercice :
-                </h4>
-                
-                <div className="space-y-4">
-                  <div className="p-3 bg-white rounded-xl border border-xyrm-slate-200">
-                    <span className="block text-xxs uppercase tracking-wider font-extrabold text-xyrm-slate-400">Membres</span>
-                    <span className="text-sm font-black text-xyrm-green-deep">{phase.metrics.members}</span>
-                  </div>
-                  <div className="p-3 bg-white rounded-xl border border-xyrm-slate-200">
-                    <span className="block text-xxs uppercase tracking-wider font-extrabold text-xyrm-slate-400">Antennes</span>
-                    <span className="text-sm font-black text-xyrm-green-deep">{phase.metrics.antennes}</span>
-                  </div>
-                  <div className="p-3 bg-white rounded-xl border border-xyrm-slate-200">
-                    <span className="block text-xxs uppercase tracking-wider font-extrabold text-xyrm-slate-400">Livrables</span>
-                    <span className="text-sm font-black text-xyrm-green-deep">{phase.metrics.productions}</span>
-                  </div>
                 </div>
               </div>
             </div>
