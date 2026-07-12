@@ -10,6 +10,7 @@ export interface Article {
   authorName: string;
   publishedAt: string;
   youtubeId?: string;
+  drivePhotoId?: string;
 }
 
 export const mockArticles: Article[] = [

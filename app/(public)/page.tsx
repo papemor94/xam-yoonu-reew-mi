@@ -286,6 +286,14 @@ export default function HomePage() {
                         </div>
                       </div>
                     </>
+                  ) : art.drivePhotoId ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img 
+                      src={`https://lh3.googleusercontent.com/d/${art.drivePhotoId}`} 
+                      alt={art.title} 
+                      className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
                   ) : (
                     <FileText className="h-8 w-8 text-xyrm-green-light opacity-45 group-hover:scale-105 transition-transform" />
                   )}

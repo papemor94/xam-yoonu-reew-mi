@@ -83,15 +83,29 @@ export default function JourneeDetailClient({ initialJournee, slug }: JourneeDet
         </div>
       </div>
 
-      {/* Video Embed */}
-      {displayJrn.youtubeId && (
+      {/* Video or Photo Embed */}
+      {displayJrn.youtubeId ? (
         <div className="space-y-3">
           <h3 className="text-lg font-black text-xyrm-slate-900 tracking-tight">
             Retour en Vidéo
           </h3>
           <YouTubeEmbed id={displayJrn.youtubeId} title={displayJrn.title} />
         </div>
-      )}
+      ) : displayJrn.drivePhotoId ? (
+        <div className="space-y-3">
+          <h3 className="text-lg font-black text-xyrm-slate-900 tracking-tight">
+            Illustration de la Journée
+          </h3>
+          <div className="w-full aspect-video rounded-2xl overflow-hidden border border-xyrm-slate-200 shadow-sm relative">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img 
+              src={`https://lh3.googleusercontent.com/d/${displayJrn.drivePhotoId}`} 
+              alt={displayJrn.title} 
+              className="h-full w-full object-cover" 
+            />
+          </div>
+        </div>
+      ) : null}
 
       {/* Bilan Content Card */}
       <Card className="p-8 md:p-10 shadow-sm border border-xyrm-slate-100 bg-white">

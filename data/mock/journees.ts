@@ -15,6 +15,7 @@ export interface JourneeItem {
   location: string;
   locationDetails: string;
   youtubeId?: string;
+  drivePhotoId?: string;
   timeline: JourneeTimelineEvent[];
   galleryPlaceholders: string[]; // Mocking image descriptions for visual rendering
 }

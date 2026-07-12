@@ -87,12 +87,21 @@ export default function ArticleDetailClient({ initialArticle, slug }: ArticleDet
         </div>
       </div>
       
-      {/* YouTube Video Embed if present */}
-      {displayArticle.youtubeId && (
+      {/* YouTube Video or Drive Photo Embed if present */}
+      {displayArticle.youtubeId ? (
         <div className="my-6">
           <YouTubeEmbed id={displayArticle.youtubeId} title={displayArticle.title} />
         </div>
-      )}
+      ) : displayArticle.drivePhotoId ? (
+        <div className="my-6 w-full aspect-video rounded-2xl overflow-hidden border border-xyrm-slate-200 shadow-sm relative">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img 
+            src={`https://lh3.googleusercontent.com/d/${displayArticle.drivePhotoId}`} 
+            alt={displayArticle.title} 
+            className="h-full w-full object-cover" 
+          />
+        </div>
+      ) : null}
 
       {/* Main Content Body */}
       <Card className="p-8 md:p-10 shadow-sm border border-xyrm-slate-100 bg-white">

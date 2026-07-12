@@ -68,7 +68,8 @@ function ActualitesAdminContent() {
       tags: [],
       authorName: "Comité de Rédaction",
       publishedAt: formattedDate,
-      youtubeId: ""
+      youtubeId: "",
+      drivePhotoId: ""
     });
     setTagsInput("");
     setIsModalOpen(true);
@@ -102,7 +103,8 @@ function ActualitesAdminContent() {
       tags: tags,
       authorName: currentArticle.authorName || "Comité de Rédaction",
       publishedAt: currentArticle.publishedAt || "14/06/2026",
-      youtubeId: currentArticle.youtubeId || undefined
+      youtubeId: currentArticle.youtubeId || undefined,
+      drivePhotoId: currentArticle.drivePhotoId || undefined
     };
 
     saveArticle(articleToSave);
@@ -210,8 +212,17 @@ function ActualitesAdminContent() {
                           <span className="font-bold text-xyrm-slate-900 group-hover:text-xyrm-green-primary transition-colors leading-snug">
                             {art.title}
                           </span>
-                          <span className="text-xxs text-xyrm-slate-400 font-mono mt-0.5">
-                            /{art.slug} {art.youtubeId && <Badge variant="default" className="ml-1.5 inline-flex items-center gap-0.5 text-[9px] bg-red-600 text-white border-red-600"><Video className="h-2.5 w-2.5" /> Vidéo</Badge>}
+                          <span className="text-xxs text-xyrm-slate-400 font-mono mt-0.5 flex flex-wrap items-center gap-1.5">
+                            /{art.slug}
+                            {art.youtubeId ? (
+                              <Badge variant="default" className="inline-flex items-center gap-0.5 text-[9px] bg-red-600 text-white border-red-600 px-1.5 py-0.2"><Video className="h-2.5 w-2.5" /> Vidéo</Badge>
+                            ) : art.drivePhotoId ? (
+                              <Badge variant="default" className="inline-flex items-center gap-0.5 text-[9px] bg-blue-600 text-white border-blue-600 px-1.5 py-0.2">
+                                <svg className="h-2.5 w-2.5" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                                </svg> Photo
+                              </Badge>
+                            ) : null}
                           </span>
                         </div>
                       </div>
@@ -377,19 +388,41 @@ function ActualitesAdminContent() {
                 </div>
               </div>
 
-              {/* YouTube Video ID */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-xyrm-slate-700 uppercase tracking-wider flex items-center gap-1.5">
-                  <Video className="h-4 w-4 text-red-650" />
-                  Identifiant de la Vidéo YouTube (Optionnel)
-                </label>
-                <input
-                  type="text"
-                  placeholder="Ex: VVnuJuLrpOQ (ID présent dans l'URL YouTube)"
-                  value={currentArticle.youtubeId || ""}
-                  onChange={(e) => setCurrentArticle({ ...currentArticle, youtubeId: e.target.value })}
-                  className="w-full rounded-xl border border-xyrm-slate-200 bg-white px-3.5 py-2 text-xs text-xyrm-slate-850 focus:border-xyrm-green-primary focus:outline-none focus:ring-1 focus:ring-xyrm-green-primary"
-                />
+              {/* Media selection (YouTube Video OR Google Drive Photo) */}
+              <div className="grid gap-4 sm:grid-cols-2">
+                {/* YouTube Video ID */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-xyrm-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                    <Video className="h-4 w-4 text-red-600" />
+                    Vidéo YouTube (Optionnel)
+                  </label>
+                  <input
+                    type="text"
+                    disabled={!!currentArticle.drivePhotoId}
+                    placeholder={currentArticle.drivePhotoId ? "Désactivé (photo active)" : "Ex: VVnuJuLrpOQ"}
+                    value={currentArticle.youtubeId || ""}
+                    onChange={(e) => setCurrentArticle({ ...currentArticle, youtubeId: e.target.value })}
+                    className="w-full rounded-xl border border-xyrm-slate-200 bg-white px-3.5 py-2 text-xs text-xyrm-slate-850 focus:border-xyrm-green-primary focus:outline-none focus:ring-1 focus:ring-xyrm-green-primary disabled:bg-xyrm-slate-50 disabled:text-xyrm-slate-400 disabled:cursor-not-allowed"
+                  />
+                </div>
+
+                {/* Google Drive Photo ID */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-xyrm-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                    <svg className="h-4 w-4 text-xyrm-green-primary" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z"/>
+                    </svg>
+                    Photo Google Drive (Optionnel)
+                  </label>
+                  <input
+                    type="text"
+                    disabled={!!currentArticle.youtubeId}
+                    placeholder={currentArticle.youtubeId ? "Désactivé (vidéo active)" : "ID Google Drive de la photo"}
+                    value={currentArticle.drivePhotoId || ""}
+                    onChange={(e) => setCurrentArticle({ ...currentArticle, drivePhotoId: e.target.value })}
+                    className="w-full rounded-xl border border-xyrm-slate-200 bg-white px-3.5 py-2 text-xs text-xyrm-slate-850 focus:border-xyrm-green-primary focus:outline-none focus:ring-1 focus:ring-xyrm-green-primary disabled:bg-xyrm-slate-50 disabled:text-xyrm-slate-400 disabled:cursor-not-allowed"
+                  />
+                </div>
               </div>
 
               {/* Excerpt (Chapeau) */}
