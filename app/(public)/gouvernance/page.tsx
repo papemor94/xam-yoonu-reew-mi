@@ -248,7 +248,7 @@ export default function GouvernancePage() {
           </div>
 
           {/* Contenu détaillé de la commission sélectionnée */}
-          <div className="md:col-span-7 bg-white rounded-2xl p-6 md:p-8 border border-xyrm-slate-200/60 shadow-sm space-y-6 min-h-[300px] flex flex-col justify-between">
+          <div className="md:col-span-7 bg-white rounded-2xl p-6 md:p-8 border border-xyrm-slate-200/60 shadow-sm space-y-6 min-h-[300px]">
             <div className="space-y-4">
               <span className="text-[10px] uppercase font-bold tracking-widest text-xyrm-gold-dark">
                 DÉTAIL DE LA COMMISSION
@@ -268,11 +268,6 @@ export default function GouvernancePage() {
                   </li>
                 ))}
               </ul>
-            </div>
-            
-            <div className="pt-4 border-t border-xyrm-slate-100 flex items-center justify-between text-xxs font-bold text-xyrm-slate-400">
-              <span>UPCS / STRUCTURES OPÉRATIONNELLES</span>
-              <span className="text-xyrm-green-primary">COMMISSION 0{commissions[selectedCommission].id + 1}</span>
             </div>
           </div>
         </div>
