@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { 
-  Scale, 
-  Video, 
-  HeartHandshake, 
-  Settings, 
-  Compass, 
-  CheckCircle2, 
-  Users, 
+import {
+  Scale,
+  Video,
+  HeartHandshake,
+  Settings,
+  Compass,
+  CheckCircle2,
+  Users,
   Workflow
 } from "lucide-react";
 import { Card } from "@/components/ui/Card";
@@ -17,20 +17,29 @@ import { Badge } from "@/components/ui/Badge";
 export default function GouvernancePage() {
   const [selectedCommission, setSelectedCommission] = useState(0);
 
+  const getGoogleDriveImageUrl = (url: string): string => {
+    if (!url) return "";
+    const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (match && match[1]) {
+      return `https://lh3.googleusercontent.com/d/${match[1]}`;
+    }
+    return url;
+  };
+
   const executiveBoard = [
-    { 
-      name: "Alassane DIA", 
-      role: "Président du Bureau Exécutif", 
-      image: "/alassane.png",
+    {
+      name: "Alassane DIA",
+      role: "Président du Bureau Exécutif",
+      image: "https://drive.google.com/file/d/1p5uQ4lnGQSR_-XPOsY1Bqy-PE9LOfqIC/view?usp=sharing",
       linkedin: "https://linkedin.com",
-      description: "Voté en Assemblée Générale à l'Université Toulouse Capitole. Dirige la politique générale de l'association." 
+      description: "Voté en Assemblée Générale à l'Université Toulouse Capitole. Dirige la politique générale de l'association."
     },
-    { 
-      name: "Amadou Sow NDIAYE", 
-      role: "Secrétaire Général", 
-      image: "/amadou.png",
+    {
+      name: "Amadou Sow NDIAYE",
+      role: "Secrétaire Général",
+      image: "https://drive.google.com/file/d/1p5uQ4lnGQSR_-XPOsY1Bqy-PE9LOfqIC/view?usp=sharing",
       linkedin: "https://linkedin.com",
-      description: "En charge de l'administration, des relations institutionnelles et du respect des statuts." 
+      description: "En charge de l'administration, des relations institutionnelles et du respect des statuts."
     }
   ];
 
@@ -87,7 +96,7 @@ export default function GouvernancePage() {
 
   return (
     <div className="space-y-20 py-8 md:py-16 max-w-5xl mx-auto px-4 md:px-6 animate-fadeIn">
-      
+
       {/* 1. Header principal */}
       <div className="space-y-4 text-center">
         <Badge variant="default" className="font-extrabold uppercase tracking-widest px-4 py-1 text-[11px] bg-xyrm-green-deep text-white border-none">
@@ -118,7 +127,7 @@ export default function GouvernancePage() {
 
           {/* Block Diagram Layout */}
           <div className="relative flex flex-col items-center gap-8">
-            
+
             {/* Top Level: Bureau Exécutif & Conseil Consultatif */}
             <div className="grid md:grid-cols-2 gap-8 w-full max-w-3xl relative">
               {/* Bureau Exécutif Block */}
@@ -202,7 +211,7 @@ export default function GouvernancePage() {
             <Card key={idx} className="p-6 text-center border border-xyrm-slate-200 bg-xyrm-slate-50/40 hover:bg-white hover:shadow-md transition-all duration-300 flex flex-col items-center justify-between">
               <div className="space-y-4 flex flex-col items-center">
                 <div className="h-20 w-20 rounded-full overflow-hidden mb-2 ring-4 ring-xyrm-gold/20 shrink-0">
-                  <img src={item.image} alt={`Photo de ${item.name}`} className="h-full w-full object-cover" />
+                  <img src={getGoogleDriveImageUrl(item.image)} alt={`Photo de ${item.name}`} className="h-full w-full object-cover" />
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-base font-black text-xyrm-slate-900">
@@ -217,15 +226,15 @@ export default function GouvernancePage() {
                 </p>
               </div>
               <div className="pt-4">
-                <a 
-                  href={item.linkedin} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href={item.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-xyrm-slate-100 hover:bg-[#0077b5] text-xyrm-slate-500 hover:text-white transition-all shadow-xxs"
                   aria-label={`Profil LinkedIn de ${item.name}`}
                 >
                   <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
-                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                   </svg>
                 </a>
               </div>
@@ -252,11 +261,10 @@ export default function GouvernancePage() {
               <button
                 key={comm.id}
                 onClick={() => setSelectedCommission(idx)}
-                className={`w-full text-left p-4 rounded-2xl border transition-all duration-200 flex items-center gap-4 ${
-                  selectedCommission === idx
+                className={`w-full text-left p-4 rounded-2xl border transition-all duration-200 flex items-center gap-4 ${selectedCommission === idx
                     ? "bg-white border-xyrm-gold shadow-md scale-[1.01]"
                     : "bg-transparent border-transparent hover:bg-white/50 text-xyrm-slate-500"
-                }`}
+                  }`}
               >
                 <div className={`p-2.5 rounded-xl text-white bg-gradient-to-r ${comm.color}`}>
                   <comm.icon className="h-5 w-5" />
@@ -280,7 +288,7 @@ export default function GouvernancePage() {
               <p className="text-xs md:text-sm text-xyrm-slate-500 font-light leading-relaxed">
                 {commissions[selectedCommission].mission}
               </p>
-              
+
               <ul className="space-y-2 pt-2">
                 {commissions[selectedCommission].details.map((detail, idx) => (
                   <li key={idx} className="flex items-start gap-2.5 text-xs text-xyrm-slate-600 font-light">
