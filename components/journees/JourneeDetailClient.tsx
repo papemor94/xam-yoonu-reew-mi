@@ -121,7 +121,7 @@ export default function JourneeDetailClient({ initialJournee, slug }: JourneeDet
           Résumé Synthétique
         </h3>
         <div 
-          className="prose prose-slate max-w-none prose-p:leading-relaxed prose-p:font-light prose-p:text-xyrm-slate-700 space-y-4"
+          className="prose prose-slate max-w-none prose-p:leading-relaxed prose-p:font-light prose-p:text-xyrm-slate-700"
           dangerouslySetInnerHTML={{ __html: displayJrn.description }}
         />
       </Card>

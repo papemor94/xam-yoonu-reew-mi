@@ -119,7 +119,7 @@ export default function ArticleDetailClient({ initialArticle, slug }: ArticleDet
       {/* Main Content Body */}
       <Card className="p-8 md:p-10 shadow-sm border border-xyrm-slate-100 bg-white">
         <div 
-          className="prose prose-slate max-w-none prose-headings:font-black prose-headings:text-xyrm-slate-900 prose-headings:mt-6 prose-p:leading-relaxed prose-p:font-light prose-p:text-xyrm-slate-700 prose-ul:list-disc prose-ul:pl-6 prose-ol:list-decimal prose-ol:pl-6 space-y-6"
+          className="prose prose-slate max-w-none prose-headings:font-black prose-headings:text-xyrm-slate-900 prose-headings:mt-6 prose-p:leading-relaxed prose-p:font-light prose-p:text-xyrm-slate-700 prose-ul:list-disc prose-ul:pl-6 prose-ol:list-decimal prose-ol:pl-6"
           dangerouslySetInnerHTML={{ __html: displayArticle.content }}
         />
       </Card>

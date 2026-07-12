@@ -62,14 +62,9 @@ export default function JourneesPage() {
                   </div>
                 </div>
               </div>
-
               {/* Details Content Side */}
               <div className="flex-1 p-6 md:p-8 flex flex-col justify-between">
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2">
-                    <Badge variant="envoyee">Bilan disponible</Badge>
-                  </div>
-                  
                   <h4 className="text-xl font-bold text-xyrm-slate-900 group-hover:text-xyrm-green-primary transition-colors leading-snug">
                     Bilan et Déroulement de l&apos;événement
                   </h4>
