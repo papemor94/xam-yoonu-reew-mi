@@ -27,21 +27,25 @@ export default function AdminContactsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editForm, setEditForm] = useState<ContactMessage | null>(null);
 
+  const loadContacts = () => {
+    getContacts().then((data) => setContacts(data));
+  };
+
   useEffect(() => {
     setMounted(true);
-    setContacts(getContacts());
+    loadContacts();
 
     const handleStorage = () => {
-      setContacts(getContacts());
+      loadContacts();
     };
     window.addEventListener("storage", handleStorage);
     return () => window.removeEventListener("storage", handleStorage);
   }, []);
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm("Êtes-vous sûr de vouloir supprimer ce message de contact ?")) {
-      deleteContact(id);
-      setContacts(getContacts());
+      await deleteContact(id);
+      loadContacts();
       if (selectedContact?.id === id) {
         setIsModalOpen(false);
       }
@@ -54,22 +58,22 @@ export default function AdminContactsPage() {
     setIsModalOpen(true);
   };
 
-  const handleUpdateStatus = (contact: ContactMessage, newStatus: "Nouveau" | "Traité" | "Archivé") => {
+  const handleUpdateStatus = async (contact: ContactMessage, newStatus: "Nouveau" | "Traité" | "Archivé") => {
     const updated = { ...contact, status: newStatus };
-    saveContact(updated);
-    setContacts(getContacts());
+    await saveContact(updated);
+    loadContacts();
     if (selectedContact?.id === contact.id) {
       setSelectedContact(updated);
       setEditForm(updated);
     }
   };
 
-  const handleSaveEdit = (e: React.FormEvent) => {
+  const handleSaveEdit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editForm) return;
 
-    saveContact(editForm);
-    setContacts(getContacts());
+    await saveContact(editForm);
+    loadContacts();
     setSelectedContact(editForm);
     setIsModalOpen(false);
   };

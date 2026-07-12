@@ -29,7 +29,7 @@ export default function HomePage() {
 
   useEffect(() => {
     setMounted(true);
-    setArticles(getArticles());
+    getArticles().then((data) => setArticles(data));
 
     // Date parser for DD/MM/YYYY
     const parseDate = (dateStr: string) => {
@@ -44,23 +44,24 @@ export default function HomePage() {
       return new Date();
     };
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    getJournees().then((dbJournees) => {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
 
-    const dbJournees = getJournees();
-    const sortedUpcoming = dbJournees
-      .filter((jrn) => {
-        const eventDate = parseDate(jrn.date);
-        eventDate.setHours(23, 59, 59, 999); // show on the event day itself
-        return eventDate >= today;
-      })
-      .sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime());
+      const sortedUpcoming = dbJournees
+        .filter((jrn) => {
+          const eventDate = parseDate(jrn.date);
+          eventDate.setHours(23, 59, 59, 999); // show on the event day itself
+          return eventDate >= today;
+        })
+        .sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime());
 
-    if (sortedUpcoming.length > 0) {
-      setUpcomingJrn(sortedUpcoming[0]);
-    } else {
-      setUpcomingJrn(null);
-    }
+      if (sortedUpcoming.length > 0) {
+        setUpcomingJrn(sortedUpcoming[0]);
+      } else {
+        setUpcomingJrn(null);
+      }
+    });
   }, []);
 
   const latestArticles = (mounted ? articles : mockArticles).slice(0, 3);

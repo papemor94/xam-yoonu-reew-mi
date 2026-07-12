@@ -33,7 +33,7 @@ function ActualitesAdminContent() {
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
   useEffect(() => {
-    setArticles(getArticles());
+    loadArticles();
 
     if (searchParams.get("action") === "create") {
       handleOpenCreate();
@@ -42,7 +42,7 @@ function ActualitesAdminContent() {
   }, [searchParams, router]);
 
   const loadArticles = () => {
-    setArticles(getArticles());
+    getArticles().then((data) => setArticles(data));
   };
 
   const generateSlug = (title: string): string => {
@@ -81,7 +81,7 @@ function ActualitesAdminContent() {
     setIsModalOpen(true);
   };
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!currentArticle.title?.trim()) return;
 
@@ -107,13 +107,13 @@ function ActualitesAdminContent() {
       drivePhotoId: currentArticle.drivePhotoId || undefined
     };
 
-    saveArticle(articleToSave);
+    await saveArticle(articleToSave);
     setIsModalOpen(false);
     loadArticles();
   };
 
-  const handleDelete = (id: string) => {
-    deleteArticle(id);
+  const handleDelete = async (id: string) => {
+    await deleteArticle(id);
     setDeleteConfirmId(null);
     loadArticles();
   };

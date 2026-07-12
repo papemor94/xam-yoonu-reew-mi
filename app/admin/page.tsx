@@ -21,21 +21,30 @@ export default function AdminDashboardPage() {
     contacts: 0,
   });
 
+  const loadCounts = async () => {
+    try {
+      const [articlesData, journeesData, contactsData] = await Promise.all([
+        getArticles(),
+        getJournees(),
+        getContacts()
+      ]);
+      setCounts({
+        articles: articlesData.length,
+        journees: journeesData.length,
+        contacts: contactsData.length,
+      });
+    } catch (e) {
+      console.error("Error loading counts:", e);
+    }
+  };
+
   useEffect(() => {
     setMounted(true);
-    setCounts({
-      articles: getArticles().length,
-      journees: getJournees().length,
-      contacts: getContacts().length,
-    });
+    loadCounts();
 
     // Listen for storage events to update counts dynamically
     const handleStorageChange = () => {
-      setCounts({
-        articles: getArticles().length,
-        journees: getJournees().length,
-        contacts: getContacts().length,
-      });
+      loadCounts();
     };
     window.addEventListener("storage", handleStorageChange);
     return () => window.removeEventListener("storage", handleStorageChange);

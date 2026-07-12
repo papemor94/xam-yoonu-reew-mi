@@ -14,7 +14,7 @@ export default function JourneesPage() {
 
   useEffect(() => {
     setMounted(true);
-    setJournees(getJournees());
+    getJournees().then((data) => setJournees(data));
   }, []);
 
   const displayJournees = mounted ? journees : mockJournees;

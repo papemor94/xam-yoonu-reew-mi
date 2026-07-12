@@ -70,7 +70,7 @@ export default function ActualitesPage() {
 
   useEffect(() => {
     setMounted(true);
-    setArticles(getArticles());
+    getArticles().then((data) => setArticles(data));
   }, []);
 
   const [searchTerm, setSearchTerm] = useState("");

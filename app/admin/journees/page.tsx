@@ -33,7 +33,7 @@ function JourneesAdminContent() {
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
   useEffect(() => {
-    setJournees(getJournees());
+    loadJournees();
 
     if (searchParams.get("action") === "create") {
       handleOpenCreate();
@@ -42,7 +42,7 @@ function JourneesAdminContent() {
   }, [searchParams, router]);
 
   const loadJournees = () => {
-    setJournees(getJournees());
+    getJournees().then((data) => setJournees(data));
   };
 
   const generateSlug = (title: string): string => {
@@ -84,7 +84,7 @@ function JourneesAdminContent() {
 
 
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!currentJrn.title?.trim()) return;
 
@@ -106,13 +106,13 @@ function JourneesAdminContent() {
       galleryPlaceholders: []
     };
 
-    saveJournee(jrnToSave);
+    await saveJournee(jrnToSave);
     setIsModalOpen(false);
     loadJournees();
   };
 
-  const handleDelete = (id: string) => {
-    deleteJournee(id);
+  const handleDelete = async (id: string) => {
+    await deleteJournee(id);
     setDeleteConfirmId(null);
     loadJournees();
   };

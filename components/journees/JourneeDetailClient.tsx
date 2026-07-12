@@ -33,13 +33,14 @@ export default function JourneeDetailClient({ initialJournee, slug }: JourneeDet
 
   useEffect(() => {
     setMounted(true);
-    const dbJournees = getJournees();
-    const current = dbJournees.find((item) => item.slug === slug);
-    if (current) {
-      setJournee(current);
-    } else {
-      setJournee(null);
-    }
+    getJournees().then((dbJournees) => {
+      const current = dbJournees.find((item) => item.slug === slug);
+      if (current) {
+        setJournee(current);
+      } else {
+        setJournee(null);
+      }
+    });
   }, [slug]);
 
   const displayJrn = mounted ? journee : initialJournee;

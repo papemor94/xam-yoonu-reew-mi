@@ -34,16 +34,15 @@ export default function ContactPage() {
     return Object.keys(tempErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
       setIsSubmitting(true);
-      // Simulate API submit latency
-      setTimeout(() => {
-        const today = new Date();
-        const formattedDate = `${String(today.getDate()).padStart(2, "0")}/${String(today.getMonth() + 1).padStart(2, "0")}/${today.getFullYear()}`;
-        
-        saveContact({
+      const today = new Date();
+      const formattedDate = `${String(today.getDate()).padStart(2, "0")}/${String(today.getMonth() + 1).padStart(2, "0")}/${today.getFullYear()}`;
+      
+      try {
+        await saveContact({
           id: `c-${Date.now()}`,
           name: formData.fullName,
           email: formData.email,
@@ -56,10 +55,13 @@ export default function ContactPage() {
           isMembershipRequest: formData.isMembershipRequest
         });
 
-        setIsSubmitting(false);
         setSubmitted(true);
         setFormData({ fullName: "", email: "", phone: "", activitySector: "", subject: "", message: "", isMembershipRequest: false });
-      }, 1200);
+      } catch (err) {
+        console.error("Error saving contact message:", err);
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 

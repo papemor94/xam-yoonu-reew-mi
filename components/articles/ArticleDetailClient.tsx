@@ -33,15 +33,16 @@ export default function ArticleDetailClient({ initialArticle, slug }: ArticleDet
 
   useEffect(() => {
     setMounted(true);
-    const dbArticles = getArticles();
-    const decodedSlug = decodeURIComponent(slug).toLowerCase().trim();
-    const current = dbArticles.find((art) => decodeURIComponent(art.slug).toLowerCase().trim() === decodedSlug);
-    if (current) {
-      setArticle(current);
-    } else {
-      // If deleted or not found in local db, set to null
-      setArticle(null);
-    }
+    getArticles().then((dbArticles) => {
+      const decodedSlug = decodeURIComponent(slug).toLowerCase().trim();
+      const current = dbArticles.find((art) => decodeURIComponent(art.slug).toLowerCase().trim() === decodedSlug);
+      if (current) {
+        setArticle(current);
+      } else {
+        // If deleted or not found in local db, set to null
+        setArticle(null);
+      }
+    });
   }, [slug]);
 
   const displayArticle = mounted ? article : initialArticle;
