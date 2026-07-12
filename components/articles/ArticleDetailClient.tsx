@@ -14,6 +14,19 @@ interface ArticleDetailClientProps {
   slug: string;
 }
 
+const getGoogleDriveImageUrl = (idOrUrl: string): string => {
+  if (!idOrUrl) return "";
+  if (idOrUrl.startsWith("https://lh3.googleusercontent.com/")) return idOrUrl;
+  const match = idOrUrl.match(/\/d\/([a-zA-Z0-9_-]+)/) || idOrUrl.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (match && match[1]) {
+    return `https://lh3.googleusercontent.com/d/${match[1]}`;
+  }
+  if (idOrUrl.length > 15 && !idOrUrl.startsWith("http")) {
+    return `https://lh3.googleusercontent.com/d/${idOrUrl}`;
+  }
+  return idOrUrl;
+};
+
 export default function ArticleDetailClient({ initialArticle, slug }: ArticleDetailClientProps) {
   const [article, setArticle] = useState<Article | null>(initialArticle);
   const [mounted, setMounted] = useState(false);
@@ -96,7 +109,7 @@ export default function ArticleDetailClient({ initialArticle, slug }: ArticleDet
         <div className="my-6 w-full aspect-video rounded-2xl overflow-hidden border border-xyrm-slate-200 shadow-sm relative">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
-            src={`https://lh3.googleusercontent.com/d/${displayArticle.drivePhotoId}`} 
+            src={getGoogleDriveImageUrl(displayArticle.drivePhotoId)} 
             alt={displayArticle.title} 
             className="h-full w-full object-cover" 
           />

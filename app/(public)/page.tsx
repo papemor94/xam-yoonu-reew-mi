@@ -9,6 +9,19 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import { getArticles, getJournees } from "@/lib/db";
 import { JourneeItem } from "@/data/mock/journees";
 
+const getGoogleDriveImageUrl = (idOrUrl: string): string => {
+  if (!idOrUrl) return "";
+  if (idOrUrl.startsWith("https://lh3.googleusercontent.com/")) return idOrUrl;
+  const match = idOrUrl.match(/\/d\/([a-zA-Z0-9_-]+)/) || idOrUrl.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (match && match[1]) {
+    return `https://lh3.googleusercontent.com/d/${match[1]}`;
+  }
+  if (idOrUrl.length > 15 && !idOrUrl.startsWith("http")) {
+    return `https://lh3.googleusercontent.com/d/${idOrUrl}`;
+  }
+  return idOrUrl;
+};
+
 export default function HomePage() {
   const [articles, setArticles] = useState(mockArticles);
   const [upcomingJrn, setUpcomingJrn] = useState<JourneeItem | null>(null);
@@ -269,29 +282,19 @@ export default function HomePage() {
                 {/* Simulated cover card */}
                 <div className="h-44 w-full bg-xyrm-green-deep/5 rounded-xl border border-xyrm-slate-100 flex items-center justify-center relative overflow-hidden">
                   {art.youtubeId ? (
-                    <>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img 
-                        src={`https://img.youtube.com/vi/${art.youtubeId}/mqdefault.jpg`} 
-                        alt={art.title} 
-                        className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        loading="lazy"
-                      />
-                      {/* Play overlay button */}
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/15 group-hover:bg-black/25 transition-colors duration-300">
-                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-red-600 text-white shadow-lg transform group-hover:scale-110 transition-transform duration-300">
-                          <svg className="h-5 w-5 fill-current ml-0.5" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z" />
-                          </svg>
-                        </div>
-                      </div>
-                    </>
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img 
+                      src={`https://img.youtube.com/vi/${art.youtubeId}/mqdefault.jpg`} 
+                      alt={art.title} 
+                      className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
                   ) : art.drivePhotoId ? (
                     /* eslint-disable-next-line @next/next/no-img-element */
                     <img 
-                      src={`https://lh3.googleusercontent.com/d/${art.drivePhotoId}`} 
+                      src={getGoogleDriveImageUrl(art.drivePhotoId)} 
                       alt={art.title} 
-                      className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-350"
                       loading="lazy"
                     />
                   ) : (
