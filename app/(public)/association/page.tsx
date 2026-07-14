@@ -113,37 +113,45 @@ export default function AssociationPage() {
 
       {/* 2. Origine & Identité Éthique */}
       <section className="grid gap-8 md:grid-cols-12 items-stretch">
-        <div className="md:col-span-7 bg-gradient-to-br from-xyrm-green-deep to-xyrm-green-primary rounded-3xl p-8 md:p-10 text-white shadow-xl relative overflow-hidden flex flex-col justify-between border border-xyrm-green-light/20">
+        <div className="md:col-span-7 bg-gradient-to-b from-xyrm-green-deep to-xyrm-green-primary rounded-3xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden flex flex-col justify-between border border-xyrm-green-light/20 min-h-[380px]">
+          {/* Background glows */}
           <div className="absolute right-0 bottom-0 w-64 h-64 bg-xyrm-gold/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -left-16 -top-16 w-48 h-48 bg-xyrm-green-light/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="space-y-6">
-            <div className="inline-block bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-xs font-bold text-xyrm-gold uppercase tracking-wider">
-              Wolof : Connaître le Droit du Pays
+          <div className="space-y-6 relative">
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3.5 py-1 text-[9px] font-black uppercase tracking-widest text-xyrm-gold border border-white/5 backdrop-blur-sm shadow-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-xyrm-gold animate-pulse" />
+              WOLOF : CONNAÎTRE LE DROIT DU PAYS
             </div>
 
-            <h2 className="text-2xl font-black md:text-3.5xl tracking-tight leading-tight">
+            <h2 className="text-xl font-black md:text-3xl tracking-tight leading-tight bg-gradient-to-r from-white via-white to-xyrm-gold/90 text-transparent bg-clip-text">
               « Connaître la voie de la République »
             </h2>
 
-            <p className="text-sm md:text-base leading-relaxed text-white/90 font-light">
+            <p className="text-xs md:text-sm leading-relaxed text-amber-50/80 font-medium">
               L&apos;expression <strong>« Xam Yoonu Reew Mi »</strong> incarne le devoir républicain et civique. Notre vocation est d&apos;apporter la connaissance juridique et la compréhension des rouages de l&apos;État à chaque citoyen, en mobilisant les langues nationales sénégalaises (wolof, sérère, diola, pulaar, mandingue, soninké) autant que le français, l&apos;anglais ou l&apos;arabe.
             </p>
 
-            <p className="text-sm leading-relaxed text-white/80 font-light italic border-l-2 border-xyrm-gold pl-4">
-              Fondée le 18 octobre 2025 à l&apos;Université Toulouse Capitole, l&apos;association est à but non lucratif et régie par la loi du 1er juillet 1901.
-            </p>
+            <div className="bg-white/5 border border-white/5 rounded-2xl p-4 shadow-inner relative mt-4">
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-xyrm-gold via-xyrm-gold/50 to-transparent rounded-l-2xl" />
+              <p className="text-xxs md:text-xs text-amber-50/70 font-semibold leading-relaxed italic pl-3">
+                Fondée le 18 octobre 2025 à l&apos;Université Toulouse Capitole, l&apos;association est à but non lucratif et régie par la loi du 1er juillet 1901.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div className="md:col-span-5 bg-white border border-xyrm-slate-200 rounded-3xl p-8 shadow-sm flex flex-col justify-between space-y-6">
-          <div className="space-y-4">
-            <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-xyrm-gold/10 text-xyrm-gold-dark">
+        <div className="md:col-span-5 bg-white border border-xyrm-slate-200/80 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col justify-between space-y-6 relative overflow-hidden">
+          <div className="absolute -right-16 -top-16 w-32 h-32 bg-xyrm-gold/5 rounded-full blur-2xl pointer-events-none" />
+          <div className="space-y-4 relative">
+            <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-xyrm-gold/10 text-xyrm-gold border border-xyrm-gold/10 shadow-xxs">
               <Compass className="h-5 w-5" />
             </div>
-            <h3 className="text-xl font-black text-xyrm-slate-900 tracking-tight">
+            <h3 className="text-lg md:text-xl font-black text-xyrm-slate-900 tracking-tight">
               Indépendance et Charte Éthique
             </h3>
-            <p className="text-xs md:text-sm text-xyrm-slate-500 font-light leading-relaxed">
+            <div className="w-8 h-0.5 bg-gradient-to-r from-xyrm-green-deep to-xyrm-gold rounded-full" />
+            <p className="text-xs md:text-sm text-xyrm-slate-600 font-light leading-relaxed">
               L&apos;association affirme son indépendance absolue à l&apos;égard de toute obédience politique ou religieuse. Elle offre un cadre neutre et inclusif qui respecte les convictions de chacun, en s&apos;inspirant des valeurs morales universelles et des traditions de solidarité de la société sénégalaise.
             </p>
           </div>
