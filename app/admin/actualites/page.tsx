@@ -15,6 +15,7 @@ import {
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { getArticles, saveArticle, deleteArticle } from "@/lib/db";
+import { convertPlaintextToHtml } from "@/lib/utils";
 import { Article } from "@/data/mock/articles";
 
 function ActualitesAdminContent() {
@@ -93,12 +94,14 @@ function ActualitesAdminContent() {
       ? tagsInput.split(",").map((t: string) => t.trim()).filter(Boolean)
       : currentArticle.tags || [];
 
+    const formattedContent = convertPlaintextToHtml(currentArticle.content || "");
+
     const articleToSave: Article = {
       id: currentArticle.id || `art-${Date.now()}`,
       slug: slug,
       title: currentArticle.title,
       excerpt: currentArticle.excerpt || "",
-      content: currentArticle.content || "",
+      content: formattedContent,
       category: currentArticle.category || "actualite",
       tags: tags,
       authorName: currentArticle.authorName || "Comité de Rédaction",
@@ -443,13 +446,13 @@ function ActualitesAdminContent() {
               {/* HTML Content */}
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-xyrm-slate-700 uppercase tracking-wider flex items-center justify-between">
-                  <span>Corps de l&apos;Article (Format HTML) <span className="text-red-500">*</span></span>
-                  <span className="text-[10px] text-xyrm-slate-400 font-normal lowercase">Balises autorisées: &lt;p&gt; &lt;h3&gt; &lt;strong&gt; &lt;ul&gt; &lt;li&gt;</span>
+                  <span>Corps de l&apos;Article <span className="text-red-500">*</span></span>
+                  <span className="text-[10px] text-xyrm-slate-400 font-normal lowercase">Saisissez du texte brut ou du HTML (les balises seront ajoutées au besoin)</span>
                 </label>
                 <textarea
                   required
                   rows={6}
-                  placeholder="<p>Rédigez le contenu de votre article ici en utilisant des paragraphes HTML...</p>"
+                  placeholder="Rédigez votre article. Vous pouvez saisir du texte simple (utilisez des lignes vides pour séparer les paragraphes) ou utiliser des balises comme <p>, <h3>, <strong>..."
                   value={currentArticle.content || ""}
                   onChange={(e) => setCurrentArticle({ ...currentArticle, content: e.target.value })}
                   className="w-full rounded-xl border border-xyrm-slate-200 bg-white px-3.5 py-2 text-xs text-xyrm-slate-850 font-mono focus:border-xyrm-green-primary focus:outline-none focus:ring-1 focus:ring-xyrm-green-primary"

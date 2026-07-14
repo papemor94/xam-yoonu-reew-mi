@@ -16,6 +16,7 @@ import {
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { getJournees, saveJournee, deleteJournee } from "@/lib/db";
+import { convertPlaintextToHtml } from "@/lib/utils";
 import { JourneeItem } from "@/data/mock/journees";
 
 function JourneesAdminContent() {
@@ -90,13 +91,15 @@ function JourneesAdminContent() {
 
     const slug = currentJrn.slug || generateSlug(currentJrn.title);
 
+    const formattedDescription = convertPlaintextToHtml(currentJrn.description || "");
+
     const jrnToSave: JourneeItem = {
       id: currentJrn.id || `jrn-${Date.now()}`,
       slug: slug,
       title: currentJrn.title,
       subtitle: currentJrn.subtitle || "Journée Xam Yoonu Reew Mi",
       summary: currentJrn.summary || "",
-      description: currentJrn.description || "",
+      description: formattedDescription,
       date: currentJrn.date || "14/06/2026",
       location: currentJrn.location || "Sénégal",
       locationDetails: currentJrn.locationDetails || "",
@@ -426,16 +429,16 @@ function JourneesAdminContent() {
                 />
               </div>
 
-              {/* HTML Detailed Description */}
+              {/* Detailed Description */}
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-xyrm-slate-700 uppercase tracking-wider flex items-center justify-between">
-                  <span>Compte-rendu détaillé (HTML) <span className="text-red-500">*</span></span>
-                  <span className="text-[10px] text-xyrm-slate-400 font-normal lowercase">Balises: &lt;p&gt; &lt;strong&gt; &lt;em&gt;</span>
+                  <span>Compte-rendu détaillé <span className="text-red-500">*</span></span>
+                  <span className="text-[10px] text-xyrm-slate-400 font-normal lowercase">Saisissez du texte brut ou du HTML (les balises seront ajoutées au besoin)</span>
                 </label>
                 <textarea
                   required
                   rows={4}
-                  placeholder="<p>Détaillez le déroulé global ou le bilan moral de cette journée d'activités...</p>"
+                  placeholder="Détaillez le déroulé de cette journée. Vous pouvez saisir du texte simple (des lignes vides séparent les paragraphes) ou utiliser du HTML..."
                   value={currentJrn.description || ""}
                   onChange={(e) => setCurrentJrn({ ...currentJrn, description: e.target.value })}
                   className="w-full rounded-xl border border-xyrm-slate-200 bg-white px-3.5 py-2 text-xs text-xyrm-slate-850 font-mono focus:border-xyrm-green-primary focus:outline-none focus:ring-1 focus:ring-xyrm-green-primary"
