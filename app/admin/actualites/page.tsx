@@ -2,14 +2,14 @@
 
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { 
-  BookOpen, 
-  Plus, 
-  Search, 
-  Edit2, 
-  Trash2, 
-  X, 
-  Save, 
+import {
+  BookOpen,
+  Plus,
+  Search,
+  Edit2,
+  Trash2,
+  X,
+  Save,
   Video
 } from "lucide-react";
 import { Card } from "@/components/ui/Card";
@@ -24,12 +24,12 @@ function ActualitesAdminContent() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState<"all" | Article["category"]>("all");
-  
+
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentArticle, setCurrentArticle] = useState<Partial<Article>>({});
   const [tagsInput, setTagsInput] = useState("");
-  
+
   // Delete confirm state
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
@@ -58,7 +58,7 @@ function ActualitesAdminContent() {
   const handleOpenCreate = () => {
     const today = new Date();
     const formattedDate = `${String(today.getDate()).padStart(2, "0")}/${String(today.getMonth() + 1).padStart(2, "0")}/${today.getFullYear()}`;
-    
+
     setCurrentArticle({
       id: "",
       slug: "",
@@ -89,7 +89,7 @@ function ActualitesAdminContent() {
 
     const rawSlug = currentArticle.slug?.trim() || currentArticle.title;
     const slug = generateSlug(rawSlug);
-    
+
     // Parse tags from the input tags
     const tags = tagsInput
       ? tagsInput.split(",").map((t: string) => t.trim()).filter(Boolean)
@@ -125,8 +125,8 @@ function ActualitesAdminContent() {
 
   const filteredArticles = articles.filter((art) => {
     const matchesTab = activeTab === "all" || art.category === activeTab;
-    const matchesSearch = art.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          art.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = art.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      art.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesTab && matchesSearch;
   });
 
@@ -136,7 +136,7 @@ function ActualitesAdminContent() {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-black text-xyrm-slate-900 tracking-tight">
-            Gestion des Actualités et Analyses
+            Gestion des Actualités et Vulgarisation
           </h1>
           <p className="text-xs text-xyrm-slate-500 font-light">
             Publiez des articles d&apos;éducation populaire, faites des analyses constitutionnelles ou relatez les initiatives de l&apos;UPCS.
@@ -179,11 +179,10 @@ function ActualitesAdminContent() {
             <button
               key={tab.value}
               onClick={() => setActiveTab(tab.value as Article["category"] | "all")}
-              className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-colors whitespace-nowrap ${
-                activeTab === tab.value
+              className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-colors whitespace-nowrap ${activeTab === tab.value
                   ? "bg-xyrm-green-deep text-white shadow-sm"
                   : "bg-xyrm-slate-100 hover:bg-xyrm-slate-200 text-xyrm-slate-700"
-              }`}
+                }`}
             >
               {tab.label}
             </button>
@@ -227,7 +226,7 @@ function ActualitesAdminContent() {
                             ) : art.drivePhotoId ? (
                               <Badge variant="default" className="inline-flex items-center gap-0.5 text-[9px] bg-blue-600 text-white border-blue-600 px-1.5 py-0.2">
                                 <svg className="h-2.5 w-2.5" fill="currentColor" viewBox="0 0 24 24">
-                                  <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                                  <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
                                 </svg> Photo
                               </Badge>
                             ) : null}
@@ -255,7 +254,7 @@ function ActualitesAdminContent() {
                         >
                           <Edit2 className="h-4 w-4" />
                         </button>
-                        
+
                         {deleteConfirmId === art.id ? (
                           <div className="flex items-center gap-1.5 animate-fadeIn">
                             <button
@@ -418,7 +417,7 @@ function ActualitesAdminContent() {
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold text-xyrm-slate-700 uppercase tracking-wider flex items-center gap-1.5">
                     <svg className="h-4 w-4 text-xyrm-green-primary" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z"/>
+                      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z" />
                     </svg>
                     Photo Google Drive (Optionnel)
                   </label>

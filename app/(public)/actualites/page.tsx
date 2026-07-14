@@ -58,12 +58,12 @@ export default function ActualitesPage() {
 
   return (
     <div className="space-y-12 py-8 md:py-12 animate-fadeIn max-w-6xl mx-auto">
-      
+
       {/* 1. Header */}
       <div className="space-y-4 text-center">
         <Badge variant="default" className="font-bold">PUBLICATIONS</Badge>
         <h1 className="text-3xl font-black text-xyrm-slate-900 md:text-5xl tracking-tight">
-          Actualités et Analyses
+          Actualités et Vulgarisation
         </h1>
         <p className="text-sm md:text-base text-xyrm-slate-500 font-light max-w-2xl mx-auto">
           Explorez nos articles d&apos;éducation populaire, comptes-rendus d&apos;ateliers et décryptages juridiques.
@@ -72,7 +72,7 @@ export default function ActualitesPage() {
 
       {/* 2. Controls: Search and Categories */}
       <div className="flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between border-b border-xyrm-slate-200 pb-6">
-        
+
         {/* Search */}
         <div className="relative w-full md:max-w-xs">
           <span className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -93,11 +93,10 @@ export default function ActualitesPage() {
             <button
               key={cat.value}
               onClick={() => setActiveCategory(cat.value as ArticleCategory)}
-              className={`rounded-lg px-4 py-2 text-xs font-bold whitespace-nowrap transition-colors ${
-                activeCategory === cat.value
+              className={`rounded-lg px-4 py-2 text-xs font-bold whitespace-nowrap transition-colors ${activeCategory === cat.value
                   ? "bg-xyrm-green-deep text-white shadow-sm"
                   : "bg-xyrm-slate-100 hover:bg-xyrm-slate-200 text-xyrm-slate-700"
-              }`}
+                }`}
             >
               {cat.label}
             </button>
@@ -115,11 +114,11 @@ export default function ActualitesPage() {
         </div>
       ) : filteredArticles.length > 0 ? (
         <div className={
-          filteredArticles.length === 1 
-            ? "flex justify-center" 
-            : filteredArticles.length === 2 
-            ? "flex flex-wrap justify-center gap-6" 
-            : "grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          filteredArticles.length === 1
+            ? "flex justify-center"
+            : filteredArticles.length === 2
+              ? "flex flex-wrap justify-center gap-6"
+              : "grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         }>
           {filteredArticles.map((art) => (
             <div key={art.id} className={filteredArticles.length <= 2 ? "w-full max-w-sm" : ""}>
@@ -129,17 +128,17 @@ export default function ActualitesPage() {
                   <div className="h-44 w-full bg-xyrm-green-deep/5 rounded-xl border border-xyrm-slate-100 flex items-center justify-center relative overflow-hidden">
                     {art.youtubeId ? (
                       /* eslint-disable-next-line @next/next/no-img-element */
-                      <img 
-                        src={`https://img.youtube.com/vi/${art.youtubeId}/mqdefault.jpg`} 
-                        alt={art.title} 
+                      <img
+                        src={`https://img.youtube.com/vi/${art.youtubeId}/mqdefault.jpg`}
+                        alt={art.title}
                         className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
                       />
                     ) : art.drivePhotoId ? (
                       /* eslint-disable-next-line @next/next/no-img-element */
-                      <img 
-                        src={getGoogleDriveImageUrl(art.drivePhotoId)} 
-                        alt={art.title} 
+                      <img
+                        src={getGoogleDriveImageUrl(art.drivePhotoId)}
+                        alt={art.title}
                         className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
                       />

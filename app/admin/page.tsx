@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { 
-  BookOpen, 
-  Calendar, 
-  Plus, 
+import {
+  BookOpen,
+  Calendar,
+  Plus,
   ArrowRight,
   Mail
 } from "lucide-react";
@@ -76,7 +76,7 @@ export default function AdminDashboardPage() {
         <Card className="hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
           <CardHeader className="flex flex-row items-center justify-between pb-3">
             <CardTitle className="text-xs font-bold uppercase tracking-wider text-xyrm-slate-500">
-              Actualités et Analyses
+              Actualités et Vulgarisation
             </CardTitle>
             <div className="rounded-xl bg-xyrm-green-deep/5 p-2.5 text-xyrm-green-primary">
               <BookOpen className="h-5 w-5" />
@@ -91,7 +91,7 @@ export default function AdminDashboardPage() {
                 Articles d&apos;éducation civique, communiqués et initiatives.
               </p>
             </div>
-            
+
             <div className="pt-4 border-t border-xyrm-slate-100 flex items-center justify-between gap-2">
               <Link
                 href="/admin/actualites"
@@ -123,7 +123,7 @@ export default function AdminDashboardPage() {
                 Résumés d&apos;événements, timelines interactives et vidéos.
               </p>
             </div>
-            
+
             <div className="pt-4 border-t border-xyrm-slate-100 flex items-center justify-between gap-2">
               <Link
                 href="/admin/journees"
@@ -155,7 +155,7 @@ export default function AdminDashboardPage() {
                 Demandes de contact, d&apos;inscriptions ou adhésions.
               </p>
             </div>
-            
+
             <div className="pt-4 border-t border-xyrm-slate-100 flex items-center justify-between gap-2">
               <Link
                 href="/admin/contacts"
