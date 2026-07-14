@@ -182,11 +182,19 @@ export default function HomePage() {
 
       {/* 3. Core Pillars (Université Populaire Citoyenne et Solidaire) */}
       <section className="mx-auto max-w-7xl px-6 md:px-8 space-y-12">
-        <div className="text-center max-w-3xl mx-auto space-y-4">
-          <h2 className="text-3xl font-black text-xyrm-slate-900 md:text-4xl tracking-tight">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-xyrm-green-deep/5 via-xyrm-green-deep/[0.02] to-xyrm-gold/5 border border-xyrm-slate-100 p-8 md:p-12 text-center space-y-4 shadow-sm max-w-5xl mx-auto">
+          <div className="absolute -left-16 -top-16 w-36 h-36 bg-xyrm-green-light/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute -right-16 -bottom-16 w-36 h-36 bg-xyrm-gold/10 rounded-full blur-2xl pointer-events-none" />
+          
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-xyrm-green-deep/10 px-3.5 py-1 text-[10px] font-black uppercase tracking-widest text-xyrm-green-deep border border-xyrm-green-deep/10">
+            <span className="h-1.5 w-1.5 rounded-full bg-xyrm-gold animate-pulse" />
+            NOS PILIERS
+          </div>
+          <h2 className="text-2xl font-black text-xyrm-slate-900 md:text-3.5xl tracking-tight max-w-3xl mx-auto">
             Université Populaire Citoyenne et Solidaire
           </h2>
-          <p className="text-sm md:text-base text-xyrm-slate-500 font-light leading-relaxed">
+          <div className="w-12 h-1 bg-gradient-to-r from-xyrm-green-deep to-xyrm-gold mx-auto rounded-full" />
+          <p className="text-xs md:text-sm text-xyrm-slate-600 font-light max-w-2xl mx-auto leading-relaxed">
             Notre structure repose sur trois engagements fondamentaux pour émanciper, débattre et soutenir activement.
           </p>
         </div>
