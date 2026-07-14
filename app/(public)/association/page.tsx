@@ -152,11 +152,19 @@ export default function AssociationPage() {
 
       {/* 3. Les Trois Piliers Fondamentaux */}
       <section className="space-y-10">
-        <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <h2 className="text-2xl md:text-3.5xl font-black text-xyrm-slate-900 tracking-tight">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-xyrm-green-deep/5 via-xyrm-green-deep/[0.02] to-xyrm-gold/5 border border-xyrm-slate-100 p-8 md:p-12 text-center space-y-4 shadow-sm max-w-5xl mx-auto">
+          <div className="absolute -left-16 -top-16 w-36 h-36 bg-xyrm-green-light/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute -right-16 -bottom-16 w-36 h-36 bg-xyrm-gold/10 rounded-full blur-2xl pointer-events-none" />
+          
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-xyrm-green-deep/10 px-3.5 py-1 text-[10px] font-black uppercase tracking-widest text-xyrm-green-deep border border-xyrm-green-deep/10">
+            <span className="h-1.5 w-1.5 rounded-full bg-xyrm-gold animate-pulse" />
+            NOS ENGAGEMENTS
+          </div>
+          <h2 className="text-2xl font-black text-xyrm-slate-900 md:text-3.5xl tracking-tight max-w-3xl mx-auto">
             Les Trois Piliers de l&apos;UPCS
           </h2>
-          <p className="text-xs md:text-sm text-xyrm-slate-500 font-light">
+          <div className="w-12 h-1 bg-gradient-to-r from-xyrm-green-deep to-xyrm-gold mx-auto rounded-full" />
+          <p className="text-xs md:text-sm text-xyrm-slate-600 font-light max-w-2xl mx-auto leading-relaxed">
             Notre champ d&apos;action repose sur trois axes stratégiques indissociables.
           </p>
         </div>
@@ -204,11 +212,19 @@ export default function AssociationPage() {
 
       {/* 5. Feuille de Route Triennale */}
       <section className="space-y-10">
-        <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <h2 className="text-2xl md:text-3.5xl font-black text-xyrm-slate-900 tracking-tight">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-xyrm-green-deep/5 via-xyrm-green-deep/[0.02] to-xyrm-gold/5 border border-xyrm-slate-100 p-8 md:p-12 text-center space-y-4 shadow-sm max-w-5xl mx-auto">
+          <div className="absolute -left-16 -top-16 w-36 h-36 bg-xyrm-green-light/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute -right-16 -bottom-16 w-36 h-36 bg-xyrm-gold/10 rounded-full blur-2xl pointer-events-none" />
+          
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-xyrm-green-deep/10 px-3.5 py-1 text-[10px] font-black uppercase tracking-widest text-xyrm-green-deep border border-xyrm-green-deep/10">
+            <span className="h-1.5 w-1.5 rounded-full bg-xyrm-gold animate-pulse" />
+            FEUILLE DE ROUTE
+          </div>
+          <h2 className="text-2xl font-black text-xyrm-slate-900 md:text-3.5xl tracking-tight max-w-3xl mx-auto">
             Feuille de Route Triennale
           </h2>
-          <p className="text-xs md:text-sm text-xyrm-slate-500 font-light">
+          <div className="w-12 h-1 bg-gradient-to-r from-xyrm-green-deep to-xyrm-gold mx-auto rounded-full" />
+          <p className="text-xs md:text-sm text-xyrm-slate-600 font-light max-w-2xl mx-auto leading-relaxed">
             Découvrez nos grandes phases de croissance stratégique approuvées par le Bureau le 17 janvier 2026.
           </p>
         </div>

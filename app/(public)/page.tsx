@@ -263,22 +263,29 @@ export default function HomePage() {
 
       {/* 4. Latest News (Blog Grid) */}
       <section className="mx-auto max-w-7xl px-6 md:px-8 space-y-12">
-        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
-          <div className="space-y-2">
-            <h2 className="text-3xl font-black text-xyrm-slate-900 md:text-4xl tracking-tight">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-xyrm-green-deep/5 via-xyrm-green-deep/[0.02] to-xyrm-gold/5 border border-xyrm-slate-100 p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
+          <div className="absolute -left-16 -top-16 w-36 h-36 bg-xyrm-green-light/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute -right-16 -bottom-16 w-36 h-36 bg-xyrm-gold/10 rounded-full blur-2xl pointer-events-none" />
+          
+          <div className="space-y-3 relative text-left">
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-xyrm-green-deep/10 px-3 py-1 text-[9px] font-black uppercase tracking-widest text-xyrm-green-deep border border-xyrm-green-deep/10">
+              <span className="h-1 w-1 rounded-full bg-xyrm-gold animate-pulse" />
+              ACTUALITÉS & MÉDIAS
+            </div>
+            <h2 className="text-xl md:text-2.5xl font-black text-xyrm-slate-900 tracking-tight">
               Dernières Actualités
             </h2>
-            <p className="text-xs md:text-sm text-xyrm-slate-500 font-light">
+            <p className="text-xs md:text-sm text-xyrm-slate-600 font-light max-w-2xl leading-relaxed">
               Suivez l&apos;impact de nos actions et accédez à nos publications d&apos;éducation populaire.
             </p>
           </div>
 
           <Link
             href="/actualites"
-            className="group inline-flex items-center gap-1.5 text-sm font-bold text-xyrm-green-deep hover:text-xyrm-green-primary transition-colors"
+            className="group shrink-0 inline-flex h-11 items-center justify-center rounded-xl bg-xyrm-green-deep hover:bg-xyrm-green-primary px-6 text-xs font-bold text-white shadow-md transition-all hover:scale-105"
           >
             Voir Tous les Articles
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="h-4 w-4 ml-1.5 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
 

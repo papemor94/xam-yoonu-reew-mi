@@ -194,11 +194,19 @@ export default function GouvernancePage() {
 
       {/* 3. Le Bureau Exécutif Fondateur (Statuts) */}
       <section className="space-y-8">
-        <div className="text-center space-y-2 max-w-xl mx-auto">
-          <h2 className="text-2xl font-black text-xyrm-slate-900 tracking-tight">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-xyrm-green-deep/5 via-xyrm-green-deep/[0.02] to-xyrm-gold/5 border border-xyrm-slate-100 p-8 md:p-12 text-center space-y-4 shadow-sm max-w-5xl mx-auto">
+          <div className="absolute -left-16 -top-16 w-36 h-36 bg-xyrm-green-light/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute -right-16 -bottom-16 w-36 h-36 bg-xyrm-gold/10 rounded-full blur-2xl pointer-events-none" />
+          
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-xyrm-green-deep/10 px-3.5 py-1 text-[10px] font-black uppercase tracking-widest text-xyrm-green-deep border border-xyrm-green-deep/10">
+            <span className="h-1.5 w-1.5 rounded-full bg-xyrm-gold animate-pulse" />
+            ORGANES DIRIGEANTS
+          </div>
+          <h2 className="text-2xl font-black text-xyrm-slate-900 md:text-3.5xl tracking-tight max-w-3xl mx-auto">
             Le Bureau Exécutif
           </h2>
-          <p className="text-xs text-xyrm-slate-500 font-light">
+          <div className="w-12 h-1 bg-gradient-to-r from-xyrm-green-deep to-xyrm-gold mx-auto rounded-full" />
+          <p className="text-xs md:text-sm text-xyrm-slate-600 font-light max-w-2xl mx-auto leading-relaxed">
             Les membres fondateurs chargés de piloter l&apos;association au cours de son mandat triennal (2025-2028).
           </p>
         </div>
@@ -242,11 +250,16 @@ export default function GouvernancePage() {
 
       {/* 4. Les Commissions Opérationnelles (Règlement Intérieur) */}
       <section className="space-y-8 bg-xyrm-slate-50 rounded-3xl p-8 border border-xyrm-slate-100">
-        <div className="space-y-3 md:max-w-2xl">
+        <div className="space-y-3 md:max-w-3xl text-left relative">
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-xyrm-green-deep/10 px-3 py-1 text-[9px] font-black uppercase tracking-widest text-xyrm-green-deep border border-xyrm-green-deep/10">
+            <span className="h-1 w-1 rounded-full bg-xyrm-gold animate-pulse" />
+            RÈGLEMENT INTÉRIEUR
+          </div>
           <h2 className="text-2xl md:text-3.5xl font-black text-xyrm-slate-900 tracking-tight">
             Les Commissions Techniques
           </h2>
-          <p className="text-xs md:text-sm text-xyrm-slate-500 font-light leading-relaxed">
+          <div className="w-12 h-1 bg-gradient-to-r from-xyrm-green-deep to-xyrm-gold rounded-full" />
+          <p className="text-xs md:text-sm text-xyrm-slate-600 font-light leading-relaxed max-w-2xl">
             Le règlement intérieur de l&apos;association institue des commissions de travail chargées de planifier, exécuter et superviser les missions sur le terrain.
           </p>
         </div>
