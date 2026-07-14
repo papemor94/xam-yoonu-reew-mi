@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send, CheckCircle2, Clock } from "lucide-react";
 import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
 import { saveContact } from "@/lib/db";
 
 export default function ContactPage() {
@@ -82,12 +81,19 @@ export default function ContactPage() {
     <div className="space-y-12 py-8 md:py-12 animate-fadeIn max-w-6xl mx-auto">
       
       {/* Page Header */}
-      <div className="space-y-4 text-center">
-        <Badge variant="default" className="font-bold">CONTACT</Badge>
-        <h1 className="text-3xl font-black text-xyrm-slate-900 md:text-5xl tracking-tight">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-xyrm-green-deep/5 via-xyrm-green-deep/[0.02] to-xyrm-gold/5 border border-xyrm-slate-100 p-8 md:p-12 text-center space-y-4 shadow-sm">
+        <div className="absolute -left-16 -top-16 w-36 h-36 bg-xyrm-green-light/10 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute -right-16 -bottom-16 w-36 h-36 bg-xyrm-gold/10 rounded-full blur-2xl pointer-events-none" />
+        
+        <div className="inline-flex items-center gap-1.5 rounded-full bg-xyrm-green-deep/10 px-3.5 py-1 text-[10px] font-black uppercase tracking-widest text-xyrm-green-deep border border-xyrm-green-deep/10">
+          <span className="h-1.5 w-1.5 rounded-full bg-xyrm-gold animate-pulse" />
+          CONTACT
+        </div>
+        <h1 className="text-3xl font-black text-xyrm-slate-900 md:text-4.5xl tracking-tight max-w-3xl mx-auto">
           Entrer en Contact
         </h1>
-        <p className="text-sm md:text-base text-xyrm-slate-500 font-light max-w-2xl mx-auto">
+        <div className="w-12 h-1 bg-gradient-to-r from-xyrm-green-deep to-xyrm-gold mx-auto rounded-full" />
+        <p className="text-xs md:text-sm text-xyrm-slate-600 font-light max-w-2xl mx-auto leading-relaxed">
           Pour poser des questions sur nos ateliers, proposer des interventions ou soutenir nos actions, écrivez-nous.
         </p>
       </div>

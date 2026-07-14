@@ -90,14 +90,19 @@ export default function GouvernancePage() {
     <div className="space-y-20 py-8 md:py-16 max-w-5xl mx-auto px-4 md:px-6 animate-fadeIn">
 
       {/* 1. Header principal */}
-      <div className="space-y-4 text-center">
-        <Badge variant="default" className="font-extrabold uppercase tracking-widest px-4 py-1 text-[11px] bg-xyrm-green-deep text-white border-none">
-          Structure et Organisation
-        </Badge>
-        <h1 className="text-4xl font-black text-xyrm-slate-900 md:text-6xl tracking-tight leading-none">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-xyrm-green-deep/5 via-xyrm-green-deep/[0.02] to-xyrm-gold/5 border border-xyrm-slate-100 p-8 md:p-12 text-center space-y-4 shadow-sm">
+        <div className="absolute -left-16 -top-16 w-36 h-36 bg-xyrm-green-light/10 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute -right-16 -bottom-16 w-36 h-36 bg-xyrm-gold/10 rounded-full blur-2xl pointer-events-none" />
+        
+        <div className="inline-flex items-center gap-1.5 rounded-full bg-xyrm-green-deep/10 px-3.5 py-1 text-[10px] font-black uppercase tracking-widest text-xyrm-green-deep border border-xyrm-green-deep/10">
+          <span className="h-1.5 w-1.5 rounded-full bg-xyrm-gold animate-pulse" />
+          STRUCTURE ET ORGANISATION
+        </div>
+        <h1 className="text-3xl font-black text-xyrm-slate-900 md:text-4.5xl tracking-tight max-w-3xl mx-auto">
           Gouvernance Officielle
         </h1>
-        <p className="text-sm md:text-base text-xyrm-slate-500 font-light max-w-3xl mx-auto leading-relaxed">
+        <div className="w-12 h-1 bg-gradient-to-r from-xyrm-green-deep to-xyrm-gold mx-auto rounded-full" />
+        <p className="text-xs md:text-sm text-xyrm-slate-600 font-light max-w-2xl mx-auto leading-relaxed">
           Découvrez notre fonctionnement démocratique, le Bureau exécutif fondateur, le Conseil consultatif indépendant et nos commissions techniques de travail.
         </p>
       </div>
