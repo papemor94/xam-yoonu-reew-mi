@@ -11,7 +11,7 @@ import { getJournees } from "@/lib/db";
 import { JourneeItem } from "@/data/mock/journees";
 
 interface JourneeDetailClientProps {
-  initialJournee: JourneeItem;
+  initialJournee: JourneeItem | null;
   slug: string;
 }
 

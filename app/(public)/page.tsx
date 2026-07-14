@@ -1,60 +1,35 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { getGoogleDriveImageUrl } from "@/lib/utils";
 import Link from "next/link";
 import { ArrowRight, Calendar, User, FileText, Scale, Landmark, HeartHandshake } from "lucide-react";
-import { mockArticles } from "@/data/mock/articles";
 import { Badge } from "@/components/ui/Badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
-import { getArticles, getJournees } from "@/lib/db";
-import { JourneeItem } from "@/data/mock/journees";
+import { getArticlesServer, getJourneesServer } from "@/lib/db-server";
 
+export default async function HomePage() {
+  const articles = await getArticlesServer();
+  const journees = await getJourneesServer();
 
+  // Date parser for DD/MM/YYYY
+  const parseDate = (dateStr: string) => {
+    const parts = dateStr.split("/");
+    if (parts.length === 3) {
+      return new Date(
+        parseInt(parts[2], 10),
+        parseInt(parts[1], 10) - 1,
+        parseInt(parts[0], 10)
+      );
+    }
+    return new Date();
+  };
 
-export default function HomePage() {
-  const [articles, setArticles] = useState(mockArticles);
-  const [upcomingJrn, setUpcomingJrn] = useState<JourneeItem | null>(null);
-  const [mounted, setMounted] = useState(false);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-  useEffect(() => {
-    setMounted(true);
-    getArticles().then((data) => setArticles(data));
+  const upcomingJrn = journees
+    .filter((jrn) => parseDate(jrn.date) >= today)
+    .sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime())[0] || null;
 
-    // Date parser for DD/MM/YYYY
-    const parseDate = (dateStr: string) => {
-      const parts = dateStr.split("/");
-      if (parts.length === 3) {
-        return new Date(
-          parseInt(parts[2], 10),
-          parseInt(parts[1], 10) - 1,
-          parseInt(parts[0], 10)
-        );
-      }
-      return new Date();
-    };
-
-    getJournees().then((dbJournees) => {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-
-      const sortedUpcoming = dbJournees
-        .filter((jrn) => {
-          const eventDate = parseDate(jrn.date);
-          eventDate.setHours(23, 59, 59, 999); // show on the event day itself
-          return eventDate >= today;
-        })
-        .sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime());
-
-      if (sortedUpcoming.length > 0) {
-        setUpcomingJrn(sortedUpcoming[0]);
-      } else {
-        setUpcomingJrn(null);
-      }
-    });
-  }, []);
-
-  const latestArticles = (mounted ? articles : mockArticles)
+  const latestArticles = articles
     .filter((art) => art.isFeatured)
     .slice(0, 3);
 
@@ -289,13 +264,7 @@ export default function HomePage() {
           </Link>
         </div>
 
-        {!mounted ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="h-80 w-full bg-xyrm-slate-100/70 animate-pulse rounded-2xl border border-xyrm-slate-100" />
-            ))}
-          </div>
-        ) : latestArticles.length > 0 ? (
+        {latestArticles.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {latestArticles.map((art) => (
               <Card key={art.id} className="flex flex-col justify-between h-full group hover:shadow-lg transition-all duration-300">

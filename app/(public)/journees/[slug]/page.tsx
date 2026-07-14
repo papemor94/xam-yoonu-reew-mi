@@ -1,5 +1,5 @@
-import { mockJournees } from "@/data/mock/journees";
 import JourneeDetailClient from "@/components/journees/JourneeDetailClient";
+import { getJourneeBySlugServer, getJourneesServer } from "@/lib/db-server";
 
 interface JourneeDetailPageProps {
   params: {
@@ -7,30 +7,19 @@ interface JourneeDetailPageProps {
   };
 }
 
-export function generateStaticParams() {
-  return mockJournees.map((item) => ({
+export async function generateStaticParams() {
+  const journees = await getJourneesServer();
+  return journees.map((item) => ({
     slug: item.slug,
   }));
 }
 
-export default function JourneeDetailPage({ params }: JourneeDetailPageProps) {
-  const journee = mockJournees.find((item) => item.slug === params.slug);
+export default async function JourneeDetailPage({ params }: JourneeDetailPageProps) {
+  const journee = await getJourneeBySlugServer(params.slug);
 
   return (
     <JourneeDetailClient 
-      initialJournee={journee || {
-        id: "",
-        slug: params.slug,
-        title: "Chargement...",
-        subtitle: "Chargement...",
-        summary: "Chargement du compte-rendu...",
-        description: "<p>Chargement du contenu...</p>",
-        date: "",
-        location: "",
-        locationDetails: "",
-        timeline: [],
-        galleryPlaceholders: []
-      }} 
+      initialJournee={journee} 
       slug={params.slug} 
     />
   );

@@ -11,7 +11,7 @@ import { getArticles } from "@/lib/db";
 import { Article } from "@/data/mock/articles";
 
 interface ArticleDetailClientProps {
-  initialArticle: Article;
+  initialArticle: Article | null;
   slug: string;
 }
 

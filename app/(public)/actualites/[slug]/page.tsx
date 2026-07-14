@@ -1,5 +1,5 @@
-import { mockArticles } from "@/data/mock/articles";
 import ArticleDetailClient from "@/components/articles/ArticleDetailClient";
+import { getArticleBySlugServer, getArticlesServer } from "@/lib/db-server";
 
 interface ArticleDetailPageProps {
   params: {
@@ -7,29 +7,19 @@ interface ArticleDetailPageProps {
   };
 }
 
-export function generateStaticParams() {
-  return mockArticles.map((art) => ({
+export async function generateStaticParams() {
+  const articles = await getArticlesServer();
+  return articles.map((art) => ({
     slug: art.slug,
   }));
 }
 
-export default function ArticleDetailPage({ params }: ArticleDetailPageProps) {
-  const decodedSlug = decodeURIComponent(params.slug).toLowerCase().trim();
-  const article = mockArticles.find((art) => decodeURIComponent(art.slug).toLowerCase().trim() === decodedSlug);
+export default async function ArticleDetailPage({ params }: ArticleDetailPageProps) {
+  const article = await getArticleBySlugServer(params.slug);
 
   return (
     <ArticleDetailClient 
-      initialArticle={article || {
-        id: "",
-        slug: params.slug,
-        title: "Chargement...",
-        excerpt: "Chargement de l'article...",
-        content: "<p>Chargement du contenu...</p>",
-        category: "actualite",
-        tags: [],
-        authorName: "Chargement...",
-        publishedAt: ""
-      }} 
+      initialArticle={article} 
       slug={params.slug} 
     />
   );
