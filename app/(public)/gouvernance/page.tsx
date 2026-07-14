@@ -174,13 +174,13 @@ export default function GouvernancePage() {
                   Pôles Opérationnels de Terrain
                 </Badge>
               </div>
-              <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
+              <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
                 {commissions.map((comm) => (
-                  <div key={comm.id} className="bg-white border border-xyrm-slate-200 p-4 rounded-xl shadow-xxs text-center space-y-2 hover:border-xyrm-green-primary/45 transition-colors">
-                    <div className={`mx-auto flex h-8 w-8 items-center justify-center rounded-lg text-white bg-gradient-to-r ${comm.color}`}>
-                      <comm.icon className="h-4 w-4" />
+                  <div key={comm.id} className="bg-white border border-xyrm-slate-200/80 p-5 rounded-2xl shadow-xxs text-center space-y-3 hover:border-xyrm-green-primary/45 transition-all hover:shadow-xs group">
+                    <div className={`mx-auto flex h-9 w-9 items-center justify-center rounded-xl text-white bg-gradient-to-br ${comm.color} shadow-sm group-hover:scale-105 transition-transform`}>
+                      <comm.icon className="h-4.5 w-4.5" />
                     </div>
-                    <h5 className="text-xxs font-black text-xyrm-slate-900 leading-tight">
+                    <h5 className="text-xs md:text-sm font-bold text-xyrm-slate-900 leading-tight tracking-tight px-1">
                       {comm.title}
                     </h5>
                   </div>
