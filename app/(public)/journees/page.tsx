@@ -45,26 +45,30 @@ export default function JourneesPage() {
             <Card key={item.id} className="p-0 overflow-hidden flex flex-col md:flex-row hover:shadow-lg transition-all duration-300 group">
               
               {/* Visual Cover Side (replicates flyer theme) */}
-              <div className="md:w-1/3 bg-xyrm-green-deep p-8 text-white flex flex-col justify-between relative overflow-hidden shrink-0 min-h-[200px]">
-                <div className="absolute -left-12 -bottom-12 w-28 h-28 bg-xyrm-gold/15 rounded-full blur-2xl pointer-events-none" />
-                
-                <div className="space-y-2 relative">
-                  <p className="text-[10px] uppercase font-bold tracking-widest text-xyrm-gold">
+              <div className="md:w-1/3 bg-gradient-to-b from-xyrm-green-deep to-xyrm-green-primary p-6 md:p-8 text-white flex flex-col justify-between relative overflow-hidden shrink-0 min-h-[220px] border-r border-xyrm-green-light/10">
+                {/* Visual ambient glows */}
+                <div className="absolute -left-12 -bottom-12 w-32 h-32 bg-xyrm-gold/20 rounded-full blur-2xl pointer-events-none animate-pulse" />
+                <div className="absolute -right-12 -top-12 w-32 h-32 bg-xyrm-green-light/20 rounded-full blur-2xl pointer-events-none" />
+
+                <div className="space-y-3.5 relative">
+                  <div className="inline-flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-0.5 text-[8px] font-black uppercase tracking-widest text-xyrm-gold border border-white/5 backdrop-blur-sm shadow-sm">
+                    <span className="h-1 w-1 rounded-full bg-xyrm-gold animate-pulse" />
                     {item.subtitle}
-                  </p>
-                  <h3 className="text-lg font-black leading-snug">
+                  </div>
+                  
+                  <h3 className="text-base font-black leading-snug tracking-tight bg-gradient-to-br from-white to-amber-50/90 text-transparent bg-clip-text">
                     {item.title}
                   </h3>
                 </div>
 
-                <div className="space-y-2 pt-8 text-[11px] font-semibold text-white/80 relative">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-3.5 w-3.5 text-xyrm-gold" />
-                    <span>{item.date}</span>
+                <div className="space-y-2 pt-6 text-[10px] font-bold text-white relative">
+                  <div className="flex items-center gap-2 bg-white/5 border border-white/5 rounded-xl px-3 py-1.5 backdrop-blur-sm shadow-inner hover:bg-white/10 transition-all">
+                    <Calendar className="h-3.5 w-3.5 text-xyrm-gold shrink-0" />
+                    <span className="text-amber-50/90">{item.date}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="h-3.5 w-3.5 text-xyrm-gold" />
-                    <span>{item.location}</span>
+                  <div className="flex items-center gap-2 bg-white/5 border border-white/5 rounded-xl px-3 py-1.5 backdrop-blur-sm shadow-inner hover:bg-white/10 transition-all">
+                    <MapPin className="h-3.5 w-3.5 text-xyrm-gold shrink-0" />
+                    <span className="text-amber-50/90">{item.location}</span>
                   </div>
                 </div>
               </div>
