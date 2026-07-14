@@ -39,7 +39,13 @@ export default function JourneesPage() {
       </div>
 
       {/* 2. Journées List Grid */}
-      {displayJournees.length > 0 ? (
+      {!mounted ? (
+        <div className="grid gap-8 max-w-4xl mx-auto">
+          {[1, 2].map((i) => (
+            <div key={i} className="h-64 w-full bg-xyrm-slate-100/70 animate-pulse rounded-3xl border border-xyrm-slate-100" />
+          ))}
+        </div>
+      ) : displayJournees.length > 0 ? (
         <div className="grid gap-8 max-w-4xl mx-auto">
           {displayJournees.map((item) => (
             <Card key={item.id} className="p-0 overflow-hidden flex flex-col md:flex-row hover:shadow-lg transition-all duration-300 group">
