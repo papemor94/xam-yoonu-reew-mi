@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle2, Clock } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { saveContact } from "@/lib/db";
@@ -133,11 +133,30 @@ export default function ContactPage() {
                     <p className="text-white/85 hover:text-xyrm-gold transition-colors">contact@xamyoonureewmi.org</p>
                   </div>
                 </div>
+
+                <div className="flex items-start gap-3.5">
+                  <Clock className="h-5 w-5 text-xyrm-gold shrink-0 mt-0.5" />
+                  <div className="text-xs font-light space-y-1">
+                    <p className="font-bold text-white">Disponibilité</p>
+                    <p className="text-white/85">Lundi - Vendredi : 9h00 - 18h00</p>
+                    <p className="text-white/85">Samedi : 9h00 - 13h00 (GMT / CET)</p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="pt-8 text-[11px] text-white/50 border-t border-white/10 mt-8">
-              Xam Yoonu Reew Mi est enregistrée sous le régime associatif citoyen.
+            <div className="mt-8 pt-6 border-t border-white/10 space-y-4">
+              <div className="bg-white/10 rounded-xl p-4 border border-white/10 backdrop-blur-sm">
+                <p className="text-[10px] text-xyrm-gold font-bold uppercase tracking-wider">
+                  Notre Engagement
+                </p>
+                <p className="text-[10px] text-white/85 font-light mt-1 leading-relaxed">
+                  Nous répondons à toutes les sollicitations sous 48 heures ouvrées. Vos propositions d&apos;ateliers et suggestions de thématiques d&apos;utilité publique sont les bienvenues.
+                </p>
+              </div>
+              <div className="text-[10px] text-white/40 font-light leading-tight">
+                Xam Yoonu Reew Mi est enregistrée sous le régime associatif citoyen.
+              </div>
             </div>
           </Card>
         </div>
