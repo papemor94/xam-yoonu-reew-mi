@@ -11,6 +11,7 @@ export interface Article {
   publishedAt: string;
   youtubeId?: string;
   drivePhotoId?: string;
+  isFeatured?: boolean;
 }
 
 export const mockArticles: Article[] = [
@@ -19,6 +20,7 @@ export const mockArticles: Article[] = [
     slug: "diaspora-et-education-bilan-toulouse",
     title: "Diaspora et éducation : Bilan de la 1ère édition du Forum Participatif",
     excerpt: "Retour sur les échanges riches de notre première journée thématique tenue à Toulouse autour de l'éducation des enfants dans la diaspora.",
+    isFeatured: true,
     content: `
       <p>La première édition du Forum Participatif de <strong>Xam Yoonu Reew Mi</strong> s'est tenue avec succès à Toulouse, réunissant des dizaines de participants autour d'une question cruciale : <em>« L’éducation des enfants dans la diaspora : comment préserver les valeurs familiales ? »</em>.</p>
       
@@ -61,7 +63,8 @@ export const mockArticles: Article[] = [
     category: "actualite",
     tags: ["UPCS", "Lancement", "Citoyennété", "Savoir"],
     authorName: "Bureau Exécutif",
-    publishedAt: "10/05/2026"
+    publishedAt: "10/05/2026",
+    isFeatured: true
   },
   {
     id: "art-003",
@@ -81,6 +84,7 @@ export const mockArticles: Article[] = [
     category: "analyse",
     tags: ["Droit", "Constitution", "Civisme", "Institutions"],
     authorName: "Pôle Juridique XYRM",
-    publishedAt: "15/04/2026"
+    publishedAt: "15/04/2026",
+    isFeatured: true
   }
 ];

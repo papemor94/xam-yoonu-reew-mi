@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { 
-  TrendingUp, 
-  Users, 
-  Calendar, 
-  AlertCircle, 
-  Search, 
+import {
+  TrendingUp,
+  Users,
+  Calendar,
+  AlertCircle,
+  Search,
   Download
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/Card";
@@ -96,7 +96,7 @@ export default function DashboardPage() {
             Système de Gestion Financière & Adhésions
           </h2>
           <p className="text-white/85 text-xs md:text-sm italic font-light leading-relaxed border-l-2 border-xyrm-gold pl-4 max-w-3xl">
-            « Vulgariser le droit, les politiques publiques et toutes les sciences utiles à notre vivre-ensemble et à un développement harmonieux. »
+            « Vulgariser le droit, les politiques publiques et les sciences utiles au vivre-ensemble et au développement harmonieux de nos sociétés. »
           </p>
         </div>
       </div>
@@ -220,8 +220,8 @@ export default function DashboardPage() {
                     {formatCurrency(data.value)}
                   </div>
                   {/* Bar */}
-                  <div 
-                    className="w-full bg-xyrm-green-deep/10 group-hover:bg-xyrm-green-primary rounded-t-lg transition-all duration-500 ease-out" 
+                  <div
+                    className="w-full bg-xyrm-green-deep/10 group-hover:bg-xyrm-green-primary rounded-t-lg transition-all duration-500 ease-out"
                     style={{ height: data.height }}
                   />
                   <div className="w-1.5 h-1.5 rounded-full bg-xyrm-gold -mt-1 opacity-0 group-hover:opacity-100" />
@@ -231,7 +231,7 @@ export default function DashboardPage() {
                 </div>
               ))}
             </div>
-            
+
             <div className="flex items-center justify-between text-xs text-xyrm-slate-500 px-2">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1.5">
@@ -278,11 +278,10 @@ export default function DashboardPage() {
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
               <button
                 onClick={() => setFilter("all")}
-                className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
-                  filter === "all"
+                className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${filter === "all"
                     ? "bg-xyrm-green-deep text-white"
                     : "bg-xyrm-slate-100 hover:bg-xyrm-slate-200 text-xyrm-slate-700"
-                }`}
+                  }`}
               >
                 Tout
               </button>
@@ -290,11 +289,10 @@ export default function DashboardPage() {
                 <button
                   key={status}
                   onClick={() => setFilter(status)}
-                  className={`rounded-lg px-3 py-1.5 text-xs font-semibold capitalize transition-colors ${
-                    filter === status
+                  className={`rounded-lg px-3 py-1.5 text-xs font-semibold capitalize transition-colors ${filter === status
                       ? "bg-xyrm-green-deep text-white"
                       : "bg-xyrm-slate-100 hover:bg-xyrm-slate-200 text-xyrm-slate-700"
-                  }`}
+                    }`}
                 >
                   {status === "payee" ? "Payée" : status === "envoyee" ? "Envoyée" : status === "brouillon" ? "Brouillon" : "En retard"}
                 </button>

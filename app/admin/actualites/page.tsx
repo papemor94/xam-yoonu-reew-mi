@@ -70,7 +70,8 @@ function ActualitesAdminContent() {
       authorName: "Comité de Rédaction",
       publishedAt: formattedDate,
       youtubeId: "",
-      drivePhotoId: ""
+      drivePhotoId: "",
+      isFeatured: false
     });
     setTagsInput("");
     setIsModalOpen(true);
@@ -107,7 +108,8 @@ function ActualitesAdminContent() {
       authorName: currentArticle.authorName || "Comité de Rédaction",
       publishedAt: currentArticle.publishedAt || "14/06/2026",
       youtubeId: currentArticle.youtubeId || undefined,
-      drivePhotoId: currentArticle.drivePhotoId || undefined
+      drivePhotoId: currentArticle.drivePhotoId || undefined,
+      isFeatured: !!currentArticle.isFeatured
     };
 
     await saveArticle(articleToSave);
@@ -217,6 +219,9 @@ function ActualitesAdminContent() {
                           </span>
                           <span className="text-xxs text-xyrm-slate-400 font-mono mt-0.5 flex flex-wrap items-center gap-1.5">
                             /{art.slug}
+                            {art.isFeatured ? (
+                              <Badge variant="default" className="inline-flex items-center gap-0.5 text-[9px] bg-amber-500 text-white border-amber-500 px-1.5 py-0.2">★ En vedette</Badge>
+                            ) : null}
                             {art.youtubeId ? (
                               <Badge variant="default" className="inline-flex items-center gap-0.5 text-[9px] bg-red-600 text-white border-red-600 px-1.5 py-0.2"><Video className="h-2.5 w-2.5" /> Vidéo</Badge>
                             ) : art.drivePhotoId ? (
@@ -471,6 +476,20 @@ function ActualitesAdminContent() {
                   onChange={(e) => setTagsInput(e.target.value)}
                   className="w-full rounded-xl border border-xyrm-slate-200 bg-white px-3.5 py-2 text-xs text-xyrm-slate-850 focus:border-xyrm-green-primary focus:outline-none focus:ring-1 focus:ring-xyrm-green-primary"
                 />
+              </div>
+
+              {/* Featured checkbox */}
+              <div className="flex items-center gap-2 py-2 border-t border-b border-xyrm-slate-100">
+                <input
+                  type="checkbox"
+                  id="isFeatured"
+                  checked={!!currentArticle.isFeatured}
+                  onChange={(e) => setCurrentArticle({ ...currentArticle, isFeatured: e.target.checked })}
+                  className="h-4.5 w-4.5 rounded border-xyrm-slate-350 text-xyrm-green-primary focus:ring-xyrm-green-primary cursor-pointer"
+                />
+                <label htmlFor="isFeatured" className="text-xs font-bold text-xyrm-slate-700 uppercase tracking-wider cursor-pointer select-none">
+                  Mettre en valeur sur la page d&apos;accueil (Max 3 articles affichés)
+                </label>
               </div>
 
               {/* Save / Cancel footer */}

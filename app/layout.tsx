@@ -15,7 +15,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Xam Yoonu Reew Mi — Université Populaire Citoyenne et Solidaire",
-  description: "Vulgariser le droit, les politiques publiques et toutes les sciences utiles à notre vivre-ensemble et à un développement harmonieux.",
+  description: "Vulgariser le droit, les politiques publiques et les sciences utiles au vivre-ensemble et au développement harmonieux de nos sociétés.",
 };
 
 export default function RootLayout({

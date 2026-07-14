@@ -54,15 +54,17 @@ export default function HomePage() {
     });
   }, []);
 
-  const latestArticles = (mounted ? articles : mockArticles).slice(0, 3);
+  const latestArticles = (mounted ? articles : mockArticles)
+    .filter((art) => art.isFeatured)
+    .slice(0, 3);
 
   return (
     <div className="space-y-20 pb-20 animate-fadeIn">
-      
+
       {/* 1. Hero Section (Cinematic brand identity) */}
       <section className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-xyrm-green-deep to-xyrm-green-primary text-white shadow-2xl border border-xyrm-green-light/20">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-xyrm-gold/15 via-transparent to-transparent pointer-events-none" />
-        
+
         {/* Visual vertical bands like in the flyer */}
         <div className="absolute right-0 top-0 bottom-0 w-1/3 opacity-10 flex gap-4 pointer-events-none">
           <div className="w-1/3 bg-white h-full" />
@@ -82,9 +84,9 @@ export default function HomePage() {
           <h1 className="text-4xl font-black md:text-6xl tracking-tight leading-none text-white max-w-4xl mx-auto">
             XAM YOONU REEW MI
           </h1>
-          
+
           <p className="mx-auto max-w-2xl text-base md:text-lg text-white/90 leading-relaxed font-medium italic border-l-4 border-xyrm-gold pl-6 text-left">
-            « Vulgariser le droit, les politiques publiques et toutes les sciences utiles à notre vivre-ensemble et à un développement harmonieux. »
+            « Vulgariser le droit, les politiques publiques et les sciences utiles au vivre-ensemble et au développement harmonieux de nos sociétés. »
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
@@ -109,7 +111,7 @@ export default function HomePage() {
         <section className="mx-auto max-w-7xl px-6 md:px-8">
           <div className="rounded-3xl border border-xyrm-slate-200 bg-white p-8 md:p-12 shadow-lg relative overflow-hidden grid md:grid-cols-2 gap-8 items-center">
             <div className="absolute right-0 top-0 w-32 h-32 bg-xyrm-gold/5 rounded-full blur-2xl pointer-events-none" />
-            
+
             {/* Text Detail */}
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2">
@@ -128,7 +130,7 @@ export default function HomePage() {
                   {upcomingJrn.summary}
                 </p>
               </div>
-              
+
               <div className="flex flex-wrap gap-4 text-xs font-bold items-center">
                 <span className="bg-xyrm-green-deep text-white px-4 py-2.5 rounded-xl border border-xyrm-green-deep shadow-sm">
                   {upcomingJrn.date}
@@ -136,7 +138,7 @@ export default function HomePage() {
                 <span className="bg-white border border-xyrm-slate-200 text-xyrm-slate-700 px-4 py-2.5 rounded-xl">
                   {upcomingJrn.location}
                 </span>
-                
+
                 <Link
                   href={`/journees/${upcomingJrn.slug}`}
                   className="inline-flex h-9 items-center justify-center rounded-xl bg-xyrm-gold px-5 text-xs font-black text-xyrm-green-deep hover:bg-xyrm-gold/90 transition-all ml-auto hover:scale-105"
@@ -151,7 +153,7 @@ export default function HomePage() {
             <div className="relative h-64 md:h-80 w-full rounded-2xl bg-xyrm-green-deep flex flex-col justify-between p-6 overflow-hidden border border-xyrm-green-light/20 shadow-inner">
               <div className="absolute -left-16 -top-16 w-40 h-40 bg-xyrm-gold/10 rounded-full blur-3xl pointer-events-none" />
               <div className="absolute right-4 bottom-4 w-32 h-32 bg-xyrm-green-light/30 rounded-full blur-2xl pointer-events-none" />
-              
+
               {/* Logo watermark */}
               <div className="flex justify-between items-start w-full">
                 <div className="h-12 w-12 rounded-full overflow-hidden bg-white/10 p-1 shrink-0">
@@ -190,7 +192,7 @@ export default function HomePage() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
-          
+
           {/* Pillar 1: Vulgarisation du Droit */}
           <Card className="flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
             <CardHeader className="space-y-4">
@@ -215,7 +217,7 @@ export default function HomePage() {
                 <Landmark className="h-6 w-6" />
               </div>
               <CardTitle className="text-xl font-bold text-xyrm-slate-900">
-                Institutions et Politiques
+                Les politiques publiques et autres sciences utiles
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -256,7 +258,7 @@ export default function HomePage() {
               Suivez l&apos;impact de nos actions et accédez à nos publications d&apos;éducation populaire.
             </p>
           </div>
-          
+
           <Link
             href="/actualites"
             className="group inline-flex items-center gap-1.5 text-sm font-bold text-xyrm-green-deep hover:text-xyrm-green-primary transition-colors"
@@ -274,17 +276,17 @@ export default function HomePage() {
                 <div className="h-44 w-full bg-xyrm-green-deep/5 rounded-xl border border-xyrm-slate-100 flex items-center justify-center relative overflow-hidden">
                   {art.youtubeId ? (
                     /* eslint-disable-next-line @next/next/no-img-element */
-                    <img 
-                      src={`https://img.youtube.com/vi/${art.youtubeId}/mqdefault.jpg`} 
-                      alt={art.title} 
+                    <img
+                      src={`https://img.youtube.com/vi/${art.youtubeId}/mqdefault.jpg`}
+                      alt={art.title}
                       className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
                       loading="lazy"
                     />
                   ) : art.drivePhotoId ? (
                     /* eslint-disable-next-line @next/next/no-img-element */
-                    <img 
-                      src={getGoogleDriveImageUrl(art.drivePhotoId)} 
-                      alt={art.title} 
+                    <img
+                      src={getGoogleDriveImageUrl(art.drivePhotoId)}
+                      alt={art.title}
                       className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-350"
                       loading="lazy"
                     />
@@ -331,7 +333,7 @@ export default function HomePage() {
         <div className="rounded-3xl bg-xyrm-slate-900 p-8 md:p-12 text-center text-white shadow-xl relative overflow-hidden border border-xyrm-slate-800">
           <div className="absolute -left-20 -bottom-20 h-52 w-52 rounded-full bg-xyrm-gold/5 blur-3xl pointer-events-none" />
           <div className="absolute -right-20 -top-20 h-52 w-52 rounded-full bg-xyrm-green-light/10 blur-3xl pointer-events-none" />
-          
+
           <div className="relative max-w-2xl mx-auto space-y-6">
             <h3 className="text-2xl font-black md:text-3.5xl tracking-tight leading-tight">
               Bâtissons Ensemble une Citoyenneté Solidaire

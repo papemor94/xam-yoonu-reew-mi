@@ -91,7 +91,8 @@ const dbToJsArticle = (row: any): Article => ({
   authorName: row.author_name || "Comité de Rédaction",
   publishedAt: row.published_at,
   youtubeId: row.youtube_id || undefined,
-  drivePhotoId: row.drive_photo_id || undefined
+  drivePhotoId: row.drive_photo_id || undefined,
+  isFeatured: !!row.is_featured
 });
 
 const jsToDbArticle = (art: Article) => ({
@@ -105,7 +106,8 @@ const jsToDbArticle = (art: Article) => ({
   author_name: art.authorName || "Comité de Rédaction",
   published_at: art.publishedAt,
   youtube_id: art.youtubeId || null,
-  drive_photo_id: art.drivePhotoId || null
+  drive_photo_id: art.drivePhotoId || null,
+  is_featured: !!art.isFeatured
 });
 
 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
