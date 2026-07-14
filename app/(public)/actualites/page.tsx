@@ -107,7 +107,13 @@ export default function ActualitesPage() {
       </div>
 
       {/* 3. Grid List */}
-      {filteredArticles.length > 0 ? (
+      {!mounted ? (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="h-[400px] w-full bg-xyrm-slate-100/70 animate-pulse rounded-2xl border border-xyrm-slate-100" />
+          ))}
+        </div>
+      ) : filteredArticles.length > 0 ? (
         <div className={
           filteredArticles.length === 1 
             ? "flex justify-center" 

@@ -268,64 +268,76 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {latestArticles.map((art) => (
-            <Card key={art.id} className="flex flex-col justify-between h-full group hover:shadow-lg transition-all duration-300">
-              <div className="space-y-4">
-                {/* Simulated cover card */}
-                <div className="h-44 w-full bg-xyrm-green-deep/5 rounded-xl border border-xyrm-slate-100 flex items-center justify-center relative overflow-hidden">
-                  {art.youtubeId ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src={`https://img.youtube.com/vi/${art.youtubeId}/mqdefault.jpg`}
-                      alt={art.title}
-                      className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy"
-                    />
-                  ) : art.drivePhotoId ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src={getGoogleDriveImageUrl(art.drivePhotoId)}
-                      alt={art.title}
-                      className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-350"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <FileText className="h-8 w-8 text-xyrm-green-light opacity-45 group-hover:scale-105 transition-transform" />
-                  )}
-                  <div className="absolute right-3 top-3">
-                    <Badge variant={art.category === "initiative" ? "payee" : art.category === "actualite" ? "envoyee" : "default"}>
-                      {art.category}
-                    </Badge>
+        {!mounted ? (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-80 w-full bg-xyrm-slate-100/70 animate-pulse rounded-2xl border border-xyrm-slate-100" />
+            ))}
+          </div>
+        ) : latestArticles.length > 0 ? (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {latestArticles.map((art) => (
+              <Card key={art.id} className="flex flex-col justify-between h-full group hover:shadow-lg transition-all duration-300">
+                <div className="space-y-4">
+                  {/* Simulated cover card */}
+                  <div className="h-44 w-full bg-xyrm-green-deep/5 rounded-xl border border-xyrm-slate-100 flex items-center justify-center relative overflow-hidden">
+                    {art.youtubeId ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={`https://img.youtube.com/vi/${art.youtubeId}/mqdefault.jpg`}
+                        alt={art.title}
+                        className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                    ) : art.drivePhotoId ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={getGoogleDriveImageUrl(art.drivePhotoId)}
+                        alt={art.title}
+                        className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-350"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <FileText className="h-8 w-8 text-xyrm-green-light opacity-45 group-hover:scale-105 transition-transform" />
+                    )}
+                    <div className="absolute right-3 top-3">
+                      <Badge variant={art.category === "initiative" ? "payee" : art.category === "actualite" ? "envoyee" : "default"}>
+                        {art.category}
+                      </Badge>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 px-1">
+                    <div className="flex items-center gap-2 text-xxs text-xyrm-slate-400 font-bold uppercase tracking-wider">
+                      <span className="flex items-center gap-1"><User className="h-3 w-3" /> {art.authorName}</span>
+                      <span>•</span>
+                      <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {art.publishedAt}</span>
+                    </div>
+                    <h3 className="text-lg font-black text-xyrm-slate-900 group-hover:text-xyrm-green-primary transition-colors line-clamp-2 leading-snug">
+                      {art.title}
+                    </h3>
+                    <p className="text-xs text-xyrm-slate-500 font-light leading-relaxed line-clamp-3">
+                      {art.excerpt}
+                    </p>
                   </div>
                 </div>
 
-                <div className="space-y-2 px-1">
-                  <div className="flex items-center gap-2 text-xxs text-xyrm-slate-400 font-bold uppercase tracking-wider">
-                    <span className="flex items-center gap-1"><User className="h-3 w-3" /> {art.authorName}</span>
-                    <span>•</span>
-                    <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {art.publishedAt}</span>
-                  </div>
-                  <h3 className="text-lg font-black text-xyrm-slate-900 group-hover:text-xyrm-green-primary transition-colors line-clamp-2 leading-snug">
-                    {art.title}
-                  </h3>
-                  <p className="text-xs text-xyrm-slate-500 font-light leading-relaxed line-clamp-3">
-                    {art.excerpt}
-                  </p>
+                <div className="pt-6 px-1">
+                  <Link
+                    href={`/actualites/${art.slug}`}
+                    className="w-full inline-flex h-9 items-center justify-center rounded-lg border border-xyrm-slate-200 text-xs font-bold text-xyrm-slate-700 hover:bg-xyrm-slate-50 transition-colors"
+                  >
+                    Lire l&apos;Article
+                  </Link>
                 </div>
-              </div>
-
-              <div className="pt-6 px-1">
-                <Link
-                  href={`/actualites/${art.slug}`}
-                  className="w-full inline-flex h-9 items-center justify-center rounded-lg border border-xyrm-slate-200 text-xs font-bold text-xyrm-slate-700 hover:bg-xyrm-slate-50 transition-colors"
-                >
-                  Lire l&apos;Article
-                </Link>
-              </div>
-            </Card>
-          ))}
-        </div>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12 text-xyrm-slate-400 font-light">
+            Aucun article en vedette disponible pour le moment.
+          </div>
+        )}
       </section>
 
       {/* 5. CTA Section (Join / Support) */}
