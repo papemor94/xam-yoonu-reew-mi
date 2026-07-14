@@ -6,7 +6,7 @@ const isSupabaseConfigured = (): boolean => {
   return (
     typeof process.env.NEXT_PUBLIC_SUPABASE_URL === "string" &&
     process.env.NEXT_PUBLIC_SUPABASE_URL.trim() !== "" &&
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY === "string" &&
+    typeof process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY === "string" &&
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY.trim() !== ""
   );
 };
