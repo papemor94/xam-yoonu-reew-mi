@@ -30,14 +30,14 @@ export default function GouvernancePage() {
     {
       name: "Alassane DIA",
       role: "Président du Bureau Exécutif",
-      image: "https://drive.google.com/file/d/1p5uQ4lnGQSR_-XPOsY1Bqy-PE9LOfqIC/view?usp=sharing",
+      image: "/alassane.png",
       linkedin: "https://linkedin.com",
       description: "Voté en Assemblée Générale à l'Université Toulouse Capitole. Dirige la politique générale de l'association."
     },
     {
       name: "Amadou Sow NDIAYE",
       role: "Secrétaire Général",
-      image: "https://drive.google.com/file/d/1p5uQ4lnGQSR_-XPOsY1Bqy-PE9LOfqIC/view?usp=sharing",
+      image: "/amadou.png",
       linkedin: "https://linkedin.com",
       description: "En charge de l'administration, des relations institutionnelles et du respect des statuts."
     }

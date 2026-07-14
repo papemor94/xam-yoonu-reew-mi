@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { 
-  Landmark, 
-  Scale, 
-  HeartHandshake, 
-  Compass, 
+import {
+  Landmark,
+  Scale,
+  HeartHandshake,
+  Compass,
   ArrowRight
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
@@ -92,7 +92,7 @@ export default function AssociationPage() {
 
   return (
     <div className="space-y-20 py-8 md:py-16 max-w-5xl mx-auto px-4 md:px-6 animate-fadeIn">
-      
+
       {/* 1. Header principal */}
       <div className="space-y-4 text-center">
         <Badge variant="default" className="font-extrabold uppercase tracking-widest px-4 py-1 text-[11px] bg-xyrm-green-deep text-white border-none">
@@ -110,20 +110,20 @@ export default function AssociationPage() {
       <section className="grid gap-8 md:grid-cols-12 items-stretch">
         <div className="md:col-span-7 bg-gradient-to-br from-xyrm-green-deep to-xyrm-green-primary rounded-3xl p-8 md:p-10 text-white shadow-xl relative overflow-hidden flex flex-col justify-between border border-xyrm-green-light/20">
           <div className="absolute right-0 bottom-0 w-64 h-64 bg-xyrm-gold/10 rounded-full blur-3xl pointer-events-none" />
-          
+
           <div className="space-y-6">
             <div className="inline-block bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-xs font-bold text-xyrm-gold uppercase tracking-wider">
               Wolof : Connaître le Droit du Pays
             </div>
-            
+
             <h2 className="text-2xl font-black md:text-3.5xl tracking-tight leading-tight">
               « Connaître la voie de la République »
             </h2>
-            
+
             <p className="text-sm md:text-base leading-relaxed text-white/90 font-light">
               L&apos;expression <strong>« Xam Yoonu Reew Mi »</strong> incarne le devoir républicain et civique. Notre vocation est d&apos;apporter la connaissance juridique et la compréhension des rouages de l&apos;État à chaque citoyen, en mobilisant les langues nationales sénégalaises (wolof, sérère, diola, pulaar, mandingue, soninké) autant que le français, l&apos;anglais ou l&apos;arabe.
             </p>
-            
+
             <p className="text-sm leading-relaxed text-white/80 font-light italic border-l-2 border-xyrm-gold pl-4">
               Fondée le 18 octobre 2025 à l&apos;Université Toulouse Capitole, l&apos;association est à but non lucratif et régie par la loi du 1er juillet 1901.
             </p>
@@ -197,11 +197,11 @@ export default function AssociationPage() {
         </Link>
       </section>
 
-      {/* 5. Feuille de Route Triennale (2026-2028) */}
+      {/* 5. Feuille de Route Triennale */}
       <section className="space-y-10">
         <div className="text-center space-y-3 max-w-2xl mx-auto">
           <h2 className="text-2xl md:text-3.5xl font-black text-xyrm-slate-900 tracking-tight">
-            Feuille de Route Triennale (2026-2028)
+            Feuille de Route Triennale
           </h2>
           <p className="text-xs md:text-sm text-xyrm-slate-500 font-light">
             Découvrez nos grandes phases de croissance stratégique approuvées par le Bureau le 17 janvier 2026.
@@ -214,11 +214,10 @@ export default function AssociationPage() {
             <button
               key={phase.year}
               onClick={() => setSelectedYear(phase.year)}
-              className={`flex-1 text-center py-4 font-black text-sm tracking-widest relative transition-all ${
-                selectedYear === phase.year
-                  ? "text-xyrm-green-deep"
-                  : "text-xyrm-slate-400 hover:text-xyrm-slate-600"
-              }`}
+              className={`flex-1 text-center py-4 font-black text-sm tracking-widest relative transition-all ${selectedYear === phase.year
+                ? "text-xyrm-green-deep"
+                : "text-xyrm-slate-400 hover:text-xyrm-slate-600"
+                }`}
             >
               {phase.year}
               {selectedYear === phase.year && (
