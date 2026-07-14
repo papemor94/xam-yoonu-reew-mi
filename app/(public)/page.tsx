@@ -63,33 +63,39 @@ export default function HomePage() {
 
       {/* 1. Hero Section (Cinematic brand identity) */}
       <section className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-xyrm-green-deep to-xyrm-green-primary text-white shadow-2xl border border-xyrm-green-light/20">
+        {/* Ambient lighting mesh */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-xyrm-gold/15 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute -left-16 -top-16 w-64 h-64 bg-xyrm-gold/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
+        <div className="absolute right-10 bottom-10 w-72 h-72 bg-xyrm-green-light/15 rounded-full blur-3xl pointer-events-none" />
 
         {/* Visual vertical bands like in the flyer */}
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 opacity-10 flex gap-4 pointer-events-none">
-          <div className="w-1/3 bg-white h-full" />
-          <div className="w-1/3 bg-white h-full" />
-          <div className="w-1/3 bg-white h-full" />
+        <div className="absolute right-0 top-0 bottom-0 w-1/3 opacity-[0.04] flex gap-4 pointer-events-none">
+          <div className="w-1/3 bg-xyrm-gold h-full" />
+          <div className="w-1/3 bg-xyrm-gold h-full" />
+          <div className="w-1/3 bg-xyrm-gold h-full" />
         </div>
 
-        <div className="relative mx-auto max-w-6xl px-6 py-20 md:py-28 text-center space-y-8">
+        <div className="relative mx-auto max-w-6xl px-6 py-14 md:py-20 text-center space-y-8">
           {/* Logo badge */}
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 backdrop-blur-md border border-white/10 text-xs font-bold uppercase tracking-widest text-xyrm-gold">
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 backdrop-blur-md border border-white/10 text-[10px] font-black uppercase tracking-widest text-xyrm-gold">
             <div className="h-5 w-5 rounded-full overflow-hidden bg-white flex items-center justify-center shrink-0 shadow-sm">
               <img src="/logo.png" alt="Logo Xam Yoonu Reew Mi" className="h-full w-full object-cover" />
             </div>
             Université Populaire Citoyenne et Solidaire
           </div>
 
-          <h1 className="text-4xl font-black md:text-6xl tracking-tight leading-none text-white max-w-4xl mx-auto">
+          <h1 className="text-4xl font-black md:text-6.5xl tracking-tight leading-none bg-gradient-to-r from-white via-amber-50 to-xyrm-gold text-transparent bg-clip-text max-w-4xl mx-auto drop-shadow-sm">
             XAM YOONU REEW MI
           </h1>
 
-          <p className="mx-auto max-w-2xl text-base md:text-lg text-white/90 leading-relaxed font-medium italic border-l-4 border-xyrm-gold pl-6 text-left">
-            « Vulgariser le droit, les politiques publiques et les sciences utiles au vivre-ensemble et au développement harmonieux de nos sociétés. »
-          </p>
+          <div className="mx-auto max-w-2xl bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-5 md:p-6 shadow-inner relative">
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-xyrm-gold via-xyrm-gold/50 to-transparent rounded-l-2xl" />
+            <p className="text-xs md:text-sm text-amber-50/80 leading-relaxed font-semibold italic text-left pl-3">
+              « Vulgariser le droit, les politiques publiques et les sciences utiles au vivre-ensemble et au développement harmonieux de nos sociétés. »
+            </p>
+          </div>
 
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-2">
             <Link
               href="/association"
               className="w-full sm:w-auto inline-flex h-12 items-center justify-center rounded-xl bg-xyrm-gold px-8 text-sm font-black text-xyrm-green-deep shadow-lg hover:bg-xyrm-gold/90 transition-all hover:scale-105"
@@ -98,7 +104,7 @@ export default function HomePage() {
             </Link>
             <Link
               href="/journees"
-              className="w-full sm:w-auto inline-flex h-12 items-center justify-center rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 px-8 text-sm font-bold text-white transition-all"
+              className="w-full sm:w-auto inline-flex h-12 items-center justify-center rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 px-8 text-sm font-bold text-white transition-all hover:border-white/25"
             >
               Voir Nos Journées
             </Link>
