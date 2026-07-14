@@ -14,48 +14,89 @@ export function convertPlaintextToHtml(text: string): string {
   if (!text) return "";
   if (isHtml(text)) return text;
 
-  // Normalise les fins de ligne
-  let formatted = text.replace(/\r\n/g, "\n").trim();
+  // Normalise les fins de ligne et découpe par ligne après nettoyage des extrémintés
+  const lines = text.trim().replace(/\r\n/g, "\n").split("\n");
+  
+  let html = "";
+  let inList = false;
+  let currentParagraph = "";
 
-  // Convertit le gras **texte** en <strong>texte</strong> et l'italique *texte* en <em>texte</em>
-  formatted = formatted.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-  formatted = formatted.replace(/\*(.*?)\*/g, "<em>$1</em>");
+  const closeParagraph = () => {
+    if (currentParagraph) {
+      const trimmed = currentParagraph.trim();
+      // Si c'est court, sans ponctuation et sans retour chariot interne, on en fait un titre h3
+      if (trimmed.length < 80 && !/[.!?:]$/.test(trimmed) && !trimmed.includes("<br />")) {
+        html += `<h3>${trimmed}</h3>\n\n`;
+      } else {
+        html += `<p>${currentParagraph}</p>\n\n`;
+      }
+      currentParagraph = "";
+    }
+  };
 
-  // Découpe par blocs séparés par au moins deux retours à la ligne
-  const blocks = formatted.split(/\n{2,}/);
+  const closeList = () => {
+    if (inList) {
+      html += "</ul>\n\n";
+      inList = false;
+    }
+  };
 
-  const htmlBlocks = blocks.map((block) => {
-    const trimmedBlock = block.trim();
-    if (!trimmedBlock) return "";
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const trimmedLine = line.trim();
 
-    const lines = trimmedBlock.split("\n");
-
-    // Vérifie si c'est une liste à puces (lignes commençant par -, *, • ou des chiffres)
-    const isList = lines.every(line => /^\s*([-*•]|\d+\.)\s+/.test(line));
-    if (isList) {
-      const listItems = lines.map(line => {
-        const itemText = line.replace(/^\s*([-*•]|\d+\.)\s+/, "").trim();
-        return `  <li>${itemText}</li>`;
-      });
-      return `<ul>\n${listItems.join("\n")}\n</ul>`;
+    // Ligne vide : respecte l'espace
+    if (trimmedLine === "") {
+      closeList();
+      if (currentParagraph) {
+        closeParagraph();
+      } else {
+        // Ligne vide consécutive : on ajoute un <br /> pour respecter l'espacement
+        html += "<br />\n";
+      }
+      continue;
     }
 
-    // Vérifie si c'est un titre (commence par #, ##, ###)
-    if (trimmedBlock.startsWith("###") || trimmedBlock.startsWith("##") || trimmedBlock.startsWith("#")) {
-      const headerText = trimmedBlock.replace(/^#+\s+/, "").trim();
-      return `<h3>${headerText}</h3>`;
+    // Convertit le gras **texte** et l'italique *texte*
+    const formattedLine = trimmedLine
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*(.*?)\*/g, "<em>$1</em>");
+
+    // Vérifie si c'est une puce de liste
+    const isListItem = /^\s*([-*•]|\d+\.)\s+/.test(line);
+    if (isListItem) {
+      closeParagraph();
+      if (!inList) {
+        html += "<ul>\n";
+        inList = true;
+      }
+      const itemText = formattedLine.replace(/^\s*([-*•]|\d+\.)\s+/, "").trim();
+      html += `  <li>${itemText}</li>\n`;
+      continue;
     }
 
-    // Si c'est une seule ligne, courte (< 80 caractères) et sans ponctuation finale, on en fait un titre h3
-    if (lines.length === 1 && trimmedBlock.length < 80 && !/[.!?:]$/.test(trimmedBlock)) {
-      return `<h3>${trimmedBlock}</h3>`;
+    // Ferme la liste si on en sort
+    closeList();
+
+    // Vérifie si c'est un titre explicite (commence par #, ##, ###)
+    if (formattedLine.startsWith("###") || formattedLine.startsWith("##") || formattedLine.startsWith("#")) {
+      closeParagraph();
+      const headerText = formattedLine.replace(/^#+\s+/, "").trim();
+      html += `<h3>${headerText}</h3>\n\n`;
+      continue;
     }
 
-    // Par défaut, c'est un paragraphe
-    // Si le bloc contient des retours à la ligne simples, on les remplace par des balises <br />
-    const paragraphContent = lines.join("<br />");
-    return `<p>${paragraphContent}</p>`;
-  });
+    // Ajoute au paragraphe courant
+    if (currentParagraph) {
+      currentParagraph += "<br />" + formattedLine;
+    } else {
+      currentParagraph = formattedLine;
+    }
+  }
 
-  return htmlBlocks.filter(Boolean).join("\n\n");
+  // Clôture des blocs restants
+  closeList();
+  closeParagraph();
+
+  return html.trim();
 }
