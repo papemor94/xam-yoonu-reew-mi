@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { getGoogleDriveImageUrl } from "@/lib/utils";
 import Link from "next/link";
 import { ArrowRight, Calendar, User, FileText, Scale, Landmark, HeartHandshake } from "lucide-react";
 import { mockArticles } from "@/data/mock/articles";
@@ -9,18 +10,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import { getArticles, getJournees } from "@/lib/db";
 import { JourneeItem } from "@/data/mock/journees";
 
-const getGoogleDriveImageUrl = (idOrUrl: string): string => {
-  if (!idOrUrl) return "";
-  if (idOrUrl.startsWith("https://lh3.googleusercontent.com/")) return idOrUrl;
-  const match = idOrUrl.match(/\/d\/([a-zA-Z0-9_-]+)/) || idOrUrl.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-  if (match && match[1]) {
-    return `https://lh3.googleusercontent.com/d/${match[1]}`;
-  }
-  if (idOrUrl.length > 15 && !idOrUrl.startsWith("http")) {
-    return `https://lh3.googleusercontent.com/d/${idOrUrl}`;
-  }
-  return idOrUrl;
-};
+
 
 export default function HomePage() {
   const [articles, setArticles] = useState(mockArticles);

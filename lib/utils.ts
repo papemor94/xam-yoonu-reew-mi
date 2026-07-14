@@ -100,3 +100,27 @@ export function convertPlaintextToHtml(text: string): string {
 
   return html.trim();
 }
+
+export function getGoogleDriveImageUrl(idOrUrl: string): string {
+  if (!idOrUrl) return "";
+  if (idOrUrl.startsWith("/api/drive-image/")) return idOrUrl;
+  
+  if (idOrUrl.startsWith("https://lh3.googleusercontent.com/d/")) {
+    const id = idOrUrl.replace("https://lh3.googleusercontent.com/d/", "");
+    return `/api/drive-image/${id}`;
+  }
+
+  // Extrait l'identifiant du fichier Drive
+  const match = idOrUrl.match(/\/d\/([a-zA-Z0-9_-]+)/) || idOrUrl.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (match && match[1]) {
+    return `/api/drive-image/${match[1]}`;
+  }
+  
+  // Si c'est un identifiant brut (sans protocole http)
+  if (idOrUrl.length > 15 && !idOrUrl.startsWith("http")) {
+    return `/api/drive-image/${idOrUrl}`;
+  }
+  
+  return idOrUrl;
+}
+

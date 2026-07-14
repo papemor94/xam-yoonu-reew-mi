@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { getGoogleDriveImageUrl } from "@/lib/utils";
 import Link from "next/link";
 import { Calendar, User, ArrowLeft, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
@@ -14,18 +15,7 @@ interface ArticleDetailClientProps {
   slug: string;
 }
 
-const getGoogleDriveImageUrl = (idOrUrl: string): string => {
-  if (!idOrUrl) return "";
-  if (idOrUrl.startsWith("https://lh3.googleusercontent.com/")) return idOrUrl;
-  const match = idOrUrl.match(/\/d\/([a-zA-Z0-9_-]+)/) || idOrUrl.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-  if (match && match[1]) {
-    return `https://lh3.googleusercontent.com/d/${match[1]}`;
-  }
-  if (idOrUrl.length > 15 && !idOrUrl.startsWith("http")) {
-    return `https://lh3.googleusercontent.com/d/${idOrUrl}`;
-  }
-  return idOrUrl;
-};
+
 
 export default function ArticleDetailClient({ initialArticle, slug }: ArticleDetailClientProps) {
   const [article, setArticle] = useState<Article | null>(initialArticle);

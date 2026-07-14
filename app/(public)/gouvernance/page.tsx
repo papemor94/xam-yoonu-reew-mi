@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { getGoogleDriveImageUrl } from "@/lib/utils";
 import {
   Scale,
   Video,
@@ -17,27 +18,18 @@ import { Badge } from "@/components/ui/Badge";
 export default function GouvernancePage() {
   const [selectedCommission, setSelectedCommission] = useState(0);
 
-  const getGoogleDriveImageUrl = (url: string): string => {
-    if (!url) return "";
-    const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-    if (match && match[1]) {
-      return `https://lh3.googleusercontent.com/d/${match[1]}`;
-    }
-    return url;
-  };
-
   const executiveBoard = [
     {
       name: "Alassane DIA",
       role: "Président du Bureau Exécutif",
-      image: "/alassane.png",
+      image: "https://drive.google.com/file/d/1p5uQ4lnGQSR_-XPOsY1Bqy-PE9LOfqIC/view?usp=sharing",
       linkedin: "https://linkedin.com",
       description: "Voté en Assemblée Générale à l'Université Toulouse Capitole. Dirige la politique générale de l'association."
     },
     {
       name: "Amadou Sow NDIAYE",
       role: "Secrétaire Général",
-      image: "/amadou.png",
+      image: "https://drive.google.com/file/d/1p5uQ4lnGQSR_-XPOsY1Bqy-PE9LOfqIC/view?usp=sharing",
       linkedin: "https://linkedin.com",
       description: "En charge de l'administration, des relations institutionnelles et du respect des statuts."
     }
