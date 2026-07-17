@@ -70,6 +70,11 @@ export default function Footer() {
                 <div className="text-xyrm-gold font-semibold uppercase tracking-wider text-[9px] mt-2 mb-1.5">Documents</div>
                 <ul className="space-y-1.5 pl-2 border-l border-white/10 text-[11px] text-white/60">
                   <li>
+                    <Link href="/ressources" className="hover:text-xyrm-gold transition-colors block font-semibold text-xyrm-gold">
+                      Toutes les Ressources
+                    </Link>
+                  </li>
+                  <li>
                     <a href="/docs/statuts.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-xyrm-gold transition-colors block">
                       Statuts de l&apos;Association
                     </a>

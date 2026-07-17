@@ -29,6 +29,7 @@ export default function Header() {
   ];
 
   const documents = [
+    { name: "Toutes les Ressources", href: "/ressources" },
     { name: "Statut officiel de l'association", href: "/docs/statuts.pdf" },
     { name: "Règlement intérieur", href: "/docs/reglement.pdf" },
     { name: "Feuille de route triennale", href: "/docs/fdrtriennale.pdf" },
@@ -50,46 +51,54 @@ export default function Header() {
             <span className="text-xxs font-bold tracking-widest text-xyrm-gold leading-none mt-1">
               REEW MI
             </span>
-            <span className="text-[9px] text-xyrm-slate-500 hidden sm:inline leading-none mt-0.5">
-              Université Populaire Citoyenne et Solidaire
-            </span>
           </div>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-5 lg:gap-7">
+        {/* Desktop Navigation Links */}
+        <nav className="hidden md:flex items-center gap-6">
           {navigation.map((item) => {
             if (item.isDropdown) {
               return (
-                <div key={item.name} className="relative">
-                  <button
-                    onClick={() => setDropdownOpen(!dropdownOpen)}
-                    onBlur={() => setTimeout(() => setDropdownOpen(false), 200)}
-                    className={cn(
-                      "text-sm font-semibold tracking-wide transition-colors relative py-2 flex items-center gap-1 focus:outline-none",
-                      dropdownOpen
-                        ? "text-xyrm-green-primary"
-                        : "text-xyrm-slate-600 hover:text-xyrm-green-deep"
-                    )}
-                  >
+                <div
+                  key={item.name}
+                  className="relative"
+                  onMouseEnter={() => setDropdownOpen(true)}
+                  onMouseLeave={() => setDropdownOpen(false)}
+                >
+                  <button className="flex items-center gap-1 text-sm font-semibold tracking-wide text-xyrm-slate-600 hover:text-xyrm-green-deep py-2">
                     {item.name}
                     <ChevronDown className={cn("h-4 w-4 transition-transform duration-200", dropdownOpen && "rotate-180")} />
                   </button>
 
                   {dropdownOpen && (
                     <div className="absolute left-1/2 -translate-x-1/2 mt-2 w-64 rounded-xl border border-xyrm-slate-200 bg-white p-2 shadow-xl animate-fadeIn z-50">
-                      {documents.map((doc) => (
-                        <a
-                          key={doc.name}
-                          href={doc.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block rounded-lg px-4 py-2.5 text-xs font-semibold text-xyrm-slate-700 transition-colors hover:bg-xyrm-slate-50 hover:text-xyrm-green-deep"
-                          onClick={() => setDropdownOpen(false)}
-                        >
-                          {doc.name}
-                        </a>
-                      ))}
+                      {documents.map((doc) => {
+                        const isInternal = doc.href.startsWith("/") && !doc.href.endsWith(".pdf");
+                        if (isInternal) {
+                          return (
+                            <Link
+                              key={doc.name}
+                              href={doc.href}
+                              className="block rounded-lg px-4 py-2.5 text-xs font-semibold text-xyrm-slate-700 transition-colors hover:bg-xyrm-slate-50 hover:text-xyrm-green-deep"
+                              onClick={() => setDropdownOpen(false)}
+                            >
+                              {doc.name}
+                            </Link>
+                          );
+                        }
+                        return (
+                          <a
+                            key={doc.name}
+                            href={doc.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block rounded-lg px-4 py-2.5 text-xs font-semibold text-xyrm-slate-700 transition-colors hover:bg-xyrm-slate-50 hover:text-xyrm-green-deep"
+                            onClick={() => setDropdownOpen(false)}
+                          >
+                            {doc.name}
+                          </a>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
@@ -155,21 +164,39 @@ export default function Header() {
                     </button>
                     {mobileDropdownOpen && (
                       <div className="mt-3 ml-3 flex flex-col gap-3 pl-3 border-l-2 border-xyrm-gold/40">
-                        {documents.map((doc) => (
-                          <a
-                            key={doc.name}
-                            href={doc.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-sm font-semibold text-xyrm-slate-600 hover:text-xyrm-green-deep py-1"
-                            onClick={() => {
-                              setMobileMenuOpen(false);
-                              setMobileDropdownOpen(false);
-                            }}
-                          >
-                            {doc.name}
-                          </a>
-                        ))}
+                        {documents.map((doc) => {
+                          const isInternal = doc.href.startsWith("/") && !doc.href.endsWith(".pdf");
+                          if (isInternal) {
+                            return (
+                              <Link
+                                key={doc.name}
+                                href={doc.href}
+                                className="text-sm font-semibold text-xyrm-slate-600 hover:text-xyrm-green-deep py-1"
+                                onClick={() => {
+                                  setMobileMenuOpen(false);
+                                  setMobileDropdownOpen(false);
+                                }}
+                              >
+                                {doc.name}
+                              </Link>
+                            );
+                          }
+                          return (
+                            <a
+                              key={doc.name}
+                              href={doc.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-sm font-semibold text-xyrm-slate-600 hover:text-xyrm-green-deep py-1"
+                              onClick={() => {
+                                  setMobileMenuOpen(false);
+                                  setMobileDropdownOpen(false);
+                              }}
+                            >
+                              {doc.name}
+                            </a>
+                          );
+                        })}
                       </div>
                     )}
                   </div>

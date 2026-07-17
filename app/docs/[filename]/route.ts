@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { getDocumentsServer } from "@/lib/db-server";
 
 // Mapping of document filenames to Google Drive / Docs IDs
 const DRIVE_DOCS: Record<string, { id: string; type: "doc" | "pdf" }> = {
@@ -32,8 +33,23 @@ export async function GET(
 ) {
   const filename = params.filename;
 
-  // 1. Check if the file is mapped to a Google Drive / Docs ID
-  const config = DRIVE_DOCS[filename];
+  // 1. Try to find a dynamic document in the database
+  const dbDocs = await getDocumentsServer();
+  const dbDoc = dbDocs.find(
+    (d) =>
+      d.fileUrl === filename ||
+      d.fileUrl === `/docs/${filename}` ||
+      d.fileUrl === `docs/${filename}`
+  );
+
+  let config = DRIVE_DOCS[filename];
+
+  if (dbDoc && dbDoc.driveId) {
+    config = {
+      id: dbDoc.driveId,
+      type: "pdf",
+    };
+  }
 
   if (config) {
     try {

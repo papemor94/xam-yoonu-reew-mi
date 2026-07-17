@@ -269,8 +269,50 @@ export async function deleteArticle(id: string): Promise<void> {
   window.dispatchEvent(new Event("storage"));
 }
 
-// Documents CRUD (mock only, as not used dynamically in admin or pages)
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+const dbToJsDocument = (row: any): DocumentItem => ({
+  id: row.id,
+  title: row.title,
+  description: row.description,
+  category: row.category,
+  fileSize: row.file_size,
+  fileFormat: row.file_format,
+  publishedDate: row.published_date,
+  fileUrl: row.file_url || undefined,
+  author: row.author || undefined,
+  driveId: row.drive_id || undefined,
+});
+
+const jsToDbDocument = (doc: DocumentItem) => ({
+  id: doc.id,
+  title: doc.title,
+  description: doc.description,
+  category: doc.category,
+  file_size: doc.fileSize,
+  file_format: doc.fileFormat,
+  published_date: doc.publishedDate,
+  file_url: doc.fileUrl || null,
+  author: doc.author || null,
+  drive_id: doc.driveId || null,
+});
+
+// Documents CRUD
 export async function getDocuments(): Promise<DocumentItem[]> {
+  if (isSupabaseConfigured()) {
+    try {
+      const { data, error } = await supabase
+        .from("documents")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      if (data) {
+        return data.map(dbToJsDocument);
+      }
+    } catch (e) {
+      console.error("Supabase getDocuments error, falling back to localStorage:", e);
+    }
+  }
+
   if (typeof window === "undefined") return mockDocuments;
   initDatabase();
   const data = localStorage.getItem(DOCUMENTS_KEY);
@@ -278,6 +320,20 @@ export async function getDocuments(): Promise<DocumentItem[]> {
 }
 
 export async function saveDocument(doc: DocumentItem): Promise<void> {
+  if (isSupabaseConfigured()) {
+    try {
+      const dbRow = jsToDbDocument(doc);
+      const { error } = await supabase.from("documents").upsert(dbRow);
+      if (error) throw error;
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event("storage"));
+      }
+      return;
+    } catch (e) {
+      console.error("Supabase saveDocument error, falling back to localStorage:", e);
+    }
+  }
+
   if (typeof window === "undefined") return;
   const docs = await getDocuments();
   const idx = docs.findIndex((d) => d.id === doc.id);
@@ -291,6 +347,19 @@ export async function saveDocument(doc: DocumentItem): Promise<void> {
 }
 
 export async function deleteDocument(id: string): Promise<void> {
+  if (isSupabaseConfigured()) {
+    try {
+      const { error } = await supabase.from("documents").delete().eq("id", id);
+      if (error) throw error;
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event("storage"));
+      }
+      return;
+    } catch (e) {
+      console.error("Supabase deleteDocument error, falling back to localStorage:", e);
+    }
+  }
+
   if (typeof window === "undefined") return;
   const docs = (await getDocuments()).filter((d) => d.id !== id);
   localStorage.setItem(DOCUMENTS_KEY, JSON.stringify(docs));

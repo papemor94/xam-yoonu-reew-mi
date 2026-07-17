@@ -1,6 +1,7 @@
 import { supabase } from "./supabaseClient";
 import { Article } from "@/data/mock/articles";
 import { JourneeItem } from "@/data/mock/journees";
+import { DocumentItem } from "@/data/mock/documents";
 
 const isSupabaseConfigured = (): boolean => {
   return (
@@ -112,5 +113,36 @@ export async function getArticleBySlugServer(slug: string): Promise<Article | nu
   } catch (e) {
     console.error(`Error in getArticleBySlugServer for slug ${slug}:`, e);
     return null;
+  }
+}
+
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+const dbToJsDocument = (row: any): DocumentItem => ({
+  id: row.id,
+  title: row.title,
+  description: row.description,
+  category: row.category,
+  fileSize: row.file_size,
+  fileFormat: row.file_format,
+  publishedDate: row.published_date,
+  fileUrl: row.file_url || undefined,
+  author: row.author || undefined,
+  driveId: row.drive_id || undefined,
+});
+
+export async function getDocumentsServer(): Promise<DocumentItem[]> {
+  if (!isSupabaseConfigured()) {
+    return [];
+  }
+  try {
+    const { data, error } = await supabase
+      .from("documents")
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (error) throw error;
+    return data ? data.map(dbToJsDocument) : [];
+  } catch (e) {
+    console.error("Error in getDocumentsServer:", e);
+    return [];
   }
 }
