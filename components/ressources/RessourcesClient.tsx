@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Search, User, Calendar, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { DocumentItem } from "@/data/mock/documents";
+import { getDocuments } from "@/lib/db";
 
 interface RessourcesClientProps {
   initialDocuments: DocumentItem[];
@@ -13,11 +14,16 @@ interface RessourcesClientProps {
 type TabType = "all" | DocumentItem["category"];
 
 export default function RessourcesClient({ initialDocuments }: RessourcesClientProps) {
+  const [documents, setDocuments] = useState<DocumentItem[]>(initialDocuments);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState<TabType>("all");
 
+  useEffect(() => {
+    getDocuments().then((data) => setDocuments(data));
+  }, []);
+
   const filteredDocs = useMemo(() => {
-    return initialDocuments.filter((doc) => {
+    return documents.filter((doc) => {
       const matchSearch =
         doc.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         doc.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -25,7 +31,7 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
       const matchTab = activeTab === "all" || doc.category === activeTab;
       return matchSearch && matchTab;
     });
-  }, [initialDocuments, searchTerm, activeTab]);
+  }, [documents, searchTerm, activeTab]);
 
   const categories = [
     { label: "Tout", value: "all" },
@@ -37,7 +43,7 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
     { label: "Communiqués", value: "communique" },
   ].filter((cat) => {
     if (cat.value === "all") return true;
-    return initialDocuments.some((d) => d.category === cat.value);
+    return documents.some((d) => d.category === cat.value);
   });
 
   const getCategoryLabel = (cat: DocumentItem["category"]) => {
