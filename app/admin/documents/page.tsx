@@ -76,7 +76,7 @@ function DocumentsAdminContent() {
     // Clean up filename: convert spaces or uppercase in fileUrl to clean names
     let fileUrl = currentDoc.fileUrl?.trim() || "";
     if (fileUrl) {
-      fileUrl = fileUrl.replace(/^\/docs\//, "").replace(/^docs\//, "");
+      fileUrl = fileUrl.replace(/^\/+/, "").replace(/^docs\/+/, "").replace(/^\/+/, "");
       if (!fileUrl.endsWith(".pdf") && currentDoc.fileFormat?.toUpperCase() === "PDF") {
         fileUrl = fileUrl + ".pdf";
       }

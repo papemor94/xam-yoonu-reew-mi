@@ -35,12 +35,11 @@ export async function GET(
 
   // 1. Try to find a dynamic document in the database
   const dbDocs = await getDocumentsServer();
-  const dbDoc = dbDocs.find(
-    (d) =>
-      d.fileUrl === filename ||
-      d.fileUrl === `/docs/${filename}` ||
-      d.fileUrl === `docs/${filename}`
-  );
+  const clean = (url: string) => {
+    return url.replace(/^\/+/, "").replace(/^docs\/+/, "").replace(/^\/+/, "").trim().toLowerCase();
+  };
+  const cleanFilename = clean(filename);
+  const dbDoc = dbDocs.find((d) => clean(d.fileUrl || "") === cleanFilename);
 
   let config = DRIVE_DOCS[filename];
 
