@@ -32,6 +32,8 @@ export async function GET(
   { params }: { params: { filename: string } }
 ) {
   const filename = params.filename;
+  const { searchParams } = new URL(request.url);
+  const queryDriveId = searchParams.get("driveId");
 
   // 1. Try to find a dynamic document in the database
   const dbDocs = await getDocumentsServer();
@@ -43,7 +45,12 @@ export async function GET(
 
   let config = DRIVE_DOCS[filename];
 
-  if (dbDoc && dbDoc.driveId) {
+  if (queryDriveId) {
+    config = {
+      id: queryDriveId,
+      type: "pdf",
+    };
+  } else if (dbDoc && dbDoc.driveId) {
     config = {
       id: dbDoc.driveId,
       type: "pdf",

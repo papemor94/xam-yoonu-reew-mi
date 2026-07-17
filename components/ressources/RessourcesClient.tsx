@@ -52,6 +52,10 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
     return activeDoc?.fileUrl ? activeDoc.fileUrl.replace(/^\/+/, "") : "";
   }, [activeDoc]);
 
+  const driveParam = useMemo(() => {
+    return activeDoc?.driveId ? `?driveId=${activeDoc.driveId}` : "";
+  }, [activeDoc]);
+
   const categories = [
     { label: "Tout", value: "all" },
     { label: "Ressources Juridiques", value: "juridique" },
@@ -242,7 +246,7 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
                     {/* Embedded preview frame (entre-ouvert) */}
                     <div className="relative rounded-2xl overflow-hidden border border-xyrm-slate-200/80 bg-xyrm-slate-100 flex-1 min-h-[380px] shadow-inner group">
                       <iframe
-                        src={`/docs/${cleanFileUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                        src={`/docs/${cleanFileUrl}${driveParam}#toolbar=0&navpanes=0&scrollbar=0`}
                         className="w-full h-full select-none pointer-events-none"
                         title={activeDoc.title}
                       />
@@ -268,7 +272,7 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
                         Ouvrir en plein écran
                       </button>
                       <a
-                        href={`/docs/${cleanFileUrl}`}
+                        href={`/docs/${cleanFileUrl}${driveParam}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-xyrm-slate-200 bg-white text-xyrm-slate-650 hover:bg-xyrm-slate-50 transition-all shadow-sm"
@@ -311,7 +315,7 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
             </div>
             <div className="flex items-center gap-3 shrink-0">
               <a
-                href={`/docs/${cleanFileUrl}`}
+                href={`/docs/${cleanFileUrl}${driveParam}`}
                 download
                 className="inline-flex h-9 items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 px-4 text-xs font-bold text-white transition-colors gap-1.5"
               >
@@ -331,7 +335,7 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
           {/* Full Page Native PDF frame viewer */}
           <div className="flex-1 bg-xyrm-slate-800">
             <iframe
-              src={`/docs/${cleanFileUrl}`}
+              src={`/docs/${cleanFileUrl}${driveParam}`}
               className="w-full h-full border-0 bg-white"
               title={activeDoc.title}
             />
