@@ -211,7 +211,6 @@ function DocumentsAdminContent() {
               <tr className="border-b border-xyrm-slate-200 bg-xyrm-slate-50 text-[10px] uppercase font-bold tracking-wider text-xyrm-slate-500">
                 <th className="px-6 py-4">Document / Titre</th>
                 <th className="px-6 py-4">Catégorie</th>
-                <th className="px-6 py-4">Fichier & Accès</th>
                 <th className="px-6 py-4">Auteur & Date</th>
                 <th className="px-6 py-4 text-right">Actions</th>
               </tr>
@@ -242,21 +241,7 @@ function DocumentsAdminContent() {
                         {doc.category === "juridique" ? "Juridique" : doc.category === "politique" ? "Politique" : doc.category}
                       </Badge>
                     </td>
-                    <td className="px-6 py-4">
-                      <div className="flex flex-col text-xxs text-xyrm-slate-500 font-mono space-y-0.5">
-                        <span className="font-semibold text-xyrm-slate-700">/{doc.fileUrl}</span>
-                        {doc.driveId ? (
-                          <span className="text-[10px] text-xyrm-green-emerald flex items-center gap-1">
-                            <span className="h-1.5 w-1.5 rounded-full bg-xyrm-green-emerald animate-pulse" />
-                            Proxy Drive configuré
-                          </span>
-                        ) : (
-                          <span className="text-[10px] text-xyrm-gold flex items-center gap-1">
-                            Fichier local uniquement
-                          </span>
-                        )}
-                      </div>
-                    </td>
+
                     <td className="px-6 py-4 text-xs">
                       <div className="flex flex-col text-xyrm-slate-650 font-medium">
                         <span>{doc.author || "Comité"}</span>
@@ -410,37 +395,21 @@ function DocumentsAdminContent() {
                 </div>
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-xyrm-slate-700 flex items-center gap-1">
-                    Nom du fichier sur le site
-                    <span className="text-[10px] text-xyrm-slate-400 font-normal">(optionnel)</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Ex : charte.pdf (généré auto si vide)"
-                    value={currentDoc.fileUrl || ""}
-                    onChange={(e) => setCurrentDoc({ ...currentDoc, fileUrl: e.target.value })}
-                    className="w-full rounded-xl border border-xyrm-slate-200 px-4 py-2.5 text-xs focus:border-xyrm-green-primary focus:outline-none"
-                  />
-                  <p className="text-[10px] text-red-650 font-bold tracking-tight">
-                    Fichier obligatoirement au format PDF (.pdf).
-                  </p>
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-xyrm-slate-700 flex items-center gap-1">
-                    ID du fichier Google Drive
-                    <span className="text-[10px] text-xyrm-slate-400 font-normal">(optionnel)</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Ex : 1Es0cPxcjdEjmapXv4ls..."
-                    value={currentDoc.driveId || ""}
-                    onChange={(e) => setCurrentDoc({ ...currentDoc, driveId: e.target.value })}
-                    className="w-full rounded-xl border border-xyrm-slate-200 px-4 py-2.5 text-xs focus:border-xyrm-green-primary focus:outline-none"
-                  />
-                </div>
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-xyrm-slate-700 flex items-center gap-1">
+                  ID du fichier Google Drive *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Ex : 1Es0cPxcjdEjmapXv4ls..."
+                  value={currentDoc.driveId || ""}
+                  onChange={(e) => setCurrentDoc({ ...currentDoc, driveId: e.target.value })}
+                  className="w-full rounded-xl border border-xyrm-slate-200 px-4 py-2.5 text-xs focus:border-xyrm-green-primary focus:outline-none"
+                />
+                <p className="text-[10px] text-xyrm-slate-500 font-medium">
+                  Le document sera lu dynamiquement depuis Google Drive. Assurez-vous que le lien de partage est en mode public (« Tous les utilisateurs disposant du lien peuvent lire »).
+                </p>
               </div>
 
               <div className="flex justify-end gap-3 pt-4 border-t border-xyrm-slate-100">
