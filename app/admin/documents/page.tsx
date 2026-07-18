@@ -174,9 +174,6 @@ function DocumentsAdminContent() {
               { label: "Juridiques", value: "juridique" },
               { label: "Politiques Publiques", value: "politique" },
               { label: "Institutionnels", value: "institutionnel" },
-              { label: "Règlements", value: "reglement" },
-              { label: "Rapports", value: "rapport" },
-              { label: "Communiqués", value: "communique" },
             ] as Array<{ label: string; value: "all" | DocumentItem["category"] }>
           ).map((tab) => (
             <button
@@ -371,9 +368,6 @@ function DocumentsAdminContent() {
                     <option value="juridique">Ressource Juridique</option>
                     <option value="politique">Politique Publique</option>
                     <option value="institutionnel">Document Institutionnel</option>
-                    <option value="reglement">Règlement Intérieur</option>
-                    <option value="rapport">Rapport d&apos;Activité</option>
-                    <option value="communique">Communiqué Officiel</option>
                   </select>
                 </div>
               </div>

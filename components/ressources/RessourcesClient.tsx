@@ -42,9 +42,6 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
     { label: "Ressources Juridiques", value: "juridique" },
     { label: "Politiques Publiques", value: "politique" },
     { label: "Documents Institutionnels", value: "institutionnel" },
-    { label: "Règlements", value: "reglement" },
-    { label: "Rapports d'Activité", value: "rapport" },
-    { label: "Communiqués", value: "communique" },
   ].filter((cat) => {
     if (cat.value === "all") return true;
     return documents.some((d) => d.category === cat.value);
