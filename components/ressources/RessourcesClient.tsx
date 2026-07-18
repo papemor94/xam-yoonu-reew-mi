@@ -134,23 +134,17 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
             </div>
 
             {/* Embedded preview frame (entre-ouvert) */}
-            <div className="relative rounded-2xl overflow-hidden border border-xyrm-slate-200 bg-xyrm-slate-100 h-[600px] shadow-inner group mt-6">
+            <div 
+              onClick={() => setIsFullScreen(true)}
+              className="relative rounded-2xl overflow-hidden border border-xyrm-slate-200 bg-xyrm-slate-100 h-[600px] shadow-inner mt-6 cursor-pointer"
+              title="Cliquer pour agrandir en plein écran"
+            >
               <iframe
                 key={selectedDoc.id}
                 src={`/docs/${cleanFileUrl}${driveParam}#toolbar=0&navpanes=0&scrollbar=0`}
                 className="w-full h-full select-none pointer-events-none"
                 title={selectedDoc.title}
               />
-              {/* Click overlay layer */}
-              <div
-                onClick={() => setIsFullScreen(true)}
-                className="absolute inset-0 bg-xyrm-slate-955/0 hover:bg-xyrm-slate-955/20 cursor-pointer flex flex-col items-center justify-center opacity-0 hover:opacity-100 transition-all duration-300 backdrop-blur-[1px] text-white"
-              >
-                <div className="bg-xyrm-green-deep/95 hover:bg-xyrm-green-primary text-white font-bold text-xs px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 transform scale-95 hover:scale-100 transition-all duration-300">
-                  <ExternalLink className="h-4 w-4" />
-                  Agrandir et lire en plein écran
-                </div>
-              </div>
             </div>
 
             {/* Footer Controls */}
