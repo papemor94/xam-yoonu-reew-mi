@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Phone, MapPin, Send, CheckCircle2, Clock } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { saveContact } from "@/lib/db";
 
@@ -117,18 +117,16 @@ export default function ContactPage() {
                 <div className="flex items-start gap-3.5">
                   <MapPin className="h-5 w-5 text-xyrm-gold shrink-0 mt-0.5" />
                   <div className="text-xs font-light space-y-1">
-                    <p className="font-bold text-white">Adresses</p>
-                    <p className="text-white/80">Dakar, Sénégal (Siège social)</p>
-                    <p className="text-white/80">Toulouse, France (Antenne Europe)</p>
+                    <p className="font-bold text-white">Adresse</p>
+                    <p className="text-white/80">Toulouse, France</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3.5">
                   <Phone className="h-5 w-5 text-xyrm-gold shrink-0 mt-0.5" />
                   <div className="text-xs font-light space-y-1">
-                    <p className="font-bold text-white">Téléphones</p>
-                    <p className="text-white/85">+221 77 000 00 00</p>
-                    <p className="text-white/85">+33 6 00 00 00 00</p>
+                    <p className="font-bold text-white">Téléphone</p>
+                    <p className="text-white/85">+33 7 82 56 32 76</p>
                   </div>
                 </div>
 
@@ -136,16 +134,7 @@ export default function ContactPage() {
                   <Mail className="h-5 w-5 text-xyrm-gold shrink-0 mt-0.5" />
                   <div className="text-xs font-light space-y-1">
                     <p className="font-bold text-white">Email</p>
-                    <p className="text-white/85 hover:text-xyrm-gold transition-colors">contact@xamyoonureewmi.org</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3.5">
-                  <Clock className="h-5 w-5 text-xyrm-gold shrink-0 mt-0.5" />
-                  <div className="text-xs font-light space-y-1">
-                    <p className="font-bold text-white">Disponibilité</p>
-                    <p className="text-white/85">Lundi - Vendredi : 9h00 - 18h00</p>
-                    <p className="text-white/85">Samedi : 9h00 - 13h00 (GMT / CET)</p>
+                    <p className="text-white/85 hover:text-xyrm-gold transition-colors">xamyoonureewmi@gmail.com</p>
                   </div>
                 </div>
               </div>
@@ -206,7 +195,6 @@ export default function ContactPage() {
                           ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500"
                           : "border-xyrm-slate-200 focus:border-xyrm-green-primary focus:ring-xyrm-green-primary"
                       }`}
-                      placeholder="Ex: Pape Mor Ndiaye"
                     />
                     {errors.fullName && <p className="text-xxs font-bold text-rose-600">{errors.fullName}</p>}
                   </div>
@@ -226,7 +214,6 @@ export default function ContactPage() {
                           ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500"
                           : "border-xyrm-slate-200 focus:border-xyrm-green-primary focus:ring-xyrm-green-primary"
                       }`}
-                      placeholder="Ex: papemor@example.sn"
                     />
                     {errors.email && <p className="text-xxs font-bold text-rose-600">{errors.email}</p>}
                   </div>
@@ -242,7 +229,6 @@ export default function ContactPage() {
                       value={formData.phone}
                       onChange={handleChange}
                       className="w-full rounded-xl border border-xyrm-slate-200 py-2.5 px-4 text-sm focus:outline-none focus:ring-1 focus:border-xyrm-green-primary focus:ring-xyrm-green-primary bg-white text-xyrm-slate-800"
-                      placeholder="Ex: +221 77 123 45 67"
                     />
                   </div>
 

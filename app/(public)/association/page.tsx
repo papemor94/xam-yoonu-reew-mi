@@ -107,7 +107,7 @@ export default function AssociationPage() {
         </h1>
         <div className="w-12 h-1 bg-gradient-to-r from-xyrm-green-deep to-xyrm-gold mx-auto rounded-full" />
         <p className="text-xs md:text-sm text-xyrm-slate-600 font-light max-w-2xl mx-auto leading-relaxed">
-          Une université populaire, citoyenne et solidaire dédiée à la vulgarisation des sciences juridiques, des institutions publiques et de l&apos;action solidaire.
+          Une université populaire, citoyenne et solidaire dédiée à la vulgarisation des sciences juridiques, des politiques publiques et de l&apos;action solidaire.
         </p>
       </div>
 
