@@ -88,6 +88,27 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  // Synchronize browser history and back button with fullscreen reader
+  useEffect(() => {
+    if (isFullScreen) {
+      window.location.hash = "reader";
+    } else {
+      if (window.location.hash === "#reader") {
+        window.history.back();
+      }
+    }
+  }, [isFullScreen]);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash !== "#reader" && isFullScreen) {
+        setIsFullScreen(false);
+      }
+    };
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, [isFullScreen]);
+
   return (
     <div className="space-y-10 py-8 md:py-12 animate-fadeIn max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       
@@ -286,11 +307,10 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
             <div className="flex items-center gap-3 shrink-0">
               <button
                 onClick={() => setIsFullScreen(false)}
-                className="inline-flex h-10 items-center justify-center rounded-xl bg-red-600 hover:bg-red-700 px-4 text-xs font-black text-white transition-colors gap-1.5 shadow-md"
+                className="text-white/80 hover:text-white hover:bg-white/10 transition-all p-2 rounded-xl focus:outline-none"
                 title="Fermer la liseuse"
               >
-                <X className="h-4 w-4" />
-                <span>Fermer</span>
+                <X className="h-7 w-7" />
               </button>
             </div>
           </div>
