@@ -27,7 +27,6 @@ export default function ContactPage() {
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       tempErrors.email = "L'adresse email n'est pas valide.";
     }
-    if (!formData.subject.trim()) tempErrors.subject = "Le sujet est obligatoire.";
     if (!formData.message.trim()) tempErrors.message = "Le message est obligatoire.";
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
@@ -47,7 +46,7 @@ export default function ContactPage() {
           email: formData.email,
           phone: formData.phone || undefined,
           activitySector: formData.activitySector || undefined,
-          subject: formData.subject,
+          subject: formData.isMembershipRequest ? "Demande d'adhésion" : "Message de contact",
           message: formData.message,
           status: "Nouveau",
           createdAt: formattedDate,
@@ -255,24 +254,6 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* Subject */}
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-xyrm-slate-700 uppercase tracking-wider">
-                    Sujet du Message *
-                  </label>
-                  <input
-                    type="text"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    className={`w-full rounded-xl border py-2 px-3.5 text-sm focus:outline-none focus:ring-1 ${
-                      errors.subject
-                        ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500"
-                        : "border-xyrm-slate-200 focus:border-xyrm-green-primary focus:ring-xyrm-green-primary"
-                    }`}
-                  />
-                  {errors.subject && <p className="text-xxs font-bold text-rose-600">{errors.subject}</p>}
-                </div>
 
                 {/* Message Text area */}
                 <div className="space-y-1.5">
