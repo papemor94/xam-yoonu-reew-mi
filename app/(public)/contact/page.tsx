@@ -102,7 +102,7 @@ export default function ContactPage() {
         
         {/* Contact Info Panel (Left Column) */}
         <div className="space-y-6 lg:col-span-1">
-          <Card className="bg-xyrm-green-deep text-white border-xyrm-green-light/20 relative overflow-hidden h-full flex flex-col justify-between p-8">
+          <Card className="bg-xyrm-green-deep text-white border-xyrm-green-light/20 relative overflow-hidden h-fit flex flex-col gap-6 p-8">
             <div className="absolute right-0 top-0 w-32 h-32 bg-xyrm-gold/10 rounded-full blur-2xl pointer-events-none" />
             
             <div className="space-y-6">
@@ -140,7 +140,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-white/10 space-y-4">
+            <div className="pt-6 border-t border-white/10 space-y-4">
               <div className="bg-white/10 rounded-xl p-4 border border-white/10 backdrop-blur-sm">
                 <p className="text-[10px] text-xyrm-gold font-bold uppercase tracking-wider">
                   Notre Engagement
