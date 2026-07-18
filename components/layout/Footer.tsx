@@ -3,12 +3,12 @@ import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-xyrm-slate-900 border-t border-xyrm-slate-800 text-white/80 py-16 px-6 md:px-8">
+    <footer className="bg-xyrm-slate-900 border-t border-xyrm-slate-800 text-white/80 py-8 px-6 md:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
 
           {/* Column 1: Brand Info */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             <Link href="/" className="flex items-center gap-2 group">
               <div className="flex h-10 w-10 items-center justify-center rounded-full overflow-hidden border border-white/10 bg-white transition-transform duration-300 group-hover:scale-105 shrink-0">
                 <img src="/logo.png" alt="Logo Xam Yoonu Reew Mi" className="h-full w-full object-cover" />
@@ -26,7 +26,7 @@ export default function Footer() {
               Université Populaire Citoyenne et Solidaire (UPCS). Bâtir une citoyenneté éclairée en vulgarisant le savoir.
             </p>
             {/* Social Icons */}
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex items-center gap-3 pt-1">
               <a
                 href="https://www.youtube.com/@xamyoonureewmi"
                 target="_blank"
@@ -52,10 +52,10 @@ export default function Footer() {
 
           {/* Column 2: Navigation Links */}
           <div>
-            <h4 className="text-sm font-black uppercase tracking-wider text-xyrm-gold mb-6">
+            <h4 className="text-sm font-black uppercase tracking-wider text-xyrm-gold mb-3">
               Navigation
             </h4>
-            <ul className="space-y-3.5 text-xs">
+            <ul className="space-y-2 text-xs">
               <li>
                 <Link href="/" className="hover:text-xyrm-gold transition-colors flex items-center gap-1 group">
                   Accueil <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -96,7 +96,7 @@ export default function Footer() {
 
           {/* Column 3: The Concept */}
           <div>
-            <h4 className="text-sm font-black uppercase tracking-wider text-xyrm-gold mb-6">
+            <h4 className="text-sm font-black uppercase tracking-wider text-xyrm-gold mb-3">
               Notre Mission
             </h4>
             <p className="text-xs text-white/60 font-light leading-relaxed">
@@ -106,10 +106,10 @@ export default function Footer() {
 
           {/* Column 4: Contact Details */}
           <div>
-            <h4 className="text-sm font-black uppercase tracking-wider text-xyrm-gold mb-6">
+            <h4 className="text-sm font-black uppercase tracking-wider text-xyrm-gold mb-3">
               Contact
             </h4>
-            <ul className="space-y-4 text-xs">
+            <ul className="space-y-2.5 text-xs">
               <li className="flex items-start gap-2.5">
                 <MapPin className="h-4.5 w-4.5 text-xyrm-gold shrink-0 mt-0.5" />
                 <span className="font-light text-white/70">
@@ -133,7 +133,7 @@ export default function Footer() {
 
         </div>
 
-        <div className="mt-16 pt-8 border-t border-xyrm-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
+        <div className="mt-8 pt-4 border-t border-xyrm-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
           <p>© 2026 Xam Yoonu Reew Mi. Tous droits réservés.</p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-white transition-colors">Mentions Légales</a>
