@@ -133,9 +133,6 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
                 }>
                   {getCategoryLabel(selectedDoc.category)}
                 </Badge>
-                <div className="text-xxs text-xyrm-slate-400 font-mono font-bold uppercase">
-                  {selectedDoc.fileFormat} • {selectedDoc.fileSize}
-                </div>
               </div>
               <h1 className="text-xl font-black text-xyrm-slate-900 md:text-2xl leading-snug">
                 {selectedDoc.title}
