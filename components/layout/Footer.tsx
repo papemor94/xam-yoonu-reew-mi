@@ -67,29 +67,9 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <div className="text-xyrm-gold font-semibold uppercase tracking-wider text-[9px] mt-2 mb-1.5">Documents</div>
-                <ul className="space-y-1.5 pl-2 border-l border-white/10 text-[11px] text-white/60">
-                  <li>
-                    <Link href="/ressources" className="hover:text-xyrm-gold transition-colors block font-semibold text-xyrm-gold">
-                      Toutes les Ressources
-                    </Link>
-                  </li>
-                  <li>
-                    <a href="/docs/statuts.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-xyrm-gold transition-colors block">
-                      Statuts de l&apos;Association
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/docs/reglement.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-xyrm-gold transition-colors block">
-                      Règlement Intérieur
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/docs/fdrtriennale.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-xyrm-gold transition-colors block">
-                      Feuille de Route Triennale
-                    </a>
-                  </li>
-                </ul>
+                <Link href="/ressources" className="hover:text-xyrm-gold transition-colors flex items-center gap-1 group">
+                  Publications & Ressources <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </Link>
               </li>
               <li>
                 <Link href="/journees" className="hover:text-xyrm-gold transition-colors flex items-center gap-1 group">
@@ -145,7 +125,7 @@ export default function Footer() {
               <li className="flex items-center gap-2.5">
                 <Mail className="h-4.5 w-4.5 text-xyrm-gold shrink-0" />
                 <span className="font-light text-white/70 hover:text-xyrm-gold transition-colors">
-                  papemor94@gmail.com
+                  xamyoonureewmi@gmail.com
                 </span>
               </li>
             </ul>
