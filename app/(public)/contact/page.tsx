@@ -102,37 +102,37 @@ export default function ContactPage() {
         
         {/* Contact Info Panel (Left Column) */}
         <div className="space-y-6 lg:col-span-1">
-          <Card className="bg-xyrm-green-deep text-white border-xyrm-green-light/20 relative overflow-hidden h-fit flex flex-col gap-6 p-8">
+          <Card className="bg-xyrm-green-deep text-white border-xyrm-green-light/20 relative overflow-hidden h-full flex flex-col justify-between p-6">
             <div className="absolute right-0 top-0 w-32 h-32 bg-xyrm-gold/10 rounded-full blur-2xl pointer-events-none" />
             
-            <div className="space-y-6">
-              <h3 className="text-xl font-black text-xyrm-gold tracking-tight">
+            <div className="space-y-5">
+              <h3 className="text-lg font-black text-xyrm-gold tracking-tight">
                 Coordonnées Officielles
               </h3>
               <p className="text-xs text-white/80 font-light leading-relaxed">
                 Notre secrétariat est à votre écoute pour toute demande d&apos;inscription ou partenariat.
               </p>
 
-              <div className="space-y-5 pt-4">
-                <div className="flex items-start gap-3.5">
+              <div className="space-y-4 pt-2">
+                <div className="flex items-start gap-3">
                   <MapPin className="h-5 w-5 text-xyrm-gold shrink-0 mt-0.5" />
-                  <div className="text-xs font-light space-y-1">
+                  <div className="text-xs font-light space-y-0.5">
                     <p className="font-bold text-white">Adresse</p>
                     <p className="text-white/80">Toulouse, France</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3.5">
+                <div className="flex items-start gap-3">
                   <Phone className="h-5 w-5 text-xyrm-gold shrink-0 mt-0.5" />
-                  <div className="text-xs font-light space-y-1">
+                  <div className="text-xs font-light space-y-0.5">
                     <p className="font-bold text-white">Téléphone</p>
                     <p className="text-white/85">+33 7 82 56 32 76</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3.5">
+                <div className="flex items-start gap-3">
                   <Mail className="h-5 w-5 text-xyrm-gold shrink-0 mt-0.5" />
-                  <div className="text-xs font-light space-y-1">
+                  <div className="text-xs font-light space-y-0.5">
                     <p className="font-bold text-white">Email</p>
                     <p className="text-white/85 hover:text-xyrm-gold transition-colors">xamyoonureewmi@gmail.com</p>
                   </div>
@@ -140,8 +140,8 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="pt-6 border-t border-white/10 space-y-4">
-              <div className="bg-white/10 rounded-xl p-4 border border-white/10 backdrop-blur-sm">
+            <div className="pt-4 border-t border-white/10 space-y-3">
+              <div className="bg-white/10 rounded-xl p-3.5 border border-white/10 backdrop-blur-sm">
                 <p className="text-[10px] text-xyrm-gold font-bold uppercase tracking-wider">
                   Notre Engagement
                 </p>
@@ -158,7 +158,7 @@ export default function ContactPage() {
 
         {/* Contact Form Panel (Right Columns) */}
         <div className="lg:col-span-2">
-          <Card className="p-8 md:p-10 bg-white">
+          <Card className="p-6 bg-white h-full flex flex-col justify-between">
             {submitted ? (
               <div className="text-center py-12 space-y-6 max-w-md mx-auto animate-fadeIn">
                 <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200">
@@ -178,10 +178,10 @@ export default function ContactPage() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid gap-6 sm:grid-cols-2">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid gap-4 sm:grid-cols-2">
                   {/* Full Name */}
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <label className="text-xs font-bold text-xyrm-slate-700 uppercase tracking-wider">
                       Nom Complet *
                     </label>
@@ -190,7 +190,7 @@ export default function ContactPage() {
                       name="fullName"
                       value={formData.fullName}
                       onChange={handleChange}
-                      className={`w-full rounded-xl border py-2.5 px-4 text-sm focus:outline-none focus:ring-1 ${
+                      className={`w-full rounded-xl border py-2 px-3.5 text-sm focus:outline-none focus:ring-1 ${
                         errors.fullName
                           ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500"
                           : "border-xyrm-slate-200 focus:border-xyrm-green-primary focus:ring-xyrm-green-primary"
@@ -200,7 +200,7 @@ export default function ContactPage() {
                   </div>
 
                   {/* Email Address */}
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <label className="text-xs font-bold text-xyrm-slate-700 uppercase tracking-wider">
                       Adresse Email *
                     </label>
@@ -209,7 +209,7 @@ export default function ContactPage() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className={`w-full rounded-xl border py-2.5 px-4 text-sm focus:outline-none focus:ring-1 ${
+                      className={`w-full rounded-xl border py-2 px-3.5 text-sm focus:outline-none focus:ring-1 ${
                         errors.email
                           ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500"
                           : "border-xyrm-slate-200 focus:border-xyrm-green-primary focus:ring-xyrm-green-primary"
@@ -219,7 +219,7 @@ export default function ContactPage() {
                   </div>
 
                   {/* Phone Number */}
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <label className="text-xs font-bold text-xyrm-slate-700 uppercase tracking-wider">
                       Numéro de Téléphone
                     </label>
@@ -228,12 +228,12 @@ export default function ContactPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full rounded-xl border border-xyrm-slate-200 py-2.5 px-4 text-sm focus:outline-none focus:ring-1 focus:border-xyrm-green-primary focus:ring-xyrm-green-primary bg-white text-xyrm-slate-800"
+                      className="w-full rounded-xl border border-xyrm-slate-200 py-2 px-3.5 text-sm focus:outline-none focus:ring-1 focus:border-xyrm-green-primary focus:ring-xyrm-green-primary bg-white text-xyrm-slate-800"
                     />
                   </div>
 
                   {/* Domaine d'activité (Sector of Activity) */}
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <label className="text-xs font-bold text-xyrm-slate-700 uppercase tracking-wider">
                       Domaine d&apos;Activité
                     </label>
@@ -241,7 +241,7 @@ export default function ContactPage() {
                       name="activitySector"
                       value={formData.activitySector}
                       onChange={handleChange}
-                      className="w-full rounded-xl border border-xyrm-slate-200 bg-white py-2.5 px-4 text-sm focus:outline-none focus:ring-1 focus:border-xyrm-green-primary focus:ring-xyrm-green-primary text-xyrm-slate-800"
+                      className="w-full rounded-xl border border-xyrm-slate-200 bg-white py-2 px-3.5 text-sm focus:outline-none focus:ring-1 focus:border-xyrm-green-primary focus:ring-xyrm-green-primary text-xyrm-slate-800"
                     >
                       <option value="">Sélectionnez un domaine...</option>
                       <option value="Éducation / Enseignement">Éducation / Enseignement</option>
@@ -256,7 +256,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* Subject */}
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <label className="text-xs font-bold text-xyrm-slate-700 uppercase tracking-wider">
                     Sujet du Message *
                   </label>
@@ -265,38 +265,36 @@ export default function ContactPage() {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className={`w-full rounded-xl border py-2.5 px-4 text-sm focus:outline-none focus:ring-1 ${
+                    className={`w-full rounded-xl border py-2 px-3.5 text-sm focus:outline-none focus:ring-1 ${
                       errors.subject
                         ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500"
                         : "border-xyrm-slate-200 focus:border-xyrm-green-primary focus:ring-xyrm-green-primary"
                     }`}
-                    placeholder="Ex: Inscription aux ateliers / Question d'adhésion"
                   />
                   {errors.subject && <p className="text-xxs font-bold text-rose-600">{errors.subject}</p>}
                 </div>
 
                 {/* Message Text area */}
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <label className="text-xs font-bold text-xyrm-slate-700 uppercase tracking-wider">
                     Message *
                   </label>
                   <textarea
                     name="message"
-                    rows={5}
+                    rows={3}
                     value={formData.message}
                     onChange={handleChange}
-                    className={`w-full rounded-xl border py-2.5 px-4 text-sm focus:outline-none focus:ring-1 ${
+                    className={`w-full rounded-xl border py-2 px-3.5 text-sm focus:outline-none focus:ring-1 ${
                       errors.message
                         ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500"
                         : "border-xyrm-slate-200 focus:border-xyrm-green-primary focus:ring-xyrm-green-primary"
                       }`}
-                    placeholder="Rédigez votre demande en précisant comment nous pouvons vous aider..."
                   />
                   {errors.message && <p className="text-xxs font-bold text-rose-600">{errors.message}</p>}
                 </div>
 
                 {/* Membership Request Checkbox */}
-                <div className="flex items-start gap-3 bg-xyrm-slate-50 border border-xyrm-slate-100 rounded-xl p-4 transition-all hover:bg-xyrm-slate-100/50">
+                <div className="flex items-start gap-3 bg-xyrm-slate-50 border border-xyrm-slate-100 rounded-xl p-3.5 transition-all hover:bg-xyrm-slate-100/50">
                   <div className="flex items-center h-5">
                     <input
                       id="isMembershipRequest"
