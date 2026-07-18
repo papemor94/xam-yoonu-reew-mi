@@ -233,9 +233,7 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
                       }>
                         {getCategoryLabel(doc.category)}
                       </Badge>
-                      <div className="text-[10px] text-xyrm-slate-400 font-mono font-bold uppercase">
-                        {doc.fileFormat} • {doc.fileSize}
-                      </div>
+
                     </div>
 
                     {/* Content Details */}
