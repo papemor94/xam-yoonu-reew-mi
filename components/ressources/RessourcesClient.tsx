@@ -297,7 +297,7 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
 
       {/* 4. Full-Screen Reader Modal on Same Page */}
       {isFullScreen && selectedDoc && (
-        <div className="fixed inset-0 z-[9999] bg-xyrm-slate-900/95 backdrop-blur-md flex flex-col animate-fadeIn">
+        <div className="fixed inset-0 z-[99999] bg-xyrm-slate-900/95 backdrop-blur-md flex flex-col animate-fadeIn">
           
           {/* Controls Header */}
           <div className="flex h-16 items-center justify-between px-6 border-b border-white/10 bg-xyrm-slate-950 text-white shrink-0">

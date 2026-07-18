@@ -71,34 +71,36 @@ export default function Header() {
                   </button>
 
                   {dropdownOpen && (
-                    <div className="absolute left-1/2 -translate-x-1/2 mt-2 w-64 rounded-xl border border-xyrm-slate-200 bg-white p-2 shadow-xl animate-fadeIn z-50">
-                      {documents.map((doc) => {
-                        const isInternal = doc.href.startsWith("/") && !doc.href.endsWith(".pdf");
-                        if (isInternal) {
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-64 z-50">
+                      <div className="rounded-xl border border-xyrm-slate-200 bg-white p-2 shadow-xl animate-fadeIn">
+                        {documents.map((doc) => {
+                          const isInternal = doc.href.startsWith("/") && !doc.href.endsWith(".pdf");
+                          if (isInternal) {
+                            return (
+                              <Link
+                                key={doc.name}
+                                href={doc.href}
+                                className="block rounded-lg px-4 py-2.5 text-xs font-semibold text-xyrm-slate-700 transition-colors hover:bg-xyrm-slate-50 hover:text-xyrm-green-deep"
+                                onClick={() => setDropdownOpen(false)}
+                              >
+                                {doc.name}
+                              </Link>
+                            );
+                          }
                           return (
-                            <Link
+                            <a
                               key={doc.name}
                               href={doc.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
                               className="block rounded-lg px-4 py-2.5 text-xs font-semibold text-xyrm-slate-700 transition-colors hover:bg-xyrm-slate-50 hover:text-xyrm-green-deep"
                               onClick={() => setDropdownOpen(false)}
                             >
                               {doc.name}
-                            </Link>
+                            </a>
                           );
-                        }
-                        return (
-                          <a
-                            key={doc.name}
-                            href={doc.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block rounded-lg px-4 py-2.5 text-xs font-semibold text-xyrm-slate-700 transition-colors hover:bg-xyrm-slate-50 hover:text-xyrm-green-deep"
-                            onClick={() => setDropdownOpen(false)}
-                          >
-                            {doc.name}
-                          </a>
-                        );
-                      })}
+                        })}
+                      </div>
                     </div>
                   )}
                 </div>
