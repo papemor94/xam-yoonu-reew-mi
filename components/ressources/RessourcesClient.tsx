@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { Search, User, Calendar, ExternalLink, Download, X, ArrowLeft } from "lucide-react";
+import { Search, User, Calendar, ExternalLink, X, ArrowLeft } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { DocumentItem } from "@/data/mock/documents";
@@ -146,26 +146,6 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
                 title={selectedDoc.title}
               />
             </div>
-
-            {/* Footer Controls */}
-            <div className="flex gap-3 pt-4 border-t border-xyrm-slate-100 mt-4 shrink-0">
-              <button
-                onClick={() => setIsFullScreen(true)}
-                className="flex-1 inline-flex h-11 items-center justify-center rounded-xl bg-xyrm-green-deep hover:bg-xyrm-green-primary text-xs font-bold text-white shadow-md transition-all duration-200 gap-2 hover:-translate-y-0.5 hover:shadow-lg"
-              >
-                <ExternalLink className="h-4 w-4" />
-                Ouvrir en plein écran
-              </button>
-              <a
-                href={`/docs/${cleanFileUrl}${driveParam}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-xyrm-slate-200 bg-white text-xyrm-slate-650 hover:bg-xyrm-slate-50 transition-all shadow-sm"
-                title="Télécharger le PDF"
-              >
-                <Download className="h-4 w-4" />
-              </a>
-            </div>
           </Card>
         </div>
       ) : (
@@ -304,20 +284,13 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
               </p>
             </div>
             <div className="flex items-center gap-3 shrink-0">
-              <a
-                href={`/docs/${cleanFileUrl}${driveParam}`}
-                download
-                className="inline-flex h-9 items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 px-4 text-xs font-bold text-white transition-colors gap-1.5"
-              >
-                <Download className="h-3.5 w-3.5" />
-                Télécharger
-              </a>
               <button
                 onClick={() => setIsFullScreen(false)}
-                className="rounded-lg p-1.5 bg-white/10 hover:bg-red-650 hover:text-white transition-colors"
-                title="Fermer le lecteur"
+                className="inline-flex h-10 items-center justify-center rounded-xl bg-red-600 hover:bg-red-700 px-4 text-xs font-black text-white transition-colors gap-1.5 shadow-md"
+                title="Fermer la liseuse"
               >
-                <X className="h-5 w-5" />
+                <X className="h-4 w-4" />
+                <span>Fermer</span>
               </button>
             </div>
           </div>
