@@ -22,7 +22,7 @@ export default function AssociationPage() {
       icon: Scale,
     },
     {
-      title: "Explication des Institutions",
+      title: "Explication des Politiques Publiques",
       description: "Éclairer les citoyens sur le fonctionnement de l'État, les mécanismes de décision et les politiques publiques (santé, éducation, finances).",
       icon: Landmark,
     },

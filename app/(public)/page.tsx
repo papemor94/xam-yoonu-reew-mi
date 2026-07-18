@@ -199,7 +199,7 @@ export default async function HomePage() {
             </CardContent>
           </Card>
 
-          {/* Pillar 2: Explication des Institutions */}
+          {/* Pillar 2: Explication des Politiques Publiques */}
           <Card className="flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
             <CardHeader className="space-y-4">
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-xyrm-green-deep/5 text-xyrm-green-primary">
