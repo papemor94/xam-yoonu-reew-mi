@@ -77,7 +77,15 @@ function DocumentsAdminContent() {
     let fileUrl = currentDoc.fileUrl?.trim() || "";
     if (fileUrl) {
       fileUrl = fileUrl.replace(/^\/+/, "").replace(/^docs\/+/, "").replace(/^\/+/, "");
-      if (!fileUrl.endsWith(".pdf") && currentDoc.fileFormat?.toUpperCase() === "PDF") {
+      
+      // Reject if file does not end with .pdf but has a different extension
+      const lowerUrl = fileUrl.toLowerCase();
+      if (lowerUrl.includes(".") && !lowerUrl.endsWith(".pdf")) {
+        alert("Erreur : Le fichier doit obligatoirement être au format PDF (.pdf).");
+        return;
+      }
+      
+      if (!fileUrl.endsWith(".pdf")) {
         fileUrl = fileUrl + ".pdf";
       }
     } else {
@@ -97,7 +105,7 @@ function DocumentsAdminContent() {
       description: currentDoc.description.trim(),
       category: currentDoc.category || "juridique",
       fileSize: currentDoc.fileSize?.trim() || "1.0 Mo",
-      fileFormat: currentDoc.fileFormat?.toUpperCase() || "PDF",
+      fileFormat: "PDF",
       publishedDate: currentDoc.publishedDate || "",
       fileUrl: fileUrl,
       author: currentDoc.author?.trim() || "Comité de Rédaction",
@@ -382,7 +390,7 @@ function DocumentsAdminContent() {
                 />
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-3">
+              <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold text-xyrm-slate-700">Auteur</label>
                   <input
@@ -406,31 +414,6 @@ function DocumentsAdminContent() {
                     className="w-full rounded-xl border border-xyrm-slate-200 px-4 py-2.5 text-xs focus:border-xyrm-green-primary focus:outline-none"
                   />
                 </div>
-
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-xyrm-slate-700">Taille</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Ex : 1.2 Mo"
-                      value={currentDoc.fileSize || ""}
-                      onChange={(e) => setCurrentDoc({ ...currentDoc, fileSize: e.target.value })}
-                      className="w-full rounded-xl border border-xyrm-slate-200 px-2 py-2.5 text-xs focus:border-xyrm-green-primary focus:outline-none"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-xyrm-slate-700">Format</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Ex : PDF"
-                      value={currentDoc.fileFormat || "PDF"}
-                      onChange={(e) => setCurrentDoc({ ...currentDoc, fileFormat: e.target.value })}
-                      className="w-full rounded-xl border border-xyrm-slate-200 px-2 py-2.5 text-xs focus:border-xyrm-green-primary focus:outline-none"
-                    />
-                  </div>
-                </div>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
@@ -446,6 +429,9 @@ function DocumentsAdminContent() {
                     onChange={(e) => setCurrentDoc({ ...currentDoc, fileUrl: e.target.value })}
                     className="w-full rounded-xl border border-xyrm-slate-200 px-4 py-2.5 text-xs focus:border-xyrm-green-primary focus:outline-none"
                   />
+                  <p className="text-[10px] text-red-650 font-bold tracking-tight">
+                    Fichier obligatoirement au format PDF (.pdf).
+                  </p>
                 </div>
 
                 <div className="space-y-1.5">
