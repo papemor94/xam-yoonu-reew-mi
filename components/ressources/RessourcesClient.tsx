@@ -246,6 +246,7 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
                     {/* Embedded preview frame (entre-ouvert) */}
                     <div className="relative rounded-2xl overflow-hidden border border-xyrm-slate-200/80 bg-xyrm-slate-100 flex-1 min-h-[380px] shadow-inner group">
                       <iframe
+                        key={activeDoc?.id || "empty"}
                         src={`/docs/${cleanFileUrl}${driveParam}#toolbar=0&navpanes=0&scrollbar=0`}
                         className="w-full h-full select-none pointer-events-none"
                         title={activeDoc.title}
@@ -335,6 +336,7 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
           {/* Full Page Native PDF frame viewer */}
           <div className="flex-1 bg-xyrm-slate-800">
             <iframe
+              key={activeDoc?.id || "fullscreen-empty"}
               src={`/docs/${cleanFileUrl}${driveParam}`}
               className="w-full h-full border-0 bg-white"
               title={activeDoc.title}
