@@ -11,7 +11,8 @@ import {
   Menu,
   X,
   Mail,
-  FileText
+  FileText,
+  LogOut
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -22,6 +23,15 @@ export default function AdminLayout({
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/admin/logout", { method: "POST" });
+      window.location.href = "/admin/login";
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
+  };
 
   const navigation = [
     { name: "Vue d'ensemble", href: "/admin", icon: LayoutDashboard },
@@ -85,15 +95,22 @@ export default function AdminLayout({
           })}
         </nav>
 
-        {/* Back to site */}
-        <div className="p-4 border-t border-xyrm-green-light/20 bg-xyrm-green-primary/10">
+        {/* Back to site & Logout */}
+        <div className="p-4 border-t border-xyrm-green-light/20 bg-xyrm-green-primary/10 flex flex-col gap-2.5">
           <Link
             href="/"
-            className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-white/70 hover:bg-white/10 hover:text-white transition-colors group"
+            className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-xs font-semibold text-white/70 hover:bg-white/10 hover:text-white transition-colors group"
           >
-            <ArrowLeft className="h-4.5 w-4.5 text-white/50 group-hover:text-white group-hover:-translate-x-0.5 transition-transform" />
+            <ArrowLeft className="h-4 w-4 text-white/50 group-hover:text-white group-hover:-translate-x-0.5 transition-transform" />
             <span>Retour au Site</span>
           </Link>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-xs font-semibold text-red-300 hover:bg-red-500/10 hover:text-red-200 transition-colors group text-left w-full"
+          >
+            <LogOut className="h-4 w-4 text-red-400 group-hover:scale-105 transition-transform" />
+            <span>Se déconnecter</span>
+          </button>
         </div>
       </aside>
 
@@ -150,15 +167,22 @@ export default function AdminLayout({
           })}
         </nav>
 
-        <div className="p-4 border-t border-xyrm-green-light/20">
+        <div className="p-4 border-t border-xyrm-green-light/20 flex flex-col gap-2.5">
           <Link
             href="/"
-            className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-white/70 hover:bg-white/10 hover:text-white transition-colors"
+            className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-xs font-semibold text-white/70 hover:bg-white/10 hover:text-white transition-colors"
             onClick={() => setSidebarOpen(false)}
           >
-            <ArrowLeft className="h-4.5 w-4.5" />
+            <ArrowLeft className="h-4 w-4" />
             <span>Retour au Site</span>
           </Link>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-xs font-semibold text-red-300 hover:bg-red-500/10 hover:text-red-200 transition-colors text-left w-full"
+          >
+            <LogOut className="h-4 w-4 text-red-400" />
+            <span>Se déconnecter</span>
+          </button>
         </div>
       </aside>
 
