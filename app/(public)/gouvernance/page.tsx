@@ -22,16 +22,23 @@ export default function GouvernancePage() {
     {
       name: "Alassane DIA",
       role: "Président du Bureau Exécutif",
-      image: "https://drive.google.com/file/d/1p5uQ4lnGQSR_-XPOsY1Bqy-PE9LOfqIC/view?usp=sharing",
-      linkedin: "https://linkedin.com",
+      image: "13c5WzrG36l-YafUNMS8RTC_ZhzCyzEf2",
+      linkedin: "",
       description: "Voté en Assemblée Générale à l'Université Toulouse Capitole. Dirige la politique générale de l'association."
     },
     {
       name: "Amadou Sow NDIAYE",
       role: "Secrétaire Général",
-      image: "https://drive.google.com/file/d/1p5uQ4lnGQSR_-XPOsY1Bqy-PE9LOfqIC/view?usp=sharing",
-      linkedin: "https://linkedin.com",
+      image: "1MvRI32KoGGY6h1B4xEE2dzGrFOZSnPKh",
+      linkedin: "https://fr.linkedin.com/in/amadou-sow-ndiaye-9151b2175",
       description: "En charge de l'administration, des relations institutionnelles et du respect des statuts."
+    },
+    {
+      name: "Khady LO",
+      role: "Trésorière",
+      image: "1jmHKNgT4cR3Uz7tSujtmXvEdC32Z2Lg1",
+      linkedin: "https://www.linkedin.com/in/khady-lo-323064273",
+      description: "En charge de la gestion financière, du budget et de la transparence des ressources de l'association."
     }
   ];
 
@@ -137,7 +144,7 @@ export default function GouvernancePage() {
                 </div>
                 <h4 className="text-sm font-bold text-xyrm-slate-900">Bureau Exécutif</h4>
                 <p className="text-xxs text-xyrm-slate-400 font-light mt-1">
-                  Présidence et Secrétariat général. Oriente la stratégie générale et gère l&apos;administration.
+                  Présidence, Secrétariat général et Trésorerie. Oriente la stratégie générale, gère l&apos;administration et les finances.
                 </p>
               </div>
 
@@ -211,12 +218,23 @@ export default function GouvernancePage() {
           </p>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 max-w-2xl mx-auto">
+        <div className="grid gap-6 sm:grid-cols-3 max-w-4xl mx-auto">
           {executiveBoard.map((item, idx) => (
             <Card key={idx} className="p-6 text-center border border-xyrm-slate-200 bg-xyrm-slate-50/40 hover:bg-white hover:shadow-md transition-all duration-300 flex flex-col items-center justify-between">
               <div className="space-y-4 flex flex-col items-center">
-                <div className="h-20 w-20 rounded-full overflow-hidden mb-2 ring-4 ring-xyrm-gold/20 shrink-0">
-                  <img src={getGoogleDriveImageUrl(item.image)} alt={`Photo de ${item.name}`} className="h-full w-full object-cover" />
+                <div className="h-20 w-20 rounded-full overflow-hidden mb-2 ring-4 ring-xyrm-gold/20 shrink-0 flex items-center justify-center bg-gradient-to-br from-xyrm-green-deep to-xyrm-green-primary text-xyrm-gold font-bold text-xl select-none">
+                  {item.image ? (
+                    <img src={getGoogleDriveImageUrl(item.image)} alt={`Photo de ${item.name}`} className="h-full w-full object-cover" />
+                  ) : (
+                    <span>
+                      {item.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")
+                        .toUpperCase()
+                        .slice(0, 2)}
+                    </span>
+                  )}
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-base font-black text-xyrm-slate-900">
@@ -231,17 +249,21 @@ export default function GouvernancePage() {
                 </p>
               </div>
               <div className="pt-4">
-                <a
-                  href={item.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-xyrm-slate-100 hover:bg-[#0077b5] text-xyrm-slate-500 hover:text-white transition-all shadow-xxs"
-                  aria-label={`Profil LinkedIn de ${item.name}`}
-                >
-                  <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
-                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                  </svg>
-                </a>
+                {item.linkedin ? (
+                  <a
+                    href={item.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-xyrm-slate-100 hover:bg-[#0077b5] text-xyrm-slate-500 hover:text-white transition-all shadow-xxs"
+                    aria-label={`Profil LinkedIn de ${item.name}`}
+                  >
+                    <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                    </svg>
+                  </a>
+                ) : (
+                  <div className="h-7" />
+                )}
               </div>
             </Card>
           ))}
