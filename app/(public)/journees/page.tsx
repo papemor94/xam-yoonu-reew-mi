@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import Link from "next/link";
-import { Calendar, MapPin, ArrowRight } from "lucide-react";
+import { Calendar, MapPin } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { getGoogleDriveImageUrl } from "@/lib/utils";

@@ -14,8 +14,23 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Xam Yoonu Reew Mi — Université Populaire Citoyenne et Solidaire",
+  title: "Xam Yoonu Réew Mi — Université Populaire Citoyenne et Solidaire",
   description: "Vulgariser le droit, les politiques publiques et les sciences utiles au vivre-ensemble et au développement harmonieux de nos sociétés.",
+  keywords: ["Sénégal", "Vulgarisation du droit", "Citoyenneté", "Politiques publiques", "Université populaire", "Éducation populaire"],
+  authors: [{ name: "Comité de Rédaction Xam Yoonu Réew Mi" }],
+  openGraph: {
+    title: "Xam Yoonu Réew Mi — Université Populaire Citoyenne et Solidaire",
+    description: "Vulgariser le droit, les politiques publiques et les sciences utiles au vivre-ensemble et au développement harmonieux de nos sociétés.",
+    url: "https://xam-yoonu-reew-mi.org",
+    siteName: "Xam Yoonu Réew Mi",
+    locale: "fr_FR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Xam Yoonu Réew Mi — Université Populaire Citoyenne et Solidaire",
+    description: "Vulgariser le droit, les politiques publiques et les sciences utiles au vivre-ensemble et au développement harmonieux de nos sociétés.",
+  },
 };
 
 export default function RootLayout({
