@@ -23,32 +23,7 @@ const DOCUMENTS_KEY = "xyrm_documents";
 const JOURNEES_KEY = "xyrm_journees";
 const CONTACTS_KEY = "xyrm_contacts";
 
-export const mockContacts: ContactMessage[] = [
-  {
-    id: "c-001",
-    name: "Moussa Diop",
-    email: "moussa.diop@example.com",
-    phone: "+221 77 123 45 67",
-    activitySector: "Droit / Justice",
-    subject: "Rejoindre l'association - Pôle Juridique",
-    message: "Bonjour, je suis avocat au barreau de Dakar et je souhaiterais rejoindre le pôle juridique pour aider à la vulgarisation du droit auprès des populations locales.",
-    status: "Nouveau",
-    createdAt: "14/06/2026",
-    isMembershipRequest: true,
-  },
-  {
-    id: "c-002",
-    name: "Fatou Sow",
-    email: "fatou.sow@example.com",
-    phone: "+33 6 12 34 56 78",
-    activitySector: "Technologies / Communication",
-    subject: "Adhésion de la diaspora toulousaine",
-    message: "J'ai participé au Forum de Toulouse et j'ai été très impressionnée par la qualité des échanges. Je veux m'engager en tant que bénévole active pour organiser la prochaine édition.",
-    status: "Traité",
-    createdAt: "10/06/2026",
-    isMembershipRequest: true,
-  }
-];
+export const mockContacts: ContactMessage[] = [];
 
 const isSupabaseConfigured = (): boolean => {
   return (
