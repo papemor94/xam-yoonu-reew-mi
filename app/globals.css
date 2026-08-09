@@ -30,7 +30,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #124335;
+  background: #009876;
 }
 
 /* Responsive tables inside prose content */

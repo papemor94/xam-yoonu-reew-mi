@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import RessourcesClient from "@/components/ressources/RessourcesClient";
 import { getDocumentsServer } from "@/lib/db-server";
 

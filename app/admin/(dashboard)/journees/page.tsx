@@ -24,6 +24,7 @@ function JourneesAdminContent() {
   const searchParams = useSearchParams();
   const [journees, setJournees] = useState<JourneeItem[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,7 +44,11 @@ function JourneesAdminContent() {
   }, [searchParams, router]);
 
   const loadJournees = () => {
-    getJournees().then((data) => setJournees(data));
+    setIsLoading(true);
+    getJournees().then((data) => {
+      setJournees(data);
+      setIsLoading(false);
+    });
   };
 
   const generateSlug = (title: string): string => {
@@ -178,7 +183,30 @@ function JourneesAdminContent() {
               </tr>
             </thead>
             <tbody className="divide-y divide-xyrm-slate-100 text-sm">
-              {filteredJournees.length > 0 ? (
+              {isLoading ? (
+                Array.from({ length: 3 }).map((_, index) => (
+                  <tr key={index} className="animate-pulse">
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="h-9 w-9 rounded-lg bg-slate-100 shrink-0" />
+                        <div className="space-y-2 flex-1">
+                          <div className="h-4 w-48 bg-slate-100 rounded" />
+                          <div className="h-3 w-24 bg-slate-100 rounded" />
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="h-4 w-16 bg-slate-100 rounded" />
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="h-4 w-24 bg-slate-100 rounded" />
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <div className="h-8 w-16 bg-slate-100 rounded ml-auto" />
+                    </td>
+                  </tr>
+                ))
+              ) : filteredJournees.length > 0 ? (
                 filteredJournees.map((jrn) => (
                   <tr key={jrn.id} className="hover:bg-xyrm-slate-50/50 transition-colors group">
                     <td className="px-6 py-4">

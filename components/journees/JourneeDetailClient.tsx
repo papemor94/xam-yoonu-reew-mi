@@ -87,6 +87,16 @@ export default function JourneeDetailClient({ initialJournee, slug }: JourneeDet
         </div>
       </div>
 
+      {/* Bilan Content Card (Compte-Rendu Détaillé) */}
+      {displayJrn.description && (
+        <Card className="p-8 md:p-10 shadow-sm border border-xyrm-slate-100 bg-white">
+          <div 
+            className="prose prose-slate max-w-none prose-p:leading-relaxed prose-p:font-light prose-p:text-xyrm-slate-700"
+            dangerouslySetInnerHTML={{ __html: displayJrn.description }}
+          />
+        </Card>
+      )}
+
       {/* Video or Photo Embed */}
       {displayJrn.youtubeId ? (
         <div className="space-y-3">
@@ -106,18 +116,19 @@ export default function JourneeDetailClient({ initialJournee, slug }: JourneeDet
         </div>
       ) : null}
 
-      {/* Bilan Content Card */}
-      <Card className="p-8 md:p-10 shadow-sm border border-xyrm-slate-100 bg-white">
-        <h3 className="text-xl font-black text-xyrm-slate-900 mb-6 tracking-tight border-b border-xyrm-slate-100 pb-3">
-          Résumé Synthétique
-        </h3>
-        <div 
-          className="prose prose-slate max-w-none prose-p:leading-relaxed prose-p:font-light prose-p:text-xyrm-slate-700"
-          dangerouslySetInnerHTML={{ __html: displayJrn.description }}
-        />
-      </Card>
-
-
+      {/* Share / Next steps CTA */}
+      <div className="rounded-2xl bg-xyrm-slate-50 border border-xyrm-slate-100 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <h4 className="text-sm font-bold text-xyrm-slate-900">Cet article vous a intéressé ?</h4>
+          <p className="text-xs text-xyrm-slate-500 font-light mt-0.5">Partagez-le autour de vous pour soutenir l&apos;éducation populaire.</p>
+        </div>
+        <Link
+          href="/journees"
+          className="inline-flex h-9 items-center justify-center rounded-lg border border-xyrm-slate-200 bg-white text-xs font-bold text-xyrm-slate-700 px-4 hover:bg-xyrm-slate-50 transition-colors"
+        >
+          Retour aux activités
+        </Link>
+      </div>
 
     </div>
   );

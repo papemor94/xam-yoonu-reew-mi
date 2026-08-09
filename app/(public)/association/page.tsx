@@ -113,7 +113,7 @@ export default function AssociationPage() {
 
       {/* 2. Origine & Identité Éthique */}
       <section className="grid gap-8 md:grid-cols-12 items-stretch">
-        <div className="md:col-span-7 bg-gradient-to-b from-xyrm-green-deep to-xyrm-green-primary rounded-3xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden flex flex-col justify-between border border-xyrm-green-light/20 min-h-[380px]">
+        <div className="md:col-span-7 bg-xyrm-green-primary rounded-3xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden flex flex-col justify-between border border-xyrm-green-light/20 min-h-[380px]">
           {/* Background glows */}
           <div className="absolute right-0 bottom-0 w-64 h-64 bg-xyrm-gold/10 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -left-16 -top-16 w-48 h-48 bg-xyrm-green-light/10 rounded-full blur-3xl pointer-events-none" />

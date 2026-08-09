@@ -91,6 +91,14 @@ export default function ArticleDetailClient({ initialArticle, slug }: ArticleDet
         </div>
       </div>
       
+      {/* Main Content Body */}
+      <Card className="p-4 sm:p-8 md:p-10 shadow-sm border border-xyrm-slate-100 bg-white overflow-hidden max-w-full">
+        <div 
+          className="prose prose-slate max-w-none prose-headings:font-black prose-headings:text-xyrm-slate-900 prose-headings:mt-6 prose-p:leading-relaxed prose-p:font-light prose-p:text-xyrm-slate-700 prose-ul:list-disc prose-ul:pl-6 prose-ol:list-decimal prose-ol:pl-6 overflow-x-auto"
+          dangerouslySetInnerHTML={{ __html: displayArticle.content }}
+        />
+      </Card>
+
       {/* YouTube Video or Drive Photo Embed if present */}
       {displayArticle.youtubeId ? (
         <div className="my-6">
@@ -106,14 +114,6 @@ export default function ArticleDetailClient({ initialArticle, slug }: ArticleDet
           />
         </div>
       ) : null}
-
-      {/* Main Content Body */}
-      <Card className="p-4 sm:p-8 md:p-10 shadow-sm border border-xyrm-slate-100 bg-white overflow-hidden max-w-full">
-        <div 
-          className="prose prose-slate max-w-none prose-headings:font-black prose-headings:text-xyrm-slate-900 prose-headings:mt-6 prose-p:leading-relaxed prose-p:font-light prose-p:text-xyrm-slate-700 prose-ul:list-disc prose-ul:pl-6 prose-ol:list-decimal prose-ol:pl-6 overflow-x-auto"
-          dangerouslySetInnerHTML={{ __html: displayArticle.content }}
-        />
-      </Card>
 
       {/* Share / Next steps CTA */}
       <div className="rounded-2xl bg-xyrm-slate-50 border border-xyrm-slate-100 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">

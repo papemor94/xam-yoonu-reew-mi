@@ -222,7 +222,7 @@ export default function GouvernancePage() {
           {executiveBoard.map((item, idx) => (
             <Card key={idx} className="p-6 text-center border border-xyrm-slate-200 bg-xyrm-slate-50/40 hover:bg-white hover:shadow-md transition-all duration-300 flex flex-col items-center justify-between">
               <div className="space-y-4 flex flex-col items-center">
-                <div className="h-20 w-20 rounded-full overflow-hidden mb-2 ring-4 ring-xyrm-gold/20 shrink-0 flex items-center justify-center bg-gradient-to-br from-xyrm-green-deep to-xyrm-green-primary text-xyrm-gold font-bold text-xl select-none">
+                <div className="h-20 w-20 rounded-full overflow-hidden mb-2 ring-4 ring-xyrm-gold/20 shrink-0 flex items-center justify-center bg-xyrm-green-primary text-xyrm-gold font-bold text-xl select-none">
                   {item.image ? (
                     <img src={getGoogleDriveImageUrl(item.image)} alt={`Photo de ${item.name}`} className="h-full w-full object-cover" />
                   ) : (

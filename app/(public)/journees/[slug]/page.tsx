@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import JourneeDetailClient from "@/components/journees/JourneeDetailClient";
 import { getJourneeBySlugServer, getJourneesServer } from "@/lib/db-server";
 

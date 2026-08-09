@@ -20,10 +20,10 @@ const config: Config = {
         foreground: "var(--foreground)",
         xyrm: {
           green: {
-            deep: "#0A2E24",
-            primary: "#124335",
-            light: "#226854",
-            emerald: "#2E8B6E",
+            deep: "#009876",
+            primary: "#009876",
+            light: "#00C298",
+            emerald: "#00D6A7",
           },
           gold: {
             DEFAULT: "#D4AF37",

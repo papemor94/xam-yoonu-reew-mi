@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import ActualitesClient from "@/components/articles/ActualitesClient";
 import { getArticlesServer } from "@/lib/db-server";
 

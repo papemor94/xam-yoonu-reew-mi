@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getGoogleDriveImageUrl } from "@/lib/utils";
 import Link from "next/link";
 import { ArrowRight, Calendar, User, FileText, Scale, Landmark, HeartHandshake } from "lucide-react";
@@ -37,7 +39,7 @@ export default async function HomePage() {
     <div className="space-y-20 pb-20 animate-fadeIn">
 
       {/* 1. Hero Section (Cinematic brand identity) */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-xyrm-green-deep to-xyrm-green-primary text-white shadow-2xl border border-xyrm-green-light/20">
+      <section className="relative overflow-hidden rounded-3xl bg-xyrm-green-primary text-white shadow-2xl border border-xyrm-green-light/20">
         {/* Ambient lighting mesh */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-xyrm-gold/15 via-transparent to-transparent pointer-events-none" />
         <div className="absolute -left-16 -top-16 w-64 h-64 bg-xyrm-gold/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
@@ -59,7 +61,7 @@ export default async function HomePage() {
             Université Populaire Citoyenne et Solidaire
           </div>
 
-          <h1 className="text-4xl font-black md:text-6.5xl tracking-tight leading-none bg-gradient-to-r from-white via-amber-50 to-xyrm-gold text-transparent bg-clip-text max-w-4xl mx-auto drop-shadow-sm">
+          <h1 className="text-4xl font-black md:text-6.5xl tracking-tight leading-none text-white max-w-4xl mx-auto drop-shadow-sm">
             XAM YOONU REEW MI
           </h1>
 

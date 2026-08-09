@@ -83,7 +83,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8 animate-fadeIn">
       {/* Welcome Banner / Brand Header */}
-      <div className="rounded-3xl bg-gradient-to-r from-xyrm-green-deep to-xyrm-green-primary p-6 md:p-8 text-white shadow-lg border border-xyrm-green-light/20 relative overflow-hidden">
+      <div className="rounded-3xl bg-xyrm-green-primary p-6 md:p-8 text-white shadow-lg border border-xyrm-green-light/20 relative overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute -right-24 -bottom-24 h-64 w-64 rounded-full bg-xyrm-gold/10 blur-3xl pointer-events-none" />
         <div className="absolute right-12 top-4 h-32 w-32 rounded-full bg-xyrm-green-light/25 blur-2xl pointer-events-none" />

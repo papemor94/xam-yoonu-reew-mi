@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import ArticleDetailClient from "@/components/articles/ArticleDetailClient";
 import { getArticleBySlugServer, getArticlesServer } from "@/lib/db-server";
 
