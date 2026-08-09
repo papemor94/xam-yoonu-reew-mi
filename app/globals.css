@@ -32,3 +32,11 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #0F5B47;
 }
+
+/* Responsive tables inside prose content */
+.prose table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}

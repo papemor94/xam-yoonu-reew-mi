@@ -38,7 +38,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/share/1Da7PU8Tui/?mibextid=wwXIfr"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg bg-white/5 hover:bg-xyrm-gold hover:text-xyrm-slate-900 text-white transition-all flex items-center justify-center"
@@ -68,7 +68,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/ressources" className="hover:text-xyrm-gold transition-colors flex items-center gap-1 group">
-                  Publications & Ressources <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  Articles <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </li>
               <li>

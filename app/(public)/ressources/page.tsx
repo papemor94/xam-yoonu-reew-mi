@@ -2,7 +2,7 @@ import RessourcesClient from "@/components/ressources/RessourcesClient";
 import { getDocumentsServer } from "@/lib/db-server";
 
 export const metadata = {
-  title: "Publications & Ressources — Xam Yoonu Reew Mi",
+  title: "Articles — Xam Yoonu Reew Mi",
   description: "Accédez à nos publications d'éducation populaire, synthèses de politiques publiques et ressources juridiques.",
 };
 

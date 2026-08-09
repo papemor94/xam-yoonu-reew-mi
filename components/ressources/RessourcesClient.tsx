@@ -176,7 +176,7 @@ export default function RessourcesClient({ initialDocuments }: RessourcesClientP
               CENTRE DE DOCUMENTATION
             </div>
             <h1 className="text-3xl font-black text-xyrm-slate-900 md:text-4.5xl tracking-tight max-w-3xl mx-auto">
-              Publications & Ressources
+              Articles
             </h1>
             <div className="w-12 h-1 bg-gradient-to-r from-xyrm-green-deep to-xyrm-gold mx-auto rounded-full" />
             <p className="text-xs md:text-sm text-xyrm-slate-600 font-light max-w-2xl mx-auto leading-relaxed">

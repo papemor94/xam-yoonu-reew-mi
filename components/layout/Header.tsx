@@ -29,7 +29,7 @@ export default function Header() {
   ];
 
   const documents = [
-    { name: "Toutes les Ressources", href: "/ressources" },
+    { name: "Articles", href: "/ressources" },
     { name: "Statut officiel de l'association", href: "/docs/statuts.pdf" },
     { name: "Règlement intérieur", href: "/docs/reglement.pdf" },
     { name: "Feuille de route triennale", href: "/docs/fdrtriennale.pdf" },

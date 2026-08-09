@@ -37,7 +37,7 @@ export default function AdminLayout({
     { name: "Vue d'ensemble", href: "/admin", icon: LayoutDashboard },
     { name: "Actualités", href: "/admin/actualites", icon: BookOpen },
     { name: "Journées d'Activité", href: "/admin/journees", icon: Calendar },
-    { name: "Publications & Ressources", href: "/admin/documents", icon: FileText },
+    { name: "Articles", href: "/admin/documents", icon: FileText },
     { name: "Contacts et Adhésions", href: "/admin/contacts", icon: Mail },
   ];
 

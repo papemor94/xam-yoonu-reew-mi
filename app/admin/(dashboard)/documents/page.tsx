@@ -140,10 +140,10 @@ function DocumentsAdminContent() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-black text-xyrm-slate-900 tracking-tight">
-            Publications & Ressources
+            Articles
           </h1>
           <p className="text-sm text-xyrm-slate-500 font-light mt-0.5">
-            Gérez les documents juridiques, synthèses de politiques publiques et communiqués de l&apos;association.
+            Gérez les articles, synthèses de politiques publiques et ressources de l&apos;association.
           </p>
         </div>
         <button
@@ -151,7 +151,7 @@ function DocumentsAdminContent() {
           className="inline-flex h-11 items-center justify-center rounded-xl bg-xyrm-green-deep hover:bg-xyrm-green-primary px-5 text-sm font-bold text-white shadow-md transition-all hover:scale-102 gap-2"
         >
           <Plus className="h-4 w-4" />
-          Ajouter une ressource
+          Ajouter un article
         </button>
       </div>
 
@@ -195,7 +195,7 @@ function DocumentsAdminContent() {
           <Search className="absolute left-3 top-2.5 h-4 w-4 text-xyrm-slate-400" />
           <input
             type="text"
-            placeholder="Rechercher une publication..."
+            placeholder="Rechercher un article..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full rounded-xl border border-xyrm-slate-200 bg-white py-2 pl-9 pr-4 text-xs text-xyrm-slate-800 focus:border-xyrm-green-primary focus:outline-none focus:ring-1 focus:ring-xyrm-green-primary"
@@ -209,7 +209,7 @@ function DocumentsAdminContent() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-xyrm-slate-200 bg-xyrm-slate-50 text-[10px] uppercase font-bold tracking-wider text-xyrm-slate-500">
-                <th className="px-6 py-4">Document / Titre</th>
+                <th className="px-6 py-4">Article / Titre</th>
                 <th className="px-6 py-4">Catégorie</th>
                 <th className="px-6 py-4">Auteur & Date</th>
                 <th className="px-6 py-4 text-right">Actions</th>
@@ -300,7 +300,7 @@ function DocumentsAdminContent() {
               ) : (
                 <tr>
                   <td colSpan={5} className="px-6 py-12 text-center text-xyrm-slate-400 font-light">
-                    Aucune ressource disponible. Ajoutez-en une pour commencer.
+                    Aucun article disponible. Ajoutez-en un pour commencer.
                   </td>
                 </tr>
               )}
@@ -322,7 +322,7 @@ function DocumentsAdminContent() {
 
             <div className="space-y-1">
               <h3 className="text-xl font-black text-xyrm-slate-900 tracking-tight">
-                {currentDoc.id && documents.some(d => d.id === currentDoc.id) ? "Modifier la ressource" : "Ajouter une nouvelle ressource"}
+                {currentDoc.id && documents.some(d => d.id === currentDoc.id) ? "Modifier l'article" : "Ajouter un nouvel article"}
               </h3>
               <p className="text-xs text-xyrm-slate-500 font-light">
                 Tous les champs sont requis pour structurer l&apos;information.
@@ -332,7 +332,7 @@ function DocumentsAdminContent() {
             <form onSubmit={handleSave} className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-xyrm-slate-700">Titre de la publication</label>
+                  <label className="text-xs font-bold text-xyrm-slate-700">Titre de l&apos;article</label>
                   <input
                     type="text"
                     required
@@ -350,7 +350,7 @@ function DocumentsAdminContent() {
                     onChange={(e) => setCurrentDoc({ ...currentDoc, category: e.target.value as DocumentItem["category"] })}
                     className="w-full rounded-xl border border-xyrm-slate-200 px-4 py-2.5 text-xs focus:border-xyrm-green-primary focus:outline-none bg-white"
                   >
-                    <option value="juridique">Ressource Juridique</option>
+                    <option value="juridique">Article Juridique</option>
                     <option value="politique">Politique Publique</option>
                     <option value="institutionnel">Document Institutionnel</option>
                   </select>
