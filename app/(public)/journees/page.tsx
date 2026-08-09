@@ -26,7 +26,7 @@ export default async function JourneesPage() {
         </h1>
         <div className="w-12 h-1 bg-gradient-to-r from-xyrm-green-deep to-xyrm-gold mx-auto rounded-full" />
         <p className="text-xs md:text-sm text-xyrm-slate-600 font-light max-w-2xl mx-auto leading-relaxed">
-          Découvrez les bilans complets, photographies et résumés vidéo de nos rencontres d&apos;échange et de vulgarisation.
+          Découvrez les bilans complets et résumés vidéo de nos rencontres d&apos;échange et de vulgarisation.
         </p>
       </div>
 
