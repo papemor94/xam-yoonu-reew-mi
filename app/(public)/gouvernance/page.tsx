@@ -23,7 +23,7 @@ export default function GouvernancePage() {
       name: "Alassane DIA",
       role: "Président du Bureau Exécutif",
       image: "13c5WzrG36l-YafUNMS8RTC_ZhzCyzEf2",
-      linkedin: "",
+      linkedin: "https://www.linkedin.com/in/alassane-dia-7a0044424",
       description: "Voté en Assemblée Générale à l'Université Toulouse Capitole. Dirige la politique générale de l'association."
     },
     {
