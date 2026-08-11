@@ -78,7 +78,7 @@ export default function AssociationPage() {
       actions: [
         "Implantation d'antennes régionales au Sénégal (Dakar, Saint-Louis, Thiès, etc.).",
         "Lancement du programme national « Éducation à la citoyenneté » dans les écoles publiques.",
-        "Campagnes locales de vulgarisation juridique en langues nationales directement sur le terrain.",
+        "Campagnes locales de vulgarisation en langues nationales directement sur le terrain.",
         "Édition et distribution de guides simplifiés traduits aux populations isolées.",
         "Mai 2028 : Organisation des 3èmes Journées Xam Yoonu Reew Mi de préférence au Sénégal."
       ],
@@ -97,7 +97,7 @@ export default function AssociationPage() {
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-xyrm-green-deep/5 via-xyrm-green-deep/[0.02] to-xyrm-gold/5 border border-xyrm-slate-100 p-8 md:p-12 text-center space-y-4 shadow-sm">
         <div className="absolute -left-16 -top-16 w-36 h-36 bg-xyrm-green-light/10 rounded-full blur-2xl pointer-events-none" />
         <div className="absolute -right-16 -bottom-16 w-36 h-36 bg-xyrm-gold/10 rounded-full blur-2xl pointer-events-none" />
-        
+
         <div className="inline-flex items-center gap-1.5 rounded-full bg-xyrm-green-deep/10 px-3.5 py-1 text-[10px] font-black uppercase tracking-widest text-xyrm-green-deep border border-xyrm-green-deep/10">
           <span className="h-1.5 w-1.5 rounded-full bg-xyrm-gold animate-pulse" />
           PRÉSENTATION OFFICIELLE
@@ -163,7 +163,7 @@ export default function AssociationPage() {
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-xyrm-green-deep/5 via-xyrm-green-deep/[0.02] to-xyrm-gold/5 border border-xyrm-slate-100 p-8 md:p-12 text-center space-y-4 shadow-sm max-w-5xl mx-auto">
           <div className="absolute -left-16 -top-16 w-36 h-36 bg-xyrm-green-light/10 rounded-full blur-2xl pointer-events-none" />
           <div className="absolute -right-16 -bottom-16 w-36 h-36 bg-xyrm-gold/10 rounded-full blur-2xl pointer-events-none" />
-          
+
           <div className="inline-flex items-center gap-1.5 rounded-full bg-xyrm-green-deep/10 px-3.5 py-1 text-[10px] font-black uppercase tracking-widest text-xyrm-green-deep border border-xyrm-green-deep/10">
             <span className="h-1.5 w-1.5 rounded-full bg-xyrm-gold animate-pulse" />
             NOS ENGAGEMENTS
@@ -223,7 +223,7 @@ export default function AssociationPage() {
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-xyrm-green-deep/5 via-xyrm-green-deep/[0.02] to-xyrm-gold/5 border border-xyrm-slate-100 p-8 md:p-12 text-center space-y-4 shadow-sm max-w-5xl mx-auto">
           <div className="absolute -left-16 -top-16 w-36 h-36 bg-xyrm-green-light/10 rounded-full blur-2xl pointer-events-none" />
           <div className="absolute -right-16 -bottom-16 w-36 h-36 bg-xyrm-gold/10 rounded-full blur-2xl pointer-events-none" />
-          
+
           <div className="inline-flex items-center gap-1.5 rounded-full bg-xyrm-green-deep/10 px-3.5 py-1 text-[10px] font-black uppercase tracking-widest text-xyrm-green-deep border border-xyrm-green-deep/10">
             <span className="h-1.5 w-1.5 rounded-full bg-xyrm-gold animate-pulse" />
             FEUILLE DE ROUTE

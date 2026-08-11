@@ -96,7 +96,7 @@ export default function Footer() {
               Notre Mission
             </h4>
             <p className="text-xs text-white/60 font-light leading-relaxed">
-              L&apos;UPCS propose des ateliers de vulgarisation juridique, des débats citoyens solidaires et des programmes d&apos;accompagnement à destination des populations locales et de la diaspora.
+              L&apos;UPCS propose des ateliers de vulgarisation, des débats citoyens solidaires et des programmes d&apos;accompagnement à destination des populations locales et de la diaspora.
             </p>
           </div>
 
